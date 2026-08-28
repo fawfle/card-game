@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://dpr0581sv4mky"]
+
+[ext_resource type="Script" uid="uid://d2dqlje7ad5eh" path="res://scripts/nodes/card/card_node.gd" id="1_45qsb"]
+[ext_resource type="PackedScene" uid="uid://b2yl68w3i7k32" path="res://scenes/ui/radial_progress_bar.tscn" id="2_0qqw3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvr0u"]
+bg_color = Color(0.8260098, 0.82601, 0.82600975, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qqw3"]
+bg_color = Color(0.56117016, 0.54257023, 0.53521144, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jl6rh"]
+bg_color = Color(0, 0.7176471, 0.39607844, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73nwn"]
+bg_color = Color(0.21933076, 0.6083948, 0.64802444, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_45qsb"]
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+
+[node name="Card" type="Control" unique_id=1312207173]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_45qsb")
+
+[node name="Container" type="Control" parent="." unique_id=1675341120]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Container" unique_id=1417576302]
+layout_mode = 1
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = 120.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qvr0u")
+
+[node name="Time" type="Panel" parent="Container/Panel" unique_id=289091068]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -26.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 26.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0qqw3")
+metadata/_edit_group_ = true
+
+[node name="DurationLabel" type="Label" parent="Container/Panel/Time" unique_id=1045733073]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.8666667, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/Panel" unique_id=45848531]
+layout_mode = 1
+offset_left = -19.0
+offset_top = -18.0
+offset_right = 25.0
+offset_bottom = 69.0
+theme_override_constants/separation = -7
+
+[node name="Pathos" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=2096527299]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jl6rh")
+metadata/_edit_group_ = true
+
+[node name="PathosLabel" type="Label" parent="Container/Panel/VBoxContainer/Pathos" unique_id=708188611]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.8666667, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Logos" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=1979979047]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_73nwn")
+metadata/_edit_group_ = true
+
+[node name="LogosLabel" type="Label" parent="Container/Panel/VBoxContainer/Logos" unique_id=1942612036]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.8666667, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Container" unique_id=955196968]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -112.0
+offset_right = 72.5
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Broken Card"
+label_settings = SubResource("LabelSettings_45qsb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Container" unique_id=627219232]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -72.0
+offset_right = 41.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="RichTextLabel" parent="Container" unique_id=988666950]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -52.0
+offset_top = 11.0
+offset_right = 52.0
+offset_bottom = 95.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+text = "deal # damage."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="Container" unique_id=255036309]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = 120.0
+action_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="PlayTimerProgressBar" parent="Container" unique_id=1762019007 instance=ExtResource("2_0qqw3")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -26.0
+offset_top = -26.0
+offset_right = 26.0
+offset_bottom = 26.0
+fill_mode = 5

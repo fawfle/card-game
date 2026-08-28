@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://cv3vt04fey1tp"]
+
+[ext_resource type="Script" uid="uid://cg0tocxu7y3xr" path="res://scripts/nodes/combat/pathos_counter.gd" id="1_h0ux1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0emrw"]
+bg_color = Color(0, 0.71635294, 0.39482442, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 20
+
+[sub_resource type="Gradient" id="Gradient_h0ux1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kdrit"]
+gradient = SubResource("Gradient_h0ux1")
+
+[node name="PathosCounter" type="Control" unique_id=1175304063]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_h0ux1")
+
+[node name="Panel" type="Panel" parent="." unique_id=123757498]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0emrw")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel" unique_id=1873874927]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.01
+value = 0.2
+fill_mode = 3
+texture_progress = SubResource("GradientTexture2D_kdrit")
+tint_progress = Color(0.54280007, 0.92, 0.64338666, 1)
+
+[node name="CountLabel" type="Label" parent="Panel" unique_id=2020732230]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1

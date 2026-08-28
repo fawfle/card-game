@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://rsq4ysllm8tj"]
+
+[ext_resource type="Script" uid="uid://btg7yxti7lob4" path="res://scripts/nodes/combat/health_bar.gd" id="1_h8ekb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
+bg_color = Color(0.73, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[node name="HealthBar" type="ProgressBar" unique_id=1687350399]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_gee14")
+step = 1.0
+value = 100.0
+show_percentage = false
+script = ExtResource("1_h8ekb")
+
+[node name="ShieldContainer" type="HBoxContainer" parent="." unique_id=1430184699]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_constants/separation = 36
+
+[node name="HealthLabel" type="Label" parent="." unique_id=1691591705]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -24.875
+offset_right = 63.0
+offset_bottom = 24.875
+grow_vertical = 2
+text = "10/10"
+vertical_alignment = 1

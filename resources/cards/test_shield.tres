@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://du6tdwtc5cchy"]
+
+[ext_resource type="Script" uid="uid://bxn8ospw7mc2m" path="res://scripts/cards/depreciated/effects/card_effect.gd" id="1_48uqd"]
+[ext_resource type="Script" uid="uid://yk103g0qs1in" path="res://scripts/cards/depreciated/card_data.gd" id="2_bdgig"]
+[ext_resource type="Script" uid="uid://cg37mdhbnipiu" path="res://scripts/cards/depreciated/effects/shield_effect.gd" id="2_egjxd"]
+[ext_resource type="Texture2D" uid="uid://v86d8mlctdpu" path="res://assets/icons/shield_icon.webp" id="3_egjxd"]
+
+[sub_resource type="Resource" id="Resource_egjxd"]
+script = ExtResource("2_egjxd")
+shield = 5
+metadata/_custom_type_script = "uid://cg37mdhbnipiu"
+
+[resource]
+script = ExtResource("2_bdgig")
+icon = ExtResource("3_egjxd")
+description = "Gives {0:shield_left} shield."
+in_play_duration = 5.0
+clashes = true
+card_effects = Array[ExtResource("1_48uqd")]([SubResource("Resource_egjxd")])
+metadata/_custom_type_script = "uid://yk103g0qs1in"

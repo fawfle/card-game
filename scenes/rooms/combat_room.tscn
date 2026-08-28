@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://ccou76og1bna3"]
+
+[ext_resource type="Script" uid="uid://dpyskix5ne6hq" path="res://scripts/nodes/combat_room_node.gd" id="1_06me0"]
+[ext_resource type="PackedScene" uid="uid://jqw1gn51ymog" path="res://scenes/combat/combat_ui.tscn" id="1_s0ns5"]
+
+[node name="CombatRoom" type="Control" unique_id=151970523]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_06me0")
+metadata/_edit_lock_ = true
+
+[node name="AllyContainer" type="Control" parent="." unique_id=1903824462]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerMarker" type="Marker2D" parent="AllyContainer" unique_id=1182930814]
+position = Vector2(-300, 40)
+
+[node name="EnemyContainer" type="Control" parent="." unique_id=694404770]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyContainer" unique_id=1004944610]
+position = Vector2(300, 40)
+
+[node name="CombatUi" parent="." unique_id=1979600615 instance=ExtResource("1_s0ns5")]
+unique_name_in_owner = true
+layout_mode = 1

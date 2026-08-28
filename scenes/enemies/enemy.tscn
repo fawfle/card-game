@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cc5jmyumcqr54"]
+
+[ext_resource type="Texture2D" uid="uid://duxj2bjf8r4ek" path="res://icon.svg" id="1_4a83h"]
+[ext_resource type="Script" uid="uid://wp18ogtqx7hq" path="res://scripts/enemies/enemy_depreciated.gd" id="1_a3pup"]
+
+[node name="Enemy" type="Node2D" unique_id=688167358]
+script = ExtResource("1_a3pup")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1591661457]
+texture = ExtResource("1_4a83h")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1754688334]

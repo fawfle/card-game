@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bsi0buwwell3e"]
+
+[ext_resource type="Script" uid="uid://bidt10uinh8d2" path="res://scripts/nodes/debug/dev_console_node.gd" id="1_akqup"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akqup"]
+bg_color = Color(0, 0, 0, 0.29411766)
+
+[node name="DevConsole" type="Panel" unique_id=893003925]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 350.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_akqup")
+script = ExtResource("1_akqup")
+
+[node name="OutputContainer" type="Control" parent="." unique_id=111198736]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 319.0
+grow_horizontal = 2
+
+[node name="OutputLabel" type="RichTextLabel" parent="OutputContainer" unique_id=73520506]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputContainer" type="Control" parent="." unique_id=16529403]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PromptLabel" type="Label" parent="InputContainer" unique_id=1604634751]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 16.0
+grow_vertical = 2
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputLine" type="LineEdit" parent="InputContainer" unique_id=223584246]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+keep_editing_on_text_submit = true

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bm36qpf2ruwn"]
+
+[ext_resource type="Script" uid="uid://d2r5d42coxust" path="res://scripts/nodes/hover_tips/hover_tip_node.gd" id="1_qqt4y"]
+
+[node name="HoverTip" type="MarginContainer" unique_id=620794679]
+offset_right = 400.0
+offset_bottom = 73.0
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_qqt4y")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1652227843]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1966035145]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextContainer" type="VBoxContainer" parent="MarginContainer" unique_id=884825880]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/TextContainer" unique_id=2064022015]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Title"
+
+[node name="Description" type="RichTextLabel" parent="MarginContainer/TextContainer" unique_id=1227153304]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "This is a broken description. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+fit_content = true
+scroll_active = false

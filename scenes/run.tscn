@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bl8ks0bivj3k0"]
+
+[ext_resource type="Script" uid="uid://cdx28injhmc0b" path="res://scripts/nodes/run_node.gd" id="1_2d5n6"]
+[ext_resource type="PackedScene" uid="uid://clk7560gv5q8m" path="res://scenes/scene_container.tscn" id="2_6elw1"]
+[ext_resource type="Script" uid="uid://csycx02de03ff" path="res://scripts/nodes/generic_ui/global_ui.gd" id="3_kyqep"]
+
+[node name="Run" type="Control" unique_id=318330046]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2d5n6")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="RoomContainer" parent="." unique_id=1070919025 instance=ExtResource("2_6elw1")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="GlobalUi" type="Control" parent="." unique_id=1259713893]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_kyqep")
+
+[node name="OverlayScreen" parent="GlobalUi" unique_id=188926025 instance=ExtResource("2_6elw1")]
+unique_name_in_owner = true
+layout_mode = 1
+mouse_filter = 2

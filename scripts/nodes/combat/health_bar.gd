@@ -1,0 +1,30 @@
+class_name HealthBar extends ProgressBar
+
+var creature: Creature = null
+
+@onready var health_label: Label = %HealthLabel
+@onready var shield_container: HBoxContainer = %ShieldContainer
+
+
+func set_creature(set_creature: Creature) -> void:
+	if creature:
+		push_error("should not reassign a HealthBar's creature.")
+		return
+	
+	creature = set_creature
+	creature.on_shield_added.connect(_on_shield_added)
+	creature.on_max_hp_changed.connect(_on_creature_health_changed)
+	creature.on_current_hp_changed.connect(_on_creature_health_changed)
+	
+func update_display() -> void:
+	max_value = creature.max_hp
+	value = creature.current_hp
+	
+	health_label.text = "%d/%d" % [value, max_value]
+
+func _on_creature_health_changed(_old: float, _new: float):
+	update_display()
+
+func _on_shield_added(shield: Shield) -> void:
+	var shield_node: ShieldNode = ShieldNode.create(shield)
+	shield_container.add_child(shield_node)

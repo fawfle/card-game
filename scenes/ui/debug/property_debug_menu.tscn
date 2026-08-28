@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cr4tabuutl7qe"]
+
+[ext_resource type="Script" uid="uid://nqwtjuuxg3ph" path="res://scenes/ui/debug/property_debug_menu.gd" id="1_rff5a"]
+
+[node name="PropertyDebugMenu" type="Control" unique_id=1317334430]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rff5a")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1021378821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=2064380507]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=410635015]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=1414605604]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="VBoxContainerLeft" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1700453079]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainerRight" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=148326870]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 2

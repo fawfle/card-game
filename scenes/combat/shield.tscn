@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dm0xn37ex1ekd"]
+
+[ext_resource type="Script" uid="uid://emhv2hn51jfy" path="res://scripts/nodes/combat/shield_node.gd" id="1_nr6na"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr6na"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Shield" type="Control" unique_id=1255037863]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nr6na")
+
+[node name="ShieldContainer" type="Control" parent="." unique_id=1165086081]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.25
+offset_top = -11.875
+offset_right = 18.25
+offset_bottom = 11.875
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="ShieldContainer" unique_id=1656858587]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nr6na")

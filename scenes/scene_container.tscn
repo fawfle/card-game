@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://clk7560gv5q8m"]
+
+[ext_resource type="Script" uid="uid://ce8mc35v422xi" path="res://scripts/nodes/scene_container.gd" id="1_hnyjy"]
+
+[node name="SceneContainer" type="Control" unique_id=1070919025]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hnyjy")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true

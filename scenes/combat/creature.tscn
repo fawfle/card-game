@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dqyh6sydkrkva"]
+
+[ext_resource type="Script" uid="uid://dc6cpew4nv1e1" path="res://scripts/nodes/creature_node.gd" id="1_slh05"]
+[ext_resource type="Texture2D" uid="uid://duxj2bjf8r4ek" path="res://icon.svg" id="2_nmxbd"]
+[ext_resource type="PackedScene" uid="uid://rsq4ysllm8tj" path="res://scenes/combat/health_bar.tscn" id="3_p3ge0"]
+
+[node name="Creature" type="Control" unique_id=1237784989]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_slh05")
+
+[node name="PLACEHOLDERSprite" type="Sprite2D" parent="." unique_id=267830850]
+position = Vector2(0, -68)
+texture = ExtResource("2_nmxbd")
+
+[node name="HealthBar" parent="." unique_id=1687350399 instance=ExtResource("3_p3ge0")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_bottom = 20.0
+grow_vertical = 1
+
+[node name="Hitbox" type="Control" parent="." unique_id=386764394]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -131.0
+offset_right = 64.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntentsContainer" type="HBoxContainer" parent="." unique_id=38281280]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -174.0
+offset_top = -195.0
+offset_right = 174.0
+offset_bottom = -131.0
+mouse_filter = 2
+alignment = 1

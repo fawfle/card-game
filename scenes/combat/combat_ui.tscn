@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://jqw1gn51ymog"]
+
+[ext_resource type="Script" uid="uid://c4i1kdyo3nmue" path="res://scripts/nodes/combat/combat_ui.gd" id="1_bnwxq"]
+[ext_resource type="PackedScene" uid="uid://bd5cea1vuera2" path="res://scenes/combat/draw_pile_button.tscn" id="1_fppsr"]
+[ext_resource type="PackedScene" uid="uid://bpiq6ni4ujblt" path="res://scenes/combat/discard_pile_button.tscn" id="2_bnwxq"]
+[ext_resource type="PackedScene" uid="uid://cuhay1k3pat5q" path="res://scenes/combat/player_hand.tscn" id="4_cwvai"]
+[ext_resource type="PackedScene" uid="uid://b2yl68w3i7k32" path="res://scenes/ui/radial_progress_bar.tscn" id="5_wyd7e"]
+[ext_resource type="PackedScene" uid="uid://cv3vt04fey1tp" path="res://scenes/combat/pathos_counter.tscn" id="6_6ikrv"]
+[ext_resource type="PackedScene" uid="uid://dawsfs45hukil" path="res://scenes/combat/logos_counter.tscn" id="7_mb6cw"]
+
+[node name="CombatUi" type="Control" unique_id=1979600615]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_bnwxq")
+metadata/_edit_lock_ = true
+
+[node name="DrawPileButton" parent="." unique_id=43481599 instance=ExtResource("1_fppsr")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_bottom = 0.0
+grow_vertical = 0
+
+[node name="DiscardPileButton" parent="." unique_id=2007673154 instance=ExtResource("2_bnwxq")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PlayerHand" parent="." unique_id=725074112 instance=ExtResource("4_cwvai")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="InPlayCardsContainer" type="HBoxContainer" parent="." unique_id=274212569]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 47.0
+offset_top = 152.0
+offset_right = 427.0
+offset_bottom = 345.0
+theme_override_constants/separation = 85
+
+[node name="DrawProgressBar" parent="." unique_id=1762019007 instance=ExtResource("5_wyd7e")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 89.0
+offset_top = -54.0
+offset_right = 124.0
+offset_bottom = -19.0
+grow_vertical = 0
+
+[node name="PathosCounter" parent="." unique_id=1175304063 instance=ExtResource("6_6ikrv")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -148.0
+offset_right = 72.0
+offset_bottom = -84.0
+grow_vertical = 0
+
+[node name="LogosCounter" parent="." unique_id=83439457 instance=ExtResource("7_mb6cw")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 84.0
+offset_top = -148.0
+offset_right = 148.0
+offset_bottom = -84.0
+grow_vertical = 0

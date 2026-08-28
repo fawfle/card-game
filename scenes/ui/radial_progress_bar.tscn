@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b2yl68w3i7k32"]
+
+[sub_resource type="Gradient" id="Gradient_3cqy8"]
+offsets = PackedFloat32Array(0, 0.26713592, 0.31447768, 0.585741, 0.63539207, 0.65552527, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.2885062, 0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3cqy8"]
+gradient = SubResource("Gradient_3cqy8")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ss25w"]
+offsets = PackedFloat32Array(0, 0.32093897, 0.34915486, 0.54669076, 0.58787835, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nbii4"]
+gradient = SubResource("Gradient_ss25w")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="RadialProgressBar" type="TextureProgressBar" unique_id=1762019007]
+offset_right = 24.0
+offset_bottom = 24.0
+step = 0.01
+value = 100.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_3cqy8")
+texture_progress = SubResource("GradientTexture2D_nbii4")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(1, 0.8666667, 0, 1)

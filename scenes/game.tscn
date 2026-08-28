@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b2yxeqjt42vhn"]
+
+[ext_resource type="PackedScene" uid="uid://clk7560gv5q8m" path="res://scenes/scene_container.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bsi0buwwell3e" path="res://scenes/debug/dev_console.tscn" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://bq5efl56xpunx" path="res://scripts/nodes/game_node.gd" id="10_vtaks"]
+
+[node name="Game" type="Control" unique_id=874201116]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_vtaks")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="RootSceneContainer" parent="." unique_id=1070919025 instance=ExtResource("2_yqjtg")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="DevConsoleLayer" type="CanvasLayer" parent="." unique_id=355676702]
+layer = 10
+
+[node name="DevConsole" parent="DevConsoleLayer" unique_id=1804910234 instance=ExtResource("3_lnu2h")]
+visible = false

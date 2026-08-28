@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://rpmcswf8ip1g"]
+
+[ext_resource type="PackedScene" uid="uid://dyqv2vji04lvb" path="res://scripts/nodes/card/card_grid.tscn" id="1_2jhc3"]
+[ext_resource type="Script" uid="uid://dxasylm2w4ty" path="res://scripts/nodes/screens/card_pile_screen.gd" id="1_juwi5"]
+
+[node name="CardPileScreen" type="Control" unique_id=47140203]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_juwi5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1544837143]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.28235295)
+
+[node name="CardGrid" parent="." unique_id=106810542 instance=ExtResource("1_2jhc3")]
+layout_mode = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=1912607539]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -141.0
+offset_right = 110.0
+offset_bottom = -93.0
+grow_vertical = 0
+text = "BACK"

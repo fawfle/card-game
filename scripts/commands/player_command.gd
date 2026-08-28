@@ -1,0 +1,1 @@
+class_name PlayerCommand extends StaticClass
