@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bjirlaya8ikgn"]
+
+[ext_resource type="Texture2D" uid="uid://51rm24xqhgj0" path="res://assets/icons/anger_bubble.webp" id="1_n16n5"]
+
+[node name="SpeechBubble" type="Sprite2D" unique_id=385633066]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_n16n5")

@@ -7,6 +7,8 @@ signal on_current_hp_changed(on_hp: int, new_hp: int)
 signal on_shield_added(shield: Shield)
 signal on_shield_removed(shield: Shield)
 
+signal on_effects_changed(new_effects: Array[EffectModel])
+
 ## Null if the creature does not have an associated player.
 var player: Player = null
 ## Null if the creature does not have an associated enemy.
@@ -18,6 +20,8 @@ var combat_state: CombatState = null
 var side: Constants.CombatSide
 
 var shield_queue: ShieldQueue = ShieldQueue.new()
+
+var effects: Array[EffectModel]
 
 var max_hp: int:
 	set(value):
@@ -33,6 +37,15 @@ var current_hp: int:
 		var old_value := current_hp
 		current_hp = value
 		on_current_hp_changed.emit(old_value, current_hp)
+
+var is_alive: bool:
+	get(): return current_hp > 0 
+
+var is_dead: bool:
+	get(): return current_hp <= 0
+
+func get_creature_node() -> CreatureNode:
+	return CombatRoomNode.instance.get_creature_node(self)
 
 static func from_player(player_: Player) -> Creature:
 	var creature: Creature = Creature.new()
@@ -52,7 +65,9 @@ static func from_enemy(enemy_model: EnemyModel) -> Creature:
 ## Called by the [CombatManager]. Use to handle real time mechanics, like shield timers.
 func combat_process(delta: float) -> void:
 	for shield: Shield in shield_queue.shields:
-		if shield.source_card == null: shield.add_timeout_delta(delta)
+		if shield.card_source == null: shield.add_timeout_delta(delta)
+	for effect: EffectModel in effects:
+		if effect.is_temporary: effect.add_timeout_delta(delta)
 
 ## Avoid use. See [method CreatureCommand.damage_creature].
 func lose_hp_internal(amount: int) -> void:
@@ -81,8 +96,30 @@ func remove_shield_internal(shield: Shield):
 	shield_queue.remove(shield)
 	on_shield_removed.emit(shield)
 
+func apply_effect_internal(effect: EffectModel) -> void:
+	if effect.owner != self: push_error("Owner of effect is not this creature. Make sure you are calling EffectModel.apply_internal.")
+	effects.append(effect)
+	on_effects_changed.emit(effects)
+
+func remove_effect_internal(effect: EffectModel) -> void:
+	if not effects.has(effect): push_error("trying to remove effect that is not on creature")
+	effects.erase(effect)
+	on_effects_changed.emit(effects)
+
+## If the creature has an effect of the same type and same duration_type, return it. Otherwise, returns null.
+func get_effect_instance(effect: EffectModel) -> EffectModel:
+	for current_effect: EffectModel in effects:
+		if current_effect.get_script() == effect.get_script() and current_effect.is_temporary == effect.is_temporary:
+			return current_effect
+	return null
+
 func get_run_state() -> RunState:
 	if player != null: return player.run_state
 	if combat_state != null: return combat_state.run_state
 	push_error("failed to get creature run_state")
 	return null
+
+## Reset after a combat.
+func reset() -> void:
+	shield_queue.clear()
+	effects.clear()

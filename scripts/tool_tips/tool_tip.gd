@@ -1,4 +1,4 @@
-class_name HoverTip
+class_name ToolTip
 
 var title: String
 var description: String

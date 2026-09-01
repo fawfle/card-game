@@ -18,7 +18,15 @@ func activate(combat_state: CombatState):
 	discard_pile_button.initialize(player)
 	pathos_counter.initialize(player)
 	logos_counter.initialize(player)
+	
+	CombatManager.instance.combat_ended.connect(_on_combat_ended)
+
+func deactivate() -> void:
+	player_hand.cancel_current_card_play()
 
 func _process(delta: float) -> void:
 	draw_progress_bar.max_value = RunManager.instance.run_state.player.player_combat_state.get_draw_time()
 	draw_progress_bar.value = RunManager.instance.run_state.player.player_combat_state.time_since_last_draw
+
+func _on_combat_ended() -> void:
+	deactivate()

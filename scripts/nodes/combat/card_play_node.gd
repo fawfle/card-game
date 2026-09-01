@@ -13,6 +13,8 @@ var card_node: CardNode = null
 ## TODO: the default for now. Later, allow tap toggle selection
 var dragging: bool = false
 
+var _cancelled: bool = false
+
 static func create(card: CardNode) -> CardPlayNode:
 	var card_play: CardPlayNode = CardPlayNode.new()
 	card_play.card_node = card
@@ -30,18 +32,27 @@ func start() -> void:
 		finished.emit(self, false)
 		return
 	
+	var target: Creature = card_node.model.get_target()
+	
+	if not target:
+		finished.emit(self, false)
+		return
+	
 	started.emit(self)
 	
 	card_node.reparent(CombatRoomNode.instance.ui.in_play_cards_container)
-	await CardCommand.play(card_node.model, card_node.model.get_target())
+	await CardCommand.play(card_node.model, target)
 	card_node.queue_free()
 	finished.emit(self, true)
 
 func start_card_drag() -> bool:
 	while (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or _cancelled:
 			return true
 		card_node.global_position = get_viewport().get_mouse_position()
 		await get_tree().process_frame
 	
 	return false
+
+func cancel() -> void:
+	_cancelled = true

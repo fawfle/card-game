@@ -11,11 +11,17 @@ static func play(card: CardModel, target: Creature) -> void:
 		push_error("card must have combat_state to be played")
 		return
 	
+	if not card.can_play():
+		push_warning("do not have resources to play card. stopping play...")
+		return
+	
+	card.spend_resources()
+	
 	var card_play: CardPlay = CardPlay.create_from_properties({ "card": card, "target": target, "play_duration": card.get_play_duration() })
 	await Hook.before_card_played(combat_state, card_play)
 	card.card_play = card_play
 	card.on_play(card_play)
-	while(card_play.play_time_left > 0):
+	while(card_play.play_time_left > 0) and CombatManager.instance.is_in_progress:
 		# Not 100% sure about order of waiting/processing, but awaiting before in_play_process seems fine.
 		await RunNode.instance.get_tree().process_frame
 		var delta: float = RunNode.instance.get_process_delta_time()

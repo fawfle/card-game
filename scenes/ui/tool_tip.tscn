@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bm36qpf2ruwn"]
 
-[ext_resource type="Script" uid="uid://d2r5d42coxust" path="res://scripts/nodes/hover_tips/hover_tip_node.gd" id="1_qqt4y"]
+[ext_resource type="Script" uid="uid://d2r5d42coxust" path="res://scripts/nodes/tool_tips/tool_tip_node.gd" id="1_qqt4y"]
 
 [node name="HoverTip" type="MarginContainer" unique_id=620794679]
 offset_right = 400.0

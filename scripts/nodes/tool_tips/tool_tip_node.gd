@@ -1,15 +1,15 @@
-class_name HoverTipNode extends MarginContainer
-## Shows a HoverTip
+class_name ToolTipNode extends MarginContainer
+## Shows a ToolTip
 
-const SCENE: PackedScene = preload("res://scenes/ui/hover_tip.tscn")
+const SCENE: PackedScene = preload("res://scenes/ui/tool_tip.tscn")
 
-var tip: HoverTip
+var tip: ToolTip
 
 @onready var title: Label = %Title
 @onready var description: RichTextLabel = %Description
 
-static func create_and_show(container: Control, hover_tip: HoverTip) -> HoverTipNode:
-	var hover_tip_node: HoverTipNode = SCENE.instantiate()
+static func create_and_show(container: Control, hover_tip: ToolTip) -> ToolTipNode:
+	var hover_tip_node: ToolTipNode = SCENE.instantiate()
 	hover_tip_node.tip = hover_tip
 	container.add_child(hover_tip_node)
 	hover_tip_node.owner = container
@@ -18,7 +18,7 @@ static func create_and_show(container: Control, hover_tip: HoverTip) -> HoverTip
 
 static func remove(container: Control) -> void:
 	for child in container.get_children():
-		if child is HoverTipNode:
+		if child is ToolTipNode:
 			child.queue_free()
 
 func _ready() -> void:

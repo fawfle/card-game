@@ -4,6 +4,7 @@ class_name CardPlay
 ## To instantiate, see [method create_from_properties]
 
 var card: CardModel
+## The target of the CardPlay. NOTE: Currently, gets decided by the card's [enum Constants.TargetType].
 var target: Creature
 
 ## The amount of time in seconds the card remains in play. Also see [member play_time_left].

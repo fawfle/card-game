@@ -3,9 +3,10 @@ class_name CombatRoom
 var combat_state: CombatState = null
 
 
-## TODO with encounter
-static func create():
-	pass
+static func create_from_encounter(run_state: RunState, encounter: EncounterModel):
+	var room: CombatRoom = CombatRoom.new()
+	room.combat_state = CombatState.create_from_encounter(run_state, encounter)
+	return room
 
 ## Create a default CombatRoom from a CombatState. Mostly for debugging.
 static func create_from_state(state: CombatState) -> CombatRoom:
@@ -14,4 +15,9 @@ static func create_from_state(state: CombatState) -> CombatRoom:
 	return room
 
 func enter(run_state: RunState):
+	run_state.current_room = self
 	CombatManager.instance.start_combat(run_state, self)
+
+func exit() -> void:
+	CombatManager.instance.reset()
+	RunNode.instance.clear_current_room()

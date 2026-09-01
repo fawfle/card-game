@@ -38,3 +38,14 @@ func get_highest_shield_priority(shield_list: Array[Shield]) -> Shield:
 
 func sort_by_shield_priority(shield_a: Shield, shield_b: Shield) -> bool:
 	return shield_a.priority > shield_b.priority
+
+func get_total_shield() -> int:
+	var total: int = 0
+	for shield: Shield in shields:
+		total += shield.current_shield
+	return total
+
+## Remove all shields.
+func clear() -> void:
+	for shield: Shield in shields:
+		shields.erase(shield)

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bdi2qjuaaihq0"]
+
+[ext_resource type="Script" uid="uid://c8wir1pa37kox" path="res://scripts/nodes/screens/map/map_point_node.gd" id="1_3qx7s"]
+[ext_resource type="Texture2D" uid="uid://du1ki8h3rr1bq" path="res://assets/icons/debate_icon.webp" id="1_y6kv7"]
+
+[node name="MapPoint" type="Control" unique_id=1773205776]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3qx7s")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1567503187]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_y6kv7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="." unique_id=156192705]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

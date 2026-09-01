@@ -33,3 +33,12 @@ enum ShieldPriority {
 	NONE = 0, ## default
 	COUNTER = 8, ## counters want to actually shield
 }
+
+const ATTACK_ANIMATION = "attack"
+
+enum MapPointType {
+	NONE,
+	DEBATE,
+	SHOP,
+	BOSS,
+}

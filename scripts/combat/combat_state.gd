@@ -29,16 +29,31 @@ func get_players() -> Array[Player]:
 func get_enemy_models() -> Array[EnemyModel]:
 	return get_all_creatures().map(func(creature: Creature): return creature.enemy).filter(func(enemy): return enemy != null)
 
+static func create_from_encounter(state: RunState, encounter: EncounterModel) -> CombatState:
+	var combat_state: CombatState = CombatState.new(state)
+	for enemy_model: EnemyModel in encounter.generate_enemies():
+		combat_state.add_enemy(enemy_model.clone_mutable_from_base())
+	return combat_state
+
 func _init(state: RunState) -> void:
 	run_state = state
 
 func add_player(player: Player) -> void:
 	add_creature(player.creature)
 
+## Adds an enemy to combat. Creates a corresponding creature. THE ENEMY'S SIDE IS SET TO ENEMY!!
+func add_enemy(enemy_model: EnemyModel) -> void:
+	var enemy_creature: Creature = Creature.from_enemy(enemy_model)
+	enemy_creature.side = Constants.CombatSide.ENEMY
+	add_creature(enemy_creature)
+
 ## Add a creature to the combat. For possibly good reasons, the side of the creature is stored/set within [member Creature.side] rather than here.
 func add_creature(creature: Creature) -> void:
 	get_side_array(creature.side).push_back(creature)
 	creature.combat_state = self
+
+func remove_creature(creature: Creature) -> void:
+	get_side_array(creature.side).erase(creature)
 
 func creature_in_combat(creature: Creature) -> bool:
 	return allies.has(creature) or enemies.has(creature)
@@ -47,8 +62,11 @@ func creature_in_combat(creature: Creature) -> bool:
 func get_hook_listeners() -> Array[AbstractModel]:
 	var listeners: Array[AbstractModel] = []
 	
-	#for creature: Creature in allies:
-		#listeners.append(creature)
+	for creature: Creature in allies:
+		listeners.append_array(creature.effects)
+	
+	for creature: Creature in enemies:
+		listeners.append_array(creature.effects)
 	
 	return listeners
 

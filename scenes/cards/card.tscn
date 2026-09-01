@@ -17,11 +17,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qqw3"]
 bg_color = Color(0.56117016, 0.54257023, 0.53521144, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
@@ -30,11 +25,6 @@ corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jl6rh"]
 bg_color = Color(0, 0.7176471, 0.39607844, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
@@ -42,12 +32,7 @@ corner_radius_bottom_left = 30
 corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73nwn"]
-bg_color = Color(0.21933076, 0.6083948, 0.64802444, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
+bg_color = Color(0.34117648, 0.62352943, 0.87058824, 1)
 corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
@@ -90,10 +75,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -26.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 26.0
+offset_left = -17.0
+offset_top = -6.0
+offset_right = 13.0
+offset_bottom = 24.0
 grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0qqw3")
@@ -115,20 +100,21 @@ vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/Panel" unique_id=45848531]
 layout_mode = 1
-offset_left = -19.0
-offset_top = -18.0
-offset_right = 25.0
-offset_bottom = 69.0
-theme_override_constants/separation = -7
+offset_left = -11.0
+offset_top = -7.0
+offset_right = 19.0
+offset_bottom = 80.0
+theme_override_constants/separation = 2
 
-[node name="Pathos" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=2096527299]
-custom_minimum_size = Vector2(44, 44)
+[node name="PathosIcon" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=2096527299]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jl6rh")
 metadata/_edit_group_ = true
 
-[node name="PathosLabel" type="Label" parent="Container/Panel/VBoxContainer/Pathos" unique_id=708188611]
+[node name="PathosLabel" type="Label" parent="Container/Panel/VBoxContainer/PathosIcon" unique_id=708188611]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -136,20 +122,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.8666667, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Logos" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=1979979047]
-custom_minimum_size = Vector2(44, 44)
+[node name="LogosIcon" type="Panel" parent="Container/Panel/VBoxContainer" unique_id=1979979047]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_73nwn")
 metadata/_edit_group_ = true
 
-[node name="LogosLabel" type="Label" parent="Container/Panel/VBoxContainer/Logos" unique_id=1942612036]
+[node name="LogosLabel" type="Label" parent="Container/Panel/VBoxContainer/LogosIcon" unique_id=1942612036]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -157,7 +144,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.8666667, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "1"
 horizontal_alignment = 1

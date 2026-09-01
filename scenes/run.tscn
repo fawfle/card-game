@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cdx28injhmc0b" path="res://scripts/nodes/run_node.gd" id="1_2d5n6"]
 [ext_resource type="PackedScene" uid="uid://clk7560gv5q8m" path="res://scenes/scene_container.tscn" id="2_6elw1"]
 [ext_resource type="Script" uid="uid://csycx02de03ff" path="res://scripts/nodes/generic_ui/global_ui.gd" id="3_kyqep"]
+[ext_resource type="PackedScene" uid="uid://c6u7xwqkdi4dn" path="res://scenes/screens/map/map_screen.tscn" id="4_hnrwf"]
 
 [node name="Run" type="Control" unique_id=318330046]
 layout_mode = 3
@@ -34,3 +35,8 @@ script = ExtResource("3_kyqep")
 unique_name_in_owner = true
 layout_mode = 1
 mouse_filter = 2
+
+[node name="MapScreen" parent="GlobalUi" unique_id=1712308688 instance=ExtResource("4_hnrwf")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1

@@ -8,8 +8,8 @@ class_name AbstractIntent
 
 func get_label() -> String: return ""
 
-func get_hover_tip(owner: Creature, targets: Array[Creature]) -> HoverTip:
-	return HoverTip.new(get_title(), get_description(owner, targets))
+func get_hover_tip(owner: Creature, targets: Array[Creature]) -> ToolTip:
+	return ToolTip.new(get_title(), get_description(owner, targets))
 
 func get_description(owner: Creature, targets: Array[Creature]) -> String:
 	return "broken description"

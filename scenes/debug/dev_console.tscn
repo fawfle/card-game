@@ -61,3 +61,19 @@ offset_top = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 keep_editing_on_text_submit = true
+
+[node name="GhostText" type="LineEdit" parent="InputContainer" unique_id=2063909081]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.19607843)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/font_placeholder_color = Color(0.87, 0.87, 0.87, 0.9411765)

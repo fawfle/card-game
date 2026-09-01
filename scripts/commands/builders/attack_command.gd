@@ -14,6 +14,8 @@ var attacker: Creature = null:
 
 var card_source: CardModel = null
 
+var attacker_vfx: PackedScene = null
+
 func with_damage(amount: int) -> AttackCommand:
 	damage = amount
 	return self
@@ -48,4 +50,5 @@ func targeting_all_opponents(combat_state: CombatState) -> AttackCommand:
 
 ## Execute the attack.
 func execute() -> void:
+	CreatureCommand.play_animation(attacker, Constants.ATTACK_ANIMATION)
 	CreatureCommand.damage_creatures(targets, attacker, damage, card_source)

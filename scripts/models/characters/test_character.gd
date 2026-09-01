@@ -13,14 +13,9 @@ func get_starting_draw_time() -> float: return 4.0
 func get_starting_pathos_time() -> float: return 4.0
 
 func get_starting_deck() -> Array[CardModel]: return [
-	ModelDb.card(TestDamageCard),
-	ModelDb.card(TestDamageCard),
-	ModelDb.card(TestDamageCard),
-	ModelDb.card(TestDamageCard),
-	ModelDb.card(TestDamageCard),
-	ModelDb.card(TestShieldCard),
-	ModelDb.card(TestShieldCard),
-	ModelDb.card(TestShieldCard),
-	ModelDb.card(TestShieldCard),
-	ModelDb.card(TestShieldCard),
+	ModelDb.card(TestDamageCard),ModelDb.card(TestDamageCard),ModelDb.card(TestDamageCard),
+	ModelDb.card(TestShieldCard),ModelDb.card(TestShieldCard),ModelDb.card(TestShieldCard),
+	ModelDb.card(TestResourceCard),ModelDb.card(TestResourceCard),
+	ModelDb.card(TestConvincingCard),
+	ModelDb.card(TestConvincingCard),ModelDb.card(TestConvincingCard),
 ]

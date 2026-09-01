@@ -48,13 +48,18 @@ var combat_state: CombatState:
 var card_play: CardPlay = null
 
 ## TODO
-var hovertips
+var ToolTips
 
-var pathos_cost: int = 0
-var logos_cost: int = 0
+## Override to give a card a pathos cost. Get pathos cost BEFORE modifiers. See [get_pathos_cost_with_modifiers].
+func get_pathos_cost() -> int: return 0
+## Override to give a card a logos cost. Get logos cost BEFORE modifiers. See [get_logos_cost_with_modifiers].
+func get_logos_cost() -> int: return 0
+
+## TODO
+func get_pathos_cost_with_modifiers() -> int: return get_pathos_cost()
+func get_logos_cost_with_modifiers() -> int: return get_logos_cost()
 
 func get_play_duration() -> float: return 0.0
-var time_left_in_play: float
 
 ## TODO: change to be dynamic and stuff
 func get_description() -> String: return "Broken Description"
@@ -113,11 +118,11 @@ func spend_resources() -> void:
 
 ## TODO
 func spend_pathos() -> void:
-	pass
+	owner.player_combat_state.lose_pathos_internal(get_pathos_cost_with_modifiers())
 
 ## TODO
 func spend_logos() -> void:
-	pass
+	owner.player_combat_state.lose_logos_internal(get_logos_cost_with_modifiers())
 
 
 func after_cloned() -> void:

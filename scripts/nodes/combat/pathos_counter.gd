@@ -18,7 +18,6 @@ func update_visuals() -> void:
 	
 	var pathos_time: float = _player.player_combat_state.get_pathos_time()
 	var fill_amount: float = _player.player_combat_state.pathos_gain_timer
-	if current_pathos == max_pathos: fill_amount = pathos_time
 	texture_progress_bar.max_value = pathos_time
 	texture_progress_bar.value = fill_amount
 

@@ -14,6 +14,7 @@ func add(card_node: CardNode) -> void:
 	card_node.pressed.connect(_on_card_pressed)
 
 func set_selected_card(card_node: CardNode) -> void:
+	if not CombatManager.instance.is_in_progress: return
 	for child in selected_container.get_children():
 		child.reparent(card_container)
 	
@@ -25,6 +26,10 @@ func set_selected_card(card_node: CardNode) -> void:
 	current_card_play.started.connect(_on_card_play_started)
 	current_card_play.finished.connect(_on_card_play_finished)
 	current_card_play.start()
+
+func cancel_current_card_play() -> void:
+	if not current_card_play: return
+	current_card_play.cancel()
 
 func _on_card_pressed(card: CardNode) -> void:
 	set_selected_card(card)

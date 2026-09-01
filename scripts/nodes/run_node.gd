@@ -20,5 +20,9 @@ static func create(run_state: RunState) -> RunNode:
 	run_node._state = run_state
 	return run_node
 
+## Clear the current room. Probably unecesary.
+func clear_current_room() -> void:
+	_room_container.set_current_scene(null)
+
 func set_current_room(room: Control) -> void:
 	_room_container.set_current_scene(room)

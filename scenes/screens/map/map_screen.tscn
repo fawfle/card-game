@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c6u7xwqkdi4dn"]
+
+[ext_resource type="Script" uid="uid://cbnww001fwgoa" path="res://scripts/nodes/screens/map/map_screen.gd" id="1_515ie"]
+
+[node name="MapScreen" type="Control" unique_id=1712308688]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_515ie")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1387688059]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Label" type="Label" parent="." unique_id=708904379]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_top = 211.0
+offset_right = 35.0
+offset_bottom = 256.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "MAP"
+horizontal_alignment = 1
+
+[node name="MapBackground" type="ColorRect" parent="." unique_id=129508525]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -40.0
+offset_right = 400.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MapPointContainer" type="HBoxContainer" parent="." unique_id=2079829557]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40

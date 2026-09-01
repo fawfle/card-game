@@ -4,13 +4,53 @@
 [ext_resource type="Texture2D" uid="uid://duxj2bjf8r4ek" path="res://icon.svg" id="2_nmxbd"]
 [ext_resource type="PackedScene" uid="uid://rsq4ysllm8tj" path="res://scenes/combat/health_bar.tscn" id="3_p3ge0"]
 
+[sub_resource type="Animation" id="Animation_6l14h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer/PLACEHOLDERSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -68)]
+}
+
+[sub_resource type="Animation" id="Animation_p3ge0"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer/PLACEHOLDERSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(0, -68), Vector2(20, -68), Vector2(0, -68)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6l14h"]
+_data = {
+&"RESET": SubResource("Animation_6l14h"),
+&"attack": SubResource("Animation_p3ge0")
+}
+
 [node name="Creature" type="Control" unique_id=1237784989]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_slh05")
 
-[node name="PLACEHOLDERSprite" type="Sprite2D" parent="." unique_id=267830850]
+[node name="SpriteContainer" type="Node2D" parent="." unique_id=1634544061]
+scale = Vector2(-1, 1)
+
+[node name="PLACEHOLDERSprite" type="Sprite2D" parent="SpriteContainer" unique_id=267830850]
 position = Vector2(0, -68)
 texture = ExtResource("2_nmxbd")
 
@@ -48,3 +88,23 @@ offset_right = 174.0
 offset_bottom = -131.0
 mouse_filter = 2
 alignment = 1
+
+[node name="EffectsContainer" type="HBoxContainer" parent="." unique_id=296681732]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = 25.0
+offset_right = 124.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=474669825]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_6l14h")

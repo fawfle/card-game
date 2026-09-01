@@ -202,22 +202,22 @@ func modify_max_logos(max_logos: float) -> float:
 
 # WARNING: UNUSED
 ## Add to the amount that will be dealt.
-func modify_damage_additive(target: Creature, dealer: Creature, amount: float, card_source: CardModel) -> float:
+func modify_damage_additive(target: Creature, dealer: Creature, damage_amount: float, card_source: CardModel) -> float:
 	return 0
 
 # WARNING: UNUSED
 ## Multiply the amount that will be dealt.
-func modify_damage_multiplicative(target: Creature, dealer: Creature, amount: float, card_source: CardModel) -> float:
+func modify_damage_multiplicative(target: Creature, dealer: Creature, damage_amount: float, card_source: CardModel) -> float:
 	return 1.0
 
 # WARNING: UNUSED
 ## Add to the amount of shield gained.
-func modify_shield_additive(creature: Creature, amount: float, card_source: CardModel) -> float:
+func modify_shield_additive(creature: Creature, shield_amount: float, card_source: CardModel) -> float:
 	return 0
 
 # WARNING: UNUSED
 ## Multiply the amount of shield gained.
-func modify_shield_multiplicative(creature: Creature, amount: float, card_source: CardModel) -> float:
+func modify_shield_multiplicative(creature: Creature, shield_amount: float, card_source: CardModel) -> float:
 	return 1.0
 
 # WARNING: UNUSED. May need more hooks for order (modify_attack_early, modify_attack_late).

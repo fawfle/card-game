@@ -99,8 +99,8 @@ func add_draw_time_delta_internal(delta: float) -> void:
 
 # TODO: implement unplayable reasons???
 func has_enough_resources_to_play(card: CardModel) -> bool:
-	var pathos_cost: int = max(0, card.pathos_cost)
-	var logos_cost: int = max(0, card.logos_cost)
+	var pathos_cost: int = max(0, card.get_pathos_cost_with_modifiers())
+	var logos_cost: int = max(0, card.get_logos_cost_with_modifiers())
 	if pathos_cost > pathos: return false
 	if logos_cost > logos: return false
 	return true

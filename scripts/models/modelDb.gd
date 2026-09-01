@@ -49,3 +49,12 @@ static func character(type: Script) -> CharacterModel:
 
 static func enemy(type: Script) -> EnemyModel:
 	return _get_model(type)
+
+static func encounter(type: Script) -> EncounterModel:
+	return _get_model(type)
+
+static func act(type: Script) -> ActModel:
+	return _get_model(type)
+
+static func effect(type: Script) -> EffectModel:
+	return _get_model(type)

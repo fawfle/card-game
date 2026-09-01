@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dcmktfysaplh3"]
+
+[ext_resource type="Script" uid="uid://c7uxuia1qn1ol" path="res://scripts/nodes/combat/effect_node.gd" id="1_qqjoi"]
+[ext_resource type="Texture2D" uid="uid://mwy5sb8iw2jl" path="res://assets/icons/weapon_icon.webp" id="2_dji6x"]
+
+[node name="Effect" type="Control" unique_id=1033081404]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qqjoi")
+
+[node name="DurationProgress" type="ProgressBar" parent="." unique_id=4519989]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 3
+show_percentage = false
+
+[node name="Icon" type="TextureRect" parent="." unique_id=347143762]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dji6x")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="." unique_id=1515973332]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "1"
