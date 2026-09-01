@@ -24,7 +24,6 @@ func _ready() -> void:
 	update_visuals()
 
 func update_visuals() -> void:
-	print(RunManager.instance.run_state.curent_map_point)
 	if is_current():
 		modulate = Color(1,0,0,1)
 	elif is_visited():

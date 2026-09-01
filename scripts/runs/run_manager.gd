@@ -19,8 +19,6 @@ func enter_run():
 	
 	MapScreen.instance.set_travel_enabled(true)
 	MapScreen.instance.open()
-	
-	CombatManager.instance.start_combat_from_state(run_state, combat_state)
 
 func generate_map() -> void:
 	run_state.map = Map.new(run_state)
