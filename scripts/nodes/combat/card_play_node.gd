@@ -32,11 +32,8 @@ func start() -> void:
 		finished.emit(self, false)
 		return
 	
+	# Target can be null! (for cards that do generic things like draw)
 	var target: Creature = card_node.model.get_target()
-	
-	if not target:
-		finished.emit(self, false)
-		return
 	
 	started.emit(self)
 	

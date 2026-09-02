@@ -18,11 +18,11 @@ func _enter_tree() -> void:
 	ModelDb.initialize()
 
 func _ready() -> void:
-	start_run(ModelDb.character(TestCharacter))
+	start_run(ModelDb.character(DebaterCharacter))
 
 func start_run(character: CharacterModel, run_seed: String = ""):
 	if run_seed == "": run_seed = SeedHelper.get_random_seed()
-	var run_state: RunState = RunState.new(Player.create_for_new_run(character), [ModelDb.act(TestAct)], run_seed)
+	var run_state: RunState = RunState.new(Player.create_for_new_run(character), [ModelDb.act(SchoolOfThought)], run_seed)
 	RunManager.instance.set_up_new_run(run_state)
 	root_scene_container.set_current_scene(RunNode.create(run_state))
 	

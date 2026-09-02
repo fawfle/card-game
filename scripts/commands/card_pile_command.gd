@@ -19,6 +19,8 @@ static func add_to_pile_multiple(new_pile: CardPile, cards: Array[CardModel]) ->
 static func draw(player: Player, count: int) -> int:
 	if count <= 0: return 0
 	var hand: CardPile = player.get_pile(Constants.PileType.HAND)
+	if hand.cards.size() >= player.hand_limit:
+		return 0
 	var draw_pile: CardPile = player.get_pile(Constants.PileType.DRAW)
 	for i in range(count):
 		await shuffle_if_necessary(player)

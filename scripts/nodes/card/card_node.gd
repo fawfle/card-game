@@ -55,10 +55,10 @@ func update_visuals() -> void:
 	update_card_play_visuals()
 
 func update_card_play_visuals():
-	if model.card_play:
+	if model.active_card_play:
 		play_timer_progress_bar.show()
-		play_timer_progress_bar.max_value = model.card_play.play_duration
-		play_timer_progress_bar.value = model.card_play.play_time_left
+		play_timer_progress_bar.max_value = model.active_card_play.play_duration
+		play_timer_progress_bar.value = model.active_card_play.play_time_left
 	else:
 		play_timer_progress_bar.hide()
 

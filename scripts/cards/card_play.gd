@@ -12,6 +12,10 @@ var play_duration: float
 ## A timer keeping track of the seconds this card remains in play. MUST be updated externally.
 var play_time_left: float
 
+var stopped: bool = false
+var cancelled: bool = false
+var cancelled_creature_source: Creature
+
 ## This could be dumb, idk. Plagiarism. Template dictionary:
 ## [codeblock]
 ##{
@@ -32,5 +36,15 @@ static func create_from_properties(dictionary: Dictionary[String, Variant]) -> C
 func assert_has_target():
 	if target == null: push_error("target expected to not be null")
 
+## Simply stops the CardPlay. Does not trigger timeout.
 func stop():
-	play_time_left = 0.0
+	stopped = true
+
+# TODO: Add more sources
+## Cancels a CardPlay and invokes events. Not to be confused with [method stop].
+func cancel(creature_soure: Creature) -> void:
+	cancelled = true
+	cancelled_creature_source = creature_soure
+
+func is_active() -> bool:
+	return play_time_left > 0 and not stopped and not cancelled

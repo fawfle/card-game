@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dk2kdl82m814d"]
+
+[ext_resource type="Texture2D" uid="uid://1kr6r3hu24yd" path="res://assets/icons/thought_bubble.png" id="1_m310r"]
+
+[node name="ThoughtBubble" type="Sprite2D" unique_id=385633066]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_m310r")

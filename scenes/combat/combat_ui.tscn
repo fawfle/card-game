@@ -51,11 +51,11 @@ layout_mode = 1
 [node name="InPlayCardsContainer" type="HBoxContainer" parent="." unique_id=274212569]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 47.0
-offset_top = 152.0
-offset_right = 427.0
-offset_bottom = 345.0
-theme_override_constants/separation = 85
+offset_left = 140.0
+offset_top = 271.0
+offset_right = 520.0
+offset_bottom = 464.0
+theme_override_constants/separation = 120
 
 [node name="DrawProgressBar" parent="." unique_id=1762019007 instance=ExtResource("5_wyd7e")]
 layout_mode = 1

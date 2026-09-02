@@ -23,6 +23,8 @@ func get_piles() -> Array[CardPile]:
 		piles.append_array(player_combat_state.all_piles)
 	return piles
 
+const hand_limit: int = 10
+
 var max_pathos: int
 var max_logos: int
 

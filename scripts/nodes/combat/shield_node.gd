@@ -7,11 +7,16 @@ var _shield: Shield
 @onready var shield_amount: Label = %ShieldAmount
 @onready var progress_bar: ProgressBar = %ProgressBar
 
+const COUNTER_COLOR: Color = Color(1.0, 0, 0, 1)
+
 static func create(shield: Shield) -> ShieldNode:
 	var shield_node: ShieldNode = SCENE.instantiate()
 	shield_node._shield = shield
 	
 	shield_node._shield.shield_removed.connect(shield_node.on_shield_removed)
+	
+	if shield.priority == Constants.ShieldPriority.COUNTER:
+		shield_node.modulate = COUNTER_COLOR
 	
 	return shield_node
 

@@ -19,26 +19,34 @@ static func play(card: CardModel, target: Creature) -> void:
 	
 	var card_play: CardPlay = CardPlay.create_from_properties({ "card": card, "target": target, "play_duration": card.get_play_duration() })
 	await Hook.before_card_played(combat_state, card_play)
-	card.card_play = card_play
+	card.active_card_play = card_play
 	card.on_play(card_play)
-	while(card_play.play_time_left > 0) and CombatManager.instance.is_in_progress:
+	while card_play.is_active() and CombatManager.instance.is_in_progress:
 		# Not 100% sure about order of waiting/processing, but awaiting before in_play_process seems fine.
 		await RunNode.instance.get_tree().process_frame
 		var delta: float = RunNode.instance.get_process_delta_time()
 		card_play.play_time_left -= delta
 		card.in_play_process(delta)
+	if card_play.cancelled: card.on_cancelled(card_play.cancelled_creature_source)
+	if card_play.play_time_left == 0: card.on_timeout()
+	
 	card.on_exit_play()
-	card.card_play = null
+	card.active_card_play = null
 	await Hook.after_card_played(combat_state, card_play)
 	card.exited_play.emit()
 	
 	var result_pile: Constants.PileType = card.get_play_result_pile()
 	CardPileCommand.add_to_pile(card.owner.get_pile(result_pile), card)
 
-## Use to remove a card from play from an external source. Only works if that card was already in play.
+## Use to remove a card from play from an external source. Treated as an early timeout. Only works if that card was already in play. Also see [method cancel_card]
 static func remove_from_play(card: CardModel) -> void:
-	if not card.card_play: push_error("card is not in play")
-	card.card_play.stop()
+	if not card.active_card_play: push_error("card is not in play")
+	card.active_card_play.stop()
+
+## Similar to [method remove_from_play] but invokes events relating to enemy interactions like counters.
+static func cancel_card(card: CardModel, creature_source: Creature) -> void:
+	if not card.active_card_play: push_error("card is not in play")
+	card.active_card_play.cancel(creature_source)
 
 ## To discard multiple cards at once, use [method discard_multiple] directly.
 static func discard(card: CardModel) -> void:

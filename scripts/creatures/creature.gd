@@ -73,15 +73,16 @@ func combat_process(delta: float) -> void:
 func lose_hp_internal(amount: int) -> void:
 	current_hp = max(current_hp - amount, 0)
 
-## Applies damage to shields. This method will handle destroying shields. Returns damage left. Avoid use. See [method CreatureCommand.damage_creature].
-func damage_shield_internal(amount: int) -> int:
+## Applies damage to shields. This method will handle destroying shields. Returns damage left. Avoid use. See [method CreatureCommand.damage_creature]. [br]
+## This method takes the dealer so the shield can have a dealer source when it gets destroyed.
+func damage_shield_internal(amount: int, dealer: Creature = null) -> int:
 	var amount_left: int = amount
 	while(not shield_queue.shields.is_empty()):
 		var shield: Shield = shield_queue.get_front()
 		shield.current_shield -= amount_left
 		amount_left = -shield.current_shield
 		if shield.current_shield <= 0:
-			shield.remove_from_creature()
+			shield.destroy_shield(dealer)
 		
 		if amount_left <= 0: return 0
 	return amount_left

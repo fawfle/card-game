@@ -45,7 +45,7 @@ var combat_state: CombatState:
 	get(): return owner.creature.combat_state if owner else null
 
 ## The CardPlay that "owns" this card. null if card isn't in play.
-var card_play: CardPlay = null
+var active_card_play: CardPlay = null
 
 ## TODO
 var ToolTips
@@ -84,7 +84,7 @@ func remove_from_current_pile() -> void:
 func get_play_result_pile() -> Constants.PileType:
 	return Constants.PileType.DISCARD
 
-## Runs when the card is played. Meant to be overwritten. To play a card, call [method play].
+## Runs when the card is played. Meant to be overwritten. To play a card, call [method CardCommand.play].
 func on_play(card_play: CardPlay) -> void:
 	pass
 
@@ -98,11 +98,11 @@ func on_timeout() -> void:
 	pass
 
 ## Runs when the card is cancelled. If cancelled, this card won't timeout normally.
-func on_cancel() -> void:
+func on_cancelled(creature_source: Creature) -> void:
 	pass
 
-## What happens when the card exits play for any reason either by timing out or being cancelled. [br][br]
-## For more specific control, see [method on_timeout] and [method on_cancel].
+## What happens when the card exits play for any reason, either by timing out or being cancelled. [br][br]
+## For more specific control, see [method on_timeout] and [method on_cancelled].
 func on_exit_play() -> void:
 	pass
 

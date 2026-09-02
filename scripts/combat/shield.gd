@@ -20,7 +20,7 @@ var current_shield: int = 0
 
 ## Card that created this shield. Used to listen to card events.
 var card_source: CardModel = null
-var _destroy_card_if_removed: bool = false
+var _destroy_card_if_destroyed: bool = false
 
 var total_duration_seconds: float = -1
 
@@ -39,11 +39,11 @@ func _init(target_creature: Creature, shield_amount: int, shield_priority: Const
 	priority = shield_priority
 
 ## if [param destroy_card_if_broken] is true, the card will be destroyed if the shield is removed.
-func bind_to_card(card: CardModel, destroy_card_if_removed: bool = true) -> Shield:
+func bind_to_card(card: CardModel, destroy_card_if_destroyed: bool = true) -> Shield:
 	if _has_timeout_condition: push_error("Shield already has a timeout condition")
 	card_source = card
 	card_source.exited_play.connect(on_card_source_exited)
-	_destroy_card_if_removed = destroy_card_if_removed
+	_destroy_card_if_destroyed = destroy_card_if_destroyed
 	return self
 
 func set_duration(duration_seconds: float) -> Shield:
@@ -66,10 +66,10 @@ func add_timeout_delta(delta: float) -> void:
 func on_card_source_exited() -> void:
 	remove_from_creature_internal()
 
-# A bit scuffed, but [method remove_from_creature_internal] only removes the shield. This method handles extra things, but we can bypass them when needed.
-func remove_from_creature() -> void:
-	if _destroy_card_if_removed:
-		CardCommand.remove_from_play(card_source)
+## Call this if the shield is actively destroyed by having it's [member current_shield] hit 0. Takes the dealer so it can pass it to [method CardCommand.cancel_card].
+func destroy_shield(dealer: Creature = null) -> void:
+	if _destroy_card_if_destroyed:
+		CardCommand.cancel_card(card_source, dealer)
 	remove_from_creature_internal()
 
 func remove_from_creature_internal():
@@ -84,5 +84,5 @@ func get_duration() -> float:
 
 func get_time_left() -> float:
 	if not _has_timeout_condition: push_error("card that can't timeout")
-	if card_source and card_source.card_play: return card_source.card_play.play_time_left
+	if card_source and card_source.active_card_play: return card_source.active_card_play.play_time_left
 	return total_duration_seconds - _time_spent_in_play

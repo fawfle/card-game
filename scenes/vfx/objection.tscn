@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bwc6urqv8ania"]
+
+[ext_resource type="Texture2D" uid="uid://51rm24xqhgj0" path="res://assets/icons/anger_bubble.webp" id="1_cu5i3"]
+
+[node name="ObjectionBubble" type="Sprite2D" unique_id=385633066]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_cu5i3")
+
+[node name="Label" type="Label" parent="." unique_id=828433236]
+offset_left = -390.0
+offset_top = -130.0
+offset_right = 345.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 130
+text = "OBJECTION!"

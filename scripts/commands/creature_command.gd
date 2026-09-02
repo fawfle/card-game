@@ -7,9 +7,13 @@ static func damage_creatures(targets: Array[Creature], dealer: Creature, damage:
 		damage_creature(target, dealer, damage, card_source)
 
 static func damage_creature(target: Creature, dealer: Creature, damage: float, card_source: CardModel) -> void:
+	var run_state: RunState = RunManager.instance.run_state
+	var combat_state: CombatState = target.combat_state
 	var modified_damage: float = Hook.modify_damage(target.get_run_state(), target.combat_state, target, dealer, damage, card_source)
-	var damage_after_shield: int = target.damage_shield_internal(int(modified_damage))
+	# TODO: Hook.before_damage_dealt(run_state, combat_state, target, modified_damage, dealer, card_source)
+	var damage_after_shield: int = target.damage_shield_internal(int(modified_damage), dealer)
 	target.lose_hp_internal(damage_after_shield)
+	# TODO: add hook for after_damage_dealt with information about the attack.
 	
 	if target.is_dead:
 		kill(target)

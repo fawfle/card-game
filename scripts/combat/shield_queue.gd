@@ -31,8 +31,10 @@ func order_shields() -> void:
 func get_highest_shield_priority(shield_list: Array[Shield]) -> Shield:
 	if shield_list.is_empty(): return null
 	var lowest_shield: Shield = shield_list[0]
+	## Sort shields by priority first. If two shields have the same priority, sort by time left.
 	for i in range(1, len(shield_list)):
-		if shield_list[i].priority > lowest_shield.priority and shield_list[i].get_time_left() > lowest_shield.get_time_left():
+		if shield_list[i].priority > lowest_shield.priority or \
+		 (shield_list[i].priority == lowest_shield.priority and shield_list[i].get_time_left() > lowest_shield.get_time_left()):
 			lowest_shield = shield_list[i]
 	return lowest_shield
 

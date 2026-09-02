@@ -28,6 +28,8 @@ func update_display() -> void:
 	
 	shield_icon.visible = not creature.shield_queue.shields.is_empty()
 	shield_label.text = str(creature.shield_queue.get_total_shield())
+	
+	sort_shields()
 
 func _on_creature_health_changed(_old: float, _new: float):
 	update_display()
@@ -39,3 +41,12 @@ func _on_shield_added(shield: Shield) -> void:
 
 func _on_shield_removed(shield: Shield) -> void:
 	update_display()
+
+func sort_shields() -> void:
+	var children: Array[ShieldNode] = []
+	children.assign(shield_container.get_children())
+	for shield: Shield in creature.shield_queue.shields:
+		for child: ShieldNode in children:
+			if child._shield == shield:
+				child.move_to_front()
+				break
