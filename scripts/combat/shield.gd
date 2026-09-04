@@ -9,13 +9,6 @@ signal shield_removed()
 
 var creature: Creature
 
-## Initial shield. When set, sets [member current_shield] to match.
-var initial_shield: int = 0:
-	set(value):
-		initial_shield = value
-		current_shield = value
-
-## Is set when [member initial_shield] is set. TODO: make dynamic and stuff
 var current_shield: int = 0
 
 ## Card that created this shield. Used to listen to card events.
@@ -23,6 +16,8 @@ var card_source: CardModel = null
 var _destroy_card_if_destroyed: bool = false
 
 var total_duration_seconds: float = -1
+var is_permanent: bool:
+	get(): return total_duration_seconds == -1 and card_source == null
 
 var _time_spent_in_play: float = -1
 
@@ -35,7 +30,7 @@ var priority: Constants.ShieldPriority = Constants.ShieldPriority.NONE
 
 func _init(target_creature: Creature, shield_amount: int, shield_priority: Constants.ShieldPriority) -> void:
 	creature = target_creature
-	initial_shield = shield_amount
+	current_shield = shield_amount
 	priority = shield_priority
 
 ## if [param destroy_card_if_broken] is true, the card will be destroyed if the shield is removed.
@@ -78,11 +73,15 @@ func remove_from_creature_internal():
 	_removed = true
 	shield_removed.emit()
 
+## Combine this shield with another. Mainly for combining permanent shields.
+func combine(shield: Shield) -> void:
+	current_shield += shield.current_shield
+
 func get_duration() -> float:
 	if card_source: return card_source.get_play_duration()
 	return total_duration_seconds
 
 func get_time_left() -> float:
-	if not _has_timeout_condition: push_error("card that can't timeout")
+	if not _has_timeout_condition: push_error("can't get time left on a shield that can't timeout")
 	if card_source and card_source.active_card_play: return card_source.active_card_play.play_time_left
 	return total_duration_seconds - _time_spent_in_play

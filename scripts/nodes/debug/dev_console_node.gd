@@ -1,6 +1,6 @@
 class_name DevConsoleNode extends Panel
 
-var _dev_console: DevConsole = DevConsole.new()
+var _dev_console: DevConsole = null
 
 @onready var output_label: RichTextLabel = %OutputLabel
 @onready var input_line: LineEdit = %InputLine
@@ -8,6 +8,8 @@ var _dev_console: DevConsole = DevConsole.new()
 @onready var ghost_text: LineEdit = %GhostText
 
 func _ready() -> void:
+	# set in ready since DevConsole performs initialization when being created
+	_dev_console = DevConsole.new()
 	input_line.text_changed.connect(_on_text_changed)
 	input_line.text_submitted.connect(_on_input_submit)
 
@@ -36,10 +38,10 @@ func _input(event: InputEvent) -> void:
 			move_cursor_to_end()
 		get_viewport().set_input_as_handled()
 	
-	if key_event.keycode == KEY_TAB:
-		var completions: PackedStringArray = _dev_console.get_completions(input_line.text)
-		if completions.size() == 1:
-			input_line.text = completions[0]
+	if key_event.keycode == KEY_TAB or key_event.keycode == KEY_RIGHT:
+		var completion_results: CompletionResults = _dev_console.get_completions(input_line.text)
+		if completion_results.completions.size() == 1:
+			input_line.text = completion_results.get_only_completion()
 			move_cursor_to_end()
 		get_viewport().set_input_as_handled()
 
@@ -49,9 +51,9 @@ func _on_input_submit(input: String) -> void:
 	output_label.text = result
 
 func _on_text_changed(new_text: String) -> void:
-	var completions: PackedStringArray = _dev_console.get_completions(new_text)
-	if completions.size() == 1:
-		ghost_text.placeholder_text = completions[0]
+	var completion_results: CompletionResults = _dev_console.get_completions(new_text)
+	if completion_results.completions.size() == 1:
+		ghost_text.placeholder_text = completion_results.get_only_completion()
 	else:
 		ghost_text.placeholder_text = ""
 

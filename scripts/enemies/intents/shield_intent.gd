@@ -8,7 +8,7 @@ func get_icon() -> Texture2D: return ICON
 
 var _shield: int = 0
 
-func get_label() -> String: return str(_shield)
+func get_label(owner: Creature, targets: Array[Creature]) -> String: return str(_shield)
 
 func _init(shield: int) -> void:
 	_shield = shield

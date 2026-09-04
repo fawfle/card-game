@@ -21,7 +21,7 @@ func enter_run():
 	MapScreen.instance.open()
 
 func generate_map() -> void:
-	run_state.map = Map.new(run_state)
+	run_state.map = Map.new(run_state, run_state.act)
 	MapScreen.instance.set_map(run_state.map)
 
 func can_visit_map_point(map_point: MapPoint) -> bool:
@@ -36,7 +36,8 @@ func enter_map_point(map_point: MapPoint) -> void:
 	run_state.visit_map_point(map_point)
 	if map_point.point_type == Constants.MapPointType.DEBATE:
 		MapScreen.instance.set_travel_enabled(false)
-		var combat_room: CombatRoom = CombatRoom.create_from_encounter(run_state, run_state.act.get_normal_encounters()[0])
+		var encounter: EncounterModel = run_state.act.get_normal_encounters()[0].encounters.pick_random().clone_mutable_from_base()
+		var combat_room: CombatRoom = CombatRoom.create_from_encounter(run_state, encounter)
 		enter_room(combat_room)
 	
 	map_point_visited.emit(map_point)

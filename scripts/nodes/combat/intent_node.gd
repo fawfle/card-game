@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 
 func update_visuals() -> void:
 	icon.texture = _intent.get_icon()
-	label.text = _intent.get_label()
+	label.text = _intent.get_label(_creature_node.entity, CombatManager.instance.combat_state.allies)
 	update_progress_bar()
 
 func update_progress_bar() -> void:

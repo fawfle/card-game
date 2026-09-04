@@ -6,7 +6,7 @@ class_name AbstractIntent
 
 @abstract func get_icon() -> Texture2D
 
-func get_label() -> String: return ""
+func get_label(owner: Creature, targets: Array[Creature]) -> String: return ""
 
 func get_hover_tip(owner: Creature, targets: Array[Creature]) -> ToolTip:
 	return ToolTip.new(get_title(), get_description(owner, targets))

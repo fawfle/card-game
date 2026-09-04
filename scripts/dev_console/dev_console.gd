@@ -25,13 +25,14 @@ func _init() -> void:
 		CreatureCommand.kill(CombatManager.instance.combat_state.enemies[0])
 		return "Killing first creature."
 		))
+	_add_command(ConsoleCommandEncounter.new("encounter"))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:
 	history.insert(0, input)
 	history_index = -1
 	
-	var args: PackedStringArray = input.split(" ")
+	var args: PackedStringArray = get_args(input)
 	
 	var command: DevConsoleCommand = _commands.get(args[0])
 	
@@ -40,14 +41,26 @@ func process_command(input: String) -> String:
 	
 	return command.process.call(args)
 
-func get_completions(input: String) -> PackedStringArray:
-	var completions: PackedStringArray = []
+func get_completions(input: String) -> CompletionResults:
+	var completion_results: CompletionResults = CompletionResults.new()
 	
-	for command_name: String in _commands.keys():
-		if command_name.begins_with(input):
-			completions.append(command_name)
+	var args: PackedStringArray = get_args(input)
 	
-	return completions
+	# handle completing command names
+	if args.size() <= 1:
+		for command_name: String in _commands.keys():
+			if command_name.begins_with(input):
+				completion_results.completions.append(command_name)
+		
+		return completion_results
+	
+	# handle completing command arguments
+	var current_command: DevConsoleCommand = _commands.get(args[0])
+	if current_command:
+		completion_results.prefix = current_command.command_name + " "
+		completion_results.completions = current_command.get_argument_completions(args)
+	
+	return completion_results
 
 ## Separate for convenience reasons
 func has_previous_command() -> bool:
@@ -71,3 +84,6 @@ func get_next_command() -> String:
 
 func _add_command(command: DevConsoleCommand) -> void:
 	_commands[command.command_name] = command
+
+static func get_args(input) -> PackedStringArray:
+	return input.split(" ")

@@ -7,6 +7,8 @@ var entity: Creature = null
 var is_enemy: bool:
 	get(): return entity.enemy != null if entity != null else false
 
+var visuals: CreatureVisuals
+
 @onready var hitbox: Control = %Hitbox
 @onready var health_bar: HealthBar = %HealthBar
 @onready var intents_container: HBoxContainer = %IntentsContainer
@@ -21,12 +23,17 @@ static func create(creature: Creature) -> CreatureNode:
 	if creature_node.entity.enemy:
 		creature_node.entity.enemy.move_changed.connect(creature_node._on_enemy_state_changed)
 	creature_node.entity.on_effects_changed.connect(creature_node._on_effects_changed)
+	
+	var visuals_scene: PackedScene = creature.get_visuals()
+	if visuals_scene: creature_node.visuals = visuals_scene.instantiate()
 	return creature_node
 
 func _ready() -> void:
 	CombatManager.instance.combat_started.connect(_on_combat_started)
 	health_bar.set_creature(entity)
-	
+	# added here to ensure in scene tree
+	if visuals:
+		sprite_container.add_child(visuals)
 	health_bar.update_display()
 	
 	# WARNING: Bad form. Probably change in the future.

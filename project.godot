@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Deselect="*uid://drpk5tbs2dnvm"
-GameManager="*uid://clwa1tkie7q4p"
 
 [display]
 

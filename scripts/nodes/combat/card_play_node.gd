@@ -9,6 +9,8 @@ signal started(node: CardPlayNode)
 signal finished(node: CardPlayNode, success: bool)
 
 var card_node: CardNode = null
+## The index of the hand the card_node was in before the cardplay
+var hand_index: int = 0
 
 ## TODO: the default for now. Later, allow tap toggle selection
 var dragging: bool = false

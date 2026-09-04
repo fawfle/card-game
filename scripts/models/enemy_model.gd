@@ -34,12 +34,16 @@ var combat_state: CombatState:
 @abstract
 func get_max_hp() -> int
 
+@abstract func generate_move_state_machine() -> MoveStateMachine
+
+func get_visuals() -> PackedScene:
+	var path: String = "res://scenes/creature_visuals/%s.tscn" % id_snakecase
+	if ResourceLoader.exists(path): return load(path)
+	return null
+
 func after_cloned() -> void:
 	super.after_cloned()
 	if base_instance == null: base_instance = ModelDb.enemy(get_script())
-
-
-@abstract func generate_move_state_machine() -> MoveStateMachine
 
 func set_up_for_combat() -> void:
 	move_state_machine = generate_move_state_machine()

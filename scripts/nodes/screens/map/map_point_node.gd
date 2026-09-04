@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func update_visuals() -> void:
 	if is_current():
-		modulate = Color(1,0,0,1)
+		modulate = Color(0.3, 1.0, 0.3, 1.0)
 	elif is_visited():
 		modulate = Color(0,1,0,1)
 	elif not can_visit():

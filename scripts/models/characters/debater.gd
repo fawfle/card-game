@@ -8,7 +8,7 @@ func get_starting_max_logos() -> int: return 5
 
 func get_starting_initial_card_count() -> int: return 5
 
-func get_starting_draw_time() -> float: return 2.0
+func get_starting_draw_time() -> float: return 3.0
 
 func get_starting_pathos_time() -> float: return 3.0
 

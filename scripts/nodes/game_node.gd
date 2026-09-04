@@ -6,7 +6,6 @@ static var instance: GameNode = null
 
 func get_run_node() -> RunNode: return root_scene_container.current_scene if root_scene_container.current_scene is RunNode else null
 
-
 func _init() -> void:
 	if instance != null and instance != self:
 		push_warning("There should only be one instance of NodeGame.")

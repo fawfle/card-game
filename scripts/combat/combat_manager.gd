@@ -75,6 +75,8 @@ func complete_combat_internal() -> void:
 
 ## resets the combatmanager for a new state
 func reset() -> void:
+	is_in_progress = false
+	if not combat_state: return
 	for creature: Creature in combat_state.get_all_creatures():
 		creature.reset()
 	combat_state = null

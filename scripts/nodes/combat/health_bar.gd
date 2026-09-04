@@ -34,12 +34,13 @@ func update_display() -> void:
 func _on_creature_health_changed(_old: float, _new: float):
 	update_display()
 
-func _on_shield_added(shield: Shield) -> void:
-	var shield_node: ShieldNode = ShieldNode.create(shield)
-	shield_container.add_child(shield_node)
+func _on_shield_added(shield: Shield, merged: bool) -> void:
+	if not merged:
+		var shield_node: ShieldNode = ShieldNode.create(shield)
+		shield_container.add_child(shield_node)
 	update_display()
 
-func _on_shield_removed(shield: Shield) -> void:
+func _on_shield_removed(_shield: Shield) -> void:
 	update_display()
 
 func sort_shields() -> void:

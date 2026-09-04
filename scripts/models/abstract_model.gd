@@ -11,11 +11,13 @@ var is_mutable: bool = false
 var is_base: bool:
 	get(): return not is_mutable
 
-## An id for identifying the model.
+## An id for identifying the model. See [member id_snakecase]
 var id: String = ""
+var id_snakecase: String = ""
 
 func _init() -> void:
 	id = get_id_name()
+	id_snakecase = id.to_snake_case()
 
 ## Create a mutable clone. When cloning a base instance, consider using [clone_mutable_from_base].
 func clone_mutable() -> AbstractModel:
@@ -54,8 +56,7 @@ func assert_base() -> void:
 func after_cloned() -> void:
 	pass
 
-# WARNING: UNUSED. Can be used for automating things like image sources based on script name, which seems nice.
-## Returns the id_name of this model
+## Returns the id of this model. See [member id].
 func get_id_name() -> String:
 	return (get_script() as Script).get_global_name()
 

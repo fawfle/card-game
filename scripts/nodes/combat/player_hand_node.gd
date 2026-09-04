@@ -18,13 +18,15 @@ func set_selected_card(card_node: CardNode) -> void:
 	for child in selected_container.get_children():
 		child.reparent(card_container)
 	
-	card_node.reparent(selected_container)
-	
-	if current_card_play: current_card_play.queue_free() ## could break stuff
+	if current_card_play: current_card_play.queue_free() # could break stuff
 	current_card_play = CardPlayNode.create(card_node)
-	add_child(current_card_play)
 	current_card_play.started.connect(_on_card_play_started)
 	current_card_play.finished.connect(_on_card_play_finished)
+	current_card_play.hand_index = card_node.get_index()
+	
+	card_node.reparent(selected_container)
+	add_child(current_card_play)
+	
 	current_card_play.start()
 
 func cancel_current_card_play() -> void:
@@ -41,3 +43,4 @@ func _on_card_play_started(card_play: CardPlayNode) -> void:
 func _on_card_play_finished(card_play: CardPlayNode, success: bool) -> void:
 	if not success:
 		card_play.card_node.reparent(card_container)
+		card_container.move_child(card_play.card_node, card_play.hand_index)

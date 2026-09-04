@@ -4,7 +4,8 @@ class_name Creature
 signal on_max_hp_changed(old_max_hp: int, new_max_hp: int)
 signal on_current_hp_changed(on_hp: int, new_hp: int)
 
-signal on_shield_added(shield: Shield)
+## Emitted when a shield is added. NOT emitted when a shield is merged instead of added.
+signal on_shield_added(shield: Shield, merged: bool)
 signal on_shield_removed(shield: Shield)
 
 signal on_effects_changed(new_effects: Array[EffectModel])
@@ -65,7 +66,7 @@ static func from_enemy(enemy_model: EnemyModel) -> Creature:
 ## Called by the [CombatManager]. Use to handle real time mechanics, like shield timers.
 func combat_process(delta: float) -> void:
 	for shield: Shield in shield_queue.shields:
-		if shield.card_source == null: shield.add_timeout_delta(delta)
+		if not shield.is_permanent and shield.card_source == null: shield.add_timeout_delta(delta)
 	for effect: EffectModel in effects:
 		if effect.is_temporary: effect.add_timeout_delta(delta)
 
@@ -89,8 +90,8 @@ func damage_shield_internal(amount: int, dealer: Creature = null) -> int:
 
 ## Avoid use. See [method CreatureCommand.add_shield].
 func add_shield_internal(shield: Shield):
-	shield_queue.add(shield)
-	on_shield_added.emit(shield)
+	var merged: bool = shield_queue.add(shield)
+	on_shield_added.emit(shield, merged)
 
 ## Avoid use. See [method CreatureCommand.remove_shield].
 func remove_shield_internal(shield: Shield):
@@ -106,6 +107,10 @@ func remove_effect_internal(effect: EffectModel) -> void:
 	if not effects.has(effect): push_error("trying to remove effect that is not on creature")
 	effects.erase(effect)
 	on_effects_changed.emit(effects)
+
+func get_visuals() -> PackedScene:
+	if enemy != null: return enemy.get_visuals()
+	return null
 
 ## If the creature has an effect of the same type and same duration_type, return it. Otherwise, returns null.
 func get_effect_instance(effect: EffectModel) -> EffectModel:

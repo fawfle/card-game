@@ -41,6 +41,28 @@ static func initialize() -> void:
 static func _get_model(type: Script) -> AbstractModel:
 	return _models_by_script[type]
 
+static func get_model_by_global_name(global_name: String) -> AbstractModel:
+	for script: Script in _models_by_script.keys():
+		if script.get_global_name() == global_name:
+			return _get_model(script)
+	return null
+
+## returns all models with the same DIRECT base script.
+static func get_all_models_by_base_script(type: Script) -> Array[AbstractModel]:
+	var res: Array[AbstractModel] = []
+	for script: Script in _models_by_script.keys():
+		if script.get_base_script() == type:
+			res.append(_get_model(script))
+	return res
+
+## Returns the scripts of all models with the same DIRECT base script.
+static func get_all_model_scripts_by_base_script(type: Script) -> Array[Script]:
+	var res: Array[Script] = []
+	for script: Script in _models_by_script.keys():
+		if script.get_base_script() == type:
+			res.append(script)
+	return res
+
 static func card(type: Script) -> CardModel:
 	return _get_model(type)
 

@@ -4,6 +4,7 @@ var combat_state: CombatState = null
 
 
 static func create_from_encounter(run_state: RunState, encounter: EncounterModel):
+	encounter.assert_mutable()
 	var room: CombatRoom = CombatRoom.new()
 	room.combat_state = CombatState.create_from_encounter(run_state, encounter)
 	return room

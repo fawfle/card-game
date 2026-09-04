@@ -183,12 +183,12 @@ static func modify_damage(run_state: RunState, combat_state: CombatState, target
 ## Modify a shield. Additive effects are applied first, followed by multiplicative effects. [br][br]
 ## See [method AbstractModel.modify_shield_additive] and [method AbstractModel.modify_shield_multiplicative].
 static func modify_shield(combat_state: CombatState, creature: Creature, shield: Shield, card_source: CardModel) -> Shield:
-	var initial_shield = shield.initial_shield
+	var shield_amount = shield.current_shield
 	for model: AbstractModel in combat_state.get_hook_listeners():
-		initial_shield += model.modify_shield_additive(creature, initial_shield, card_source)
+		shield_amount += model.modify_shield_additive(creature, shield_amount, card_source)
 	for model: AbstractModel in combat_state.get_hook_listeners():
-		initial_shield *= model.modify_shield_multiplicative(creature, initial_shield, card_source)
+		shield_amount *= model.modify_shield_multiplicative(creature, shield_amount, card_source)
 	
-	shield.initial_shield = initial_shield
+	shield.current_shield = shield_amount
 	
 	return shield
