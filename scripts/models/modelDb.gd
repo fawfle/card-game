@@ -36,6 +36,9 @@ static func initialize() -> void:
 		var script: Script = load(model_class_dictinary["path"])
 		_models_by_script[script] = script.new()
 	
+	for model: AbstractModel in _models_by_script.values():
+		model._after_model_db_initialized()
+	
 	print("ModelDb initialize() took %d usecs" % ((Time.get_ticks_usec() - start_time_usec)))
 
 static func _get_model(type: Script) -> AbstractModel:
@@ -64,6 +67,9 @@ static func get_all_model_scripts_by_base_script(type: Script) -> Array[Script]:
 	return res
 
 static func card(type: Script) -> CardModel:
+	return _get_model(type)
+
+static func card_pool(type: Script) -> CardPoolModel:
 	return _get_model(type)
 
 static func character(type: Script) -> CharacterModel:

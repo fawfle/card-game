@@ -23,7 +23,7 @@ func from_creature(applier: Creature) -> EffectCommand:
 	_applier = applier
 	return self
 
-## Sets the applier and card_source to be a card. Do not need to call other "from" methods like [method from_creature].
+## Sets the applier and card_source to be a card. Do not need to call other "from" methods like [method from_creature]. NOTE: WILL BIND EFFECT TO CARD!!
 func from_card(card_source: CardModel) -> EffectCommand:
 	if _applier: push_error("effect command already has an applier")
 	_card_source = card_source
@@ -38,5 +38,6 @@ func with_duration(duration: float) -> EffectCommand:
 func execute() -> void:
 	var effect: EffectModel = ModelDb.effect(_type).clone_mutable_from_base()
 	effect.amount = _amount
-	if _duration != -1: effect.duration = _duration
+	if _duration != -1: effect._duration = _duration
+	if _card_source: effect.bind_to_card(_card_source)
 	CreatureCommand.apply_effect(_target, effect, _applier, _card_source)

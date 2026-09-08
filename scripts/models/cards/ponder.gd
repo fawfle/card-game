@@ -5,9 +5,9 @@ func get_icon() -> Texture2D: return preload("res://assets/icons/brain_icon.webp
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.NONE
 
-var draw_amount: int = 3
+var draw_amount: int = 2
 
-func get_pathos_cost() -> int: return 1
+func get_pathos_cost() -> int: return 2
 
 func get_description() -> String: return "Draw %s cards." % draw_amount
 

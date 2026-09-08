@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://6lcwfmacpbv1"]
+
+[ext_resource type="Script" uid="uid://dhy13w2wh7p4n" path="res://scripts/nodes/screens/card_reward_screen.gd" id="1_vyehf"]
+
+[node name="CardRewardScreen" type="Control" unique_id=1215708551]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vyehf")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1596407438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="Label" type="Label" parent="." unique_id=479791020]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = -299.5
+offset_right = 58.5
+offset_bottom = -276.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "SELECT A CARD"
+
+[node name="CardContainer" type="HBoxContainer" parent="." unique_id=198966383]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 300
+alignment = 1
+
+[node name="SkipButton" type="Button" parent="." unique_id=993131345]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.0
+offset_top = -324.0
+offset_right = 69.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Skip"

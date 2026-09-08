@@ -66,9 +66,9 @@ static func from_enemy(enemy_model: EnemyModel) -> Creature:
 ## Called by the [CombatManager]. Use to handle real time mechanics, like shield timers.
 func combat_process(delta: float) -> void:
 	for shield: Shield in shield_queue.shields:
-		if not shield.is_permanent and shield.card_source == null: shield.add_timeout_delta(delta)
+		if shield.has_delta_timeout: shield.add_timeout_delta(delta)
 	for effect: EffectModel in effects:
-		if effect.is_temporary: effect.add_timeout_delta(delta)
+		if effect.has_delta_timeout: effect.add_timeout_delta(delta)
 
 ## Avoid use. See [method CreatureCommand.damage_creature].
 func lose_hp_internal(amount: int) -> void:
@@ -82,7 +82,7 @@ func damage_shield_internal(amount: int, dealer: Creature = null) -> int:
 		var shield: Shield = shield_queue.get_front()
 		shield.current_shield -= amount_left
 		amount_left = -shield.current_shield
-		if shield.current_shield <= 0:
+		if shield.current_shield <= 0 or shield.is_fragile:
 			shield.destroy_shield(dealer)
 		
 		if amount_left <= 0: return 0
@@ -112,11 +112,14 @@ func get_visuals() -> PackedScene:
 	if enemy != null: return enemy.get_visuals()
 	return null
 
-## If the creature has an effect of the same type and same duration_type, return it. Otherwise, returns null.
+## If the creature has an effect that is permanent or purely on a timer, return it. Otherwise, returns null. Effects bound to cards are separate.
 func get_effect_instance(effect: EffectModel) -> EffectModel:
 	for current_effect: EffectModel in effects:
-		if current_effect.get_script() == effect.get_script() and current_effect.is_temporary == effect.is_temporary:
-			return current_effect
+		if current_effect.get_script() == effect.get_script():
+			if current_effect.is_permanent and effect.is_permanent:
+				return current_effect
+			elif current_effect.has_delta_timeout and effect.has_delta_timeout:
+				return current_effect
 	return null
 
 func get_run_state() -> RunState:

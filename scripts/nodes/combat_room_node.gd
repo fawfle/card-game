@@ -63,6 +63,8 @@ func get_creature_node(creature: Creature) -> CreatureNode:
 	return null
 
 func _on_combat_won() -> void:
+	await get_tree().create_timer(0.5).timeout
+	_combat_room.offer_rewards()
 	proceed_button.visible = true
 
 func _on_proceed_button_pressed() -> void:

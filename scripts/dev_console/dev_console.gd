@@ -8,6 +8,8 @@ var history: PackedStringArray = []
 var history_index: int = -1
 
 func _init() -> void:
+	_add_command(DevConsoleCommand.new("help", func(_args: PackedStringArray) -> String:
+		return "\n".join(_commands.keys())))
 	_add_command(DevConsoleCommand.new("test", func(args: PackedStringArray): return "test command args: " + " ".join(args)))
 	_add_command(DevConsoleCommand.new("draw", func(args: PackedStringArray):
 		if CombatManager.instance.is_over_or_completing: return "No combat is in progress."
@@ -26,6 +28,7 @@ func _init() -> void:
 		return "Killing first creature."
 		))
 	_add_command(ConsoleCommandEncounter.new("encounter"))
+	_add_command(ConsoleCommandCard.new("card"))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:
@@ -39,7 +42,7 @@ func process_command(input: String) -> String:
 	if not command: 
 		return "command '%s' not found" % args[0]
 	
-	return command.process.call(args)
+	return command.execute.call(args)
 
 func get_completions(input: String) -> CompletionResults:
 	var completion_results: CompletionResults = CompletionResults.new()
@@ -57,7 +60,8 @@ func get_completions(input: String) -> CompletionResults:
 	# handle completing command arguments
 	var current_command: DevConsoleCommand = _commands.get(args[0])
 	if current_command:
-		completion_results.prefix = current_command.command_name + " "
+		completion_results.prefix = ""
+		for i in range(len(args) - 1): completion_results.prefix += args[i] + " "
 		completion_results.completions = current_command.get_argument_completions(args)
 	
 	return completion_results

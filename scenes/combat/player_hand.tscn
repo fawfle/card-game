@@ -12,6 +12,18 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_mqwil")
 
+[node name="CancelCardPlayArea" type="Control" parent="." unique_id=376244744]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -163.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
 [node name="CardContainer" type="HBoxContainer" parent="." unique_id=1476989850]
 unique_name_in_owner = true
 layout_mode = 1
@@ -30,6 +42,7 @@ theme_override_constants/separation = 170
 alignment = 1
 
 [node name="SelectedContainer" type="Control" parent="." unique_id=157984729]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -66,6 +66,9 @@ func get_description() -> String: return "Broken Description"
 
 func get_icon() -> Texture2D: return null
 
+## Returns the model's ID name by default. For multi word titles, override this. TODO: automate this?
+func get_title() -> String: return get_id_name()
+
 ## WARNING: Update if multiple enemies or allies are supported.
 func get_target() -> Creature:
 	match(get_target_type()):
@@ -94,7 +97,7 @@ func in_play_process(delta: float) -> void:
 	pass
 
 ## Runs when the card times out due to its duration reaching 0. This will not run if the card is cancelled, but some effects can timeout cards instead.
-func on_timeout() -> void:
+func on_timeout(card_play: CardPlay) -> void:
 	pass
 
 ## Runs when the card is cancelled. If cancelled, this card won't timeout normally.
@@ -103,13 +106,21 @@ func on_cancelled(creature_source: Creature) -> void:
 
 ## What happens when the card exits play for any reason, either by timing out or being cancelled. [br][br]
 ## For more specific control, see [method on_timeout] and [method on_cancelled].
-func on_exit_play() -> void:
+func on_exit_play(card_play: CardPlay) -> void:
 	pass
 
 func can_play() -> bool:
 	if combat_state == null or owner.player_combat_state == null:
+		push_warning("trying to play card without a combat_state or player_combat_state")
 		return false
 	return owner.player_combat_state.has_enough_resources_to_play(self)
+
+## Not ideal (I wish there were out parameters) but probably easier to keep it separate, just more annoying to maintain. for logic, use [method can_play] since NONE doesn't mean the card is playable.
+func get_unplayable_reason() -> Constants.UnplayableReason:
+	var unplayable_reason: Constants.UnplayableReason = Constants.UnplayableReason.NONE
+	unplayable_reason = owner.player_combat_state.get_resource_unplayable_reason(self)
+	# if unplayable_reason != Constants.UnplayableReason.NONE: return unplayable_reason
+	return unplayable_reason
 
 ## Spend resources to play this card. Does not check if the player actually has the required resources. Checking should be done by [method can_play].
 func spend_resources() -> void:

@@ -36,14 +36,20 @@ func enter_map_point(map_point: MapPoint) -> void:
 	run_state.visit_map_point(map_point)
 	if map_point.point_type == Constants.MapPointType.DEBATE:
 		MapScreen.instance.set_travel_enabled(false)
-		var encounter: EncounterModel = run_state.act.get_normal_encounters()[0].encounters.pick_random().clone_mutable_from_base()
+		var encounter: EncounterModel = run_state.get_next_encounter_set().encounters.pick_random().clone_mutable_from_base()
+		run_state.encounters_had_this_map += 1
+		var combat_room: CombatRoom = CombatRoom.create_from_encounter(run_state, encounter)
+		enter_room(combat_room)
+	if map_point.point_type == Constants.MapPointType.BOSS:
+		MapScreen.instance.set_travel_enabled(false)
+		var encounter: EncounterModel = run_state.act.boss_encounter_set.encounters.pick_random().clone_mutable_from_base()
 		var combat_room: CombatRoom = CombatRoom.create_from_encounter(run_state, encounter)
 		enter_room(combat_room)
 	
 	map_point_visited.emit(map_point)
 
-## Enter a room. Not to be confused with [method enter_map_point] which is used for entering a point on the map.
-func enter_room(room: CombatRoom) -> void:
+## Enter a room. Not to be confused with [method enter_map_point] which is used for entering a point on the map. [method enter_map_point] usually ends up calling this method.
+func enter_room(room: AbstractRoom) -> void:
 	if run_state.current_room: run_state.current_room.exit()
 	MapScreen.instance.close()
 	room.enter(run_state)

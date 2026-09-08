@@ -23,6 +23,9 @@ var model: CardModel = null
 @onready var pathos_label: Label = %PathosLabel
 @onready var logos_label: Label = %LogosLabel
 
+var _pathos_flash_tween: Tween = null
+var _logos_flash_tween: Tween = null
+
 static func create(card_model: CardModel) -> CardNode:
 	var card: CardNode = SCENE.instantiate()
 	card.model = card_model
@@ -37,7 +40,7 @@ func _process(delta: float) -> void:
 
 func update_visuals() -> void:
 	if model == null: push_error("Cannot update visuals without a model. Make sure to use create().")
-	title_label.text = model.get_id_name()
+	title_label.text = model.get_title()
 	description.text = model.get_description()
 	duration_label.text = str(model.get_play_duration())
 	if duration_label.text == "0.0": duration_label.text = "!"
@@ -61,6 +64,19 @@ func update_card_play_visuals():
 		play_timer_progress_bar.value = model.active_card_play.play_time_left
 	else:
 		play_timer_progress_bar.hide()
+
+## Flash the pathos cost. For example, if the player doesn't have enough to afford to play the card.
+func flash_pathos_cost() -> void:
+	if _pathos_flash_tween: _pathos_flash_tween.kill()
+	_pathos_flash_tween = create_tween()
+	_pathos_flash_tween.tween_property(pathos_icon, "modulate:a", 0.6, 0.15)
+	_pathos_flash_tween.tween_property(pathos_icon, "modulate:a", 1.0, 0.3)
+
+func flash_logos_cost() -> void:
+	if _logos_flash_tween: _logos_flash_tween.kill()
+	_logos_flash_tween = create_tween()
+	_logos_flash_tween.tween_property(logos_icon, "modulate:a", 0.6, 0.15)
+	_logos_flash_tween.tween_property(logos_icon, "modulate:a", 1.0, 0.3)
 
 func _on_pressed():
 	pressed.emit(self)

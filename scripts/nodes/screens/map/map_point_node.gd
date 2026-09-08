@@ -10,6 +10,7 @@ const SCENE: PackedScene = preload("res://scenes/screens/map/map_point.tscn")
 var map_point: MapPoint
 
 @onready var button: TextureButton = %Button
+@onready var icon: TextureRect = %Icon
 
 static func create(point: MapPoint) -> MapPointNode:
 	var map_point_node: MapPointNode = SCENE.instantiate()
@@ -32,6 +33,8 @@ func update_visuals() -> void:
 		modulate = Color(0,0,0,0.25)
 	else:
 		modulate = Color(0,0,0,1)
+	
+	icon.offset_transform_scale = Vector2.ONE * (1.3 if map_point.point_type == Constants.MapPointType.BOSS else 1.0)
 
 func _on_map_point_visited(_map_point: MapPoint):
 	update_visuals()

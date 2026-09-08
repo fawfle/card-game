@@ -11,6 +11,7 @@ var creature: Creature = null
 var total_duration_seconds: float = -1
 var card_source: CardModel = null
 var destroy_card_if_removed: bool = false
+var _is_fragile: bool = false
 
 func _init(target_creature: Creature) -> void:
 	creature = target_creature
@@ -32,10 +33,14 @@ func with_duration(duration_seconds: float) -> ShieldCommand:
 	total_duration_seconds = duration_seconds
 	return self
 
+func make_fragile() -> ShieldCommand:
+	_is_fragile = true
+	return self
+
 ## Apply shield to the creature.
 func execute() -> void:
 	var shield: Shield = Shield.new(creature, shield_amount, priority)
 	if card_source: shield.bind_to_card(card_source, destroy_card_if_removed)
 	elif total_duration_seconds != -1: shield.set_duration(total_duration_seconds)
-	
+	shield.is_fragile = _is_fragile
 	CreatureCommand.add_shield(creature, shield, card_source)

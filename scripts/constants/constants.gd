@@ -39,6 +39,14 @@ const ATTACK_ANIMATION = "attack"
 enum MapPointType {
 	NONE,
 	DEBATE,
-	SHOP,
 	BOSS,
+	SHOP,
+}
+
+## A reason for a cardplay not being playable
+enum UnplayableReason {
+	NONE,
+	NOT_ENOUGH_PATHOS,
+	NOT_ENOUGH_LOGOS,
+	NOT_ENOUGH_PATHOS_OR_LOGOS,
 }

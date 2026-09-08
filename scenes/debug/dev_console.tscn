@@ -61,6 +61,7 @@ offset_top = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 keep_editing_on_text_submit = true
+shortcut_keys_enabled = false
 
 [node name="GhostText" type="LineEdit" parent="InputContainer" unique_id=2063909081]
 unique_name_in_owner = true

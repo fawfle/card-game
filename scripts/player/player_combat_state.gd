@@ -104,3 +104,11 @@ func has_enough_resources_to_play(card: CardModel) -> bool:
 	if pathos_cost > pathos: return false
 	if logos_cost > logos: return false
 	return true
+
+func get_resource_unplayable_reason(card: CardModel) -> Constants.UnplayableReason:
+	var pathos_cost: int = max(0, card.get_pathos_cost_with_modifiers())
+	var logos_cost: int = max(0, card.get_logos_cost_with_modifiers())
+	if pathos_cost > pathos and logos_cost > logos: return Constants.UnplayableReason.NOT_ENOUGH_PATHOS_OR_LOGOS
+	if pathos_cost > pathos: return Constants.UnplayableReason.NOT_ENOUGH_PATHOS
+	if logos_cost > logos: return Constants.UnplayableReason.NOT_ENOUGH_LOGOS
+	return Constants.UnplayableReason.NONE

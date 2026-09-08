@@ -29,8 +29,13 @@ func start() -> void:
 		finished.emit(self, false)
 		return
 	
-	var cancelled: bool = await start_card_drag()
-	if cancelled:
+	var cancelled_during_drag: bool = await start_card_drag()
+	if cancelled_during_drag:
+		finished.emit(self, false)
+		return
+	
+	var cursor_in_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().has_point(get_global_mouse_position())
+	if cursor_in_cancel_area:
 		finished.emit(self, false)
 		return
 	

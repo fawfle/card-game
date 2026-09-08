@@ -10,12 +10,12 @@ func get_play_duration() -> float: return 1.00
 
 func get_pathos_cost() -> int: return 1
 
-func get_description() -> String: return "Gain %d shield. If the shield is broken, deal %d damage." % [shield_amount, counter_amount]
+func get_description() -> String: return "Gain %d shield. If the shield is broken, deal %d damage. Fragile." % [shield_amount, counter_amount]
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
 func on_play(card_play: CardPlay) -> void:
-	ShieldCommand.new(card_play.card.owner.creature).with_shield(shield_amount).from_card(self).with_priority(Constants.ShieldPriority.COUNTER).execute()
+	ShieldCommand.new(card_play.card.owner.creature).with_shield(shield_amount).from_card(self).with_priority(Constants.ShieldPriority.COUNTER).make_fragile().execute()
 
 func on_cancelled(creature_source: Creature) -> void:
 	if creature_source.enemy:

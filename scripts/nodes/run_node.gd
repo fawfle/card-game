@@ -20,6 +20,9 @@ static func create(run_state: RunState) -> RunNode:
 	run_node._state = run_state
 	return run_node
 
+func _ready() -> void:
+	global_ui.initialize(_state)
+
 ## Clear the current room. Probably unecesary.
 func clear_current_room() -> void:
 	_room_container.set_current_scene(null)

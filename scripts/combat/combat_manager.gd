@@ -15,7 +15,7 @@ var combat_state: CombatState = null
 
 var is_in_progress: bool = false
 var is_over_or_completing: bool:
-	get(): return not is_in_progress or is_combat_completed()
+	get(): return not is_in_progress or is_combat_won()
 
 ## Called internally by [method start_combat] to set up combat. Organizational.
 func _set_up_combat_internal(state: CombatState) -> void:
@@ -58,16 +58,16 @@ func lose_combat() -> void:
 
 ## Check if combat is over.
 func check_if_combat_ended() -> bool:
-	if is_combat_completed():
-		complete_combat_internal()
+	if is_combat_won():
+		win_combat_internal()
 	
 	return is_in_progress
 
-func is_combat_completed() -> bool:
+func is_combat_won() -> bool:
 	return combat_state.enemies.is_empty()
 
 ## Ends combat in a WINNING state.
-func complete_combat_internal() -> void:
+func win_combat_internal() -> void:
 	is_in_progress = false
 	combat_ended.emit()
 	combat_won.emit()

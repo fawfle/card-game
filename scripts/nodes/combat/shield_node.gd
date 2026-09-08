@@ -22,6 +22,9 @@ static func create(shield: Shield) -> ShieldNode:
 	if shield.is_permanent:
 		shield_node.modulate = PERMANENT_COLOR
 	
+	if shield.is_fragile:
+		shield_node.modulate.a = 0.5
+	
 	return shield_node
 
 func _ready() -> void:

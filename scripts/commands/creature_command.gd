@@ -46,15 +46,15 @@ static func add_shield(creature: Creature, shield: Shield, card_source: CardMode
 static func remove_shield(creature: Creature, shield: Shield) -> void:
 	creature.remove_shield_internal(shield)
 
-## For [param effect_base]. Create the effect using [EffectCommand]. Avoid using directly, see [method EffectCommand.execute].
+## For [param effect_base]. Create the effect using [EffectCommand]. Avoid using directly, see [method EffectCommand.execute]. For example, effects that are bound to cards must be bound before applying (kind of cursed)
 static func apply_effect(target: Creature, effect_model: EffectModel, applier: Creature, card_source: CardModel) -> void:
 	var effect: EffectModel = find_existing_effect_for_stacking(target, effect_model)
 	if effect != null:
 		effect.amount += effect_model.amount
 		# find_existing_effect_for_stacking ensures that both effect and effect_model have same temporary type.
-		if effect.is_temporary:
-			effect.time_left += effect_model.duration
-			effect.duration += effect_model.duration
+		if effect.has_delta_timeout:
+			effect.add_time_left(effect_model.get_duration())
+			effect.duration += effect_model.get_duration()
 		return
 	
 	if effect == null: effect = effect_model
@@ -68,6 +68,5 @@ static func find_existing_effect_for_stacking(target: Creature, effect: EffectMo
 
 static func play_animation(creature: Creature, animation: String) -> void:
 	var creature_node: CreatureNode = creature.get_creature_node()
-	if not creature_node: return
-	creature_node.animation_player.stop()
-	creature_node.animation_player.play(animation)
+	if not creature_node or not creature_node.visuals: return
+	creature_node.visuals.try_play_animation(animation)

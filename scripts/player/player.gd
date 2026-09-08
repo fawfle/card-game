@@ -78,8 +78,12 @@ func populate_deck(cards: Array[CardModel]) -> void:
 	if not deck.cards.is_empty(): push_error("deck is not empty.")
 	for card: CardModel in cards:
 		if not card.is_mutable: push_error("deck should not be populated with base cards.")
-		card.owner = self
+		register_card(card)
 		deck.add_internal(card)
+
+func register_card(card: CardModel) -> void:
+	if card.owner and card.owner != self: push_error("trying to register a card to a player that already has an owner")
+	card.owner = self
 
 ## Helper function to do null checking and avoid explicitly accessing player_combat_state. Could be dumb and have overhead.
 func get_pile(type: Constants.PileType) -> CardPile:

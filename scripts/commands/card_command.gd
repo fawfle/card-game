@@ -28,9 +28,9 @@ static func play(card: CardModel, target: Creature) -> void:
 		card_play.play_time_left -= delta
 		card.in_play_process(delta)
 	if card_play.cancelled: card.on_cancelled(card_play.cancelled_creature_source)
-	if card_play.play_time_left == 0: card.on_timeout()
+	if card_play.play_time_left <= 0: card.on_timeout(card_play)
 	
-	card.on_exit_play()
+	card.on_exit_play(card_play)
 	card.active_card_play = null
 	await Hook.after_card_played(combat_state, card_play)
 	card.exited_play.emit()

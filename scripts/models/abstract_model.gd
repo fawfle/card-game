@@ -19,6 +19,10 @@ func _init() -> void:
 	id = get_id_name()
 	id_snakecase = id.to_snake_case()
 
+## Called after model_db is initialized.
+func _after_model_db_initialized() -> void:
+	pass
+
 ## Create a mutable clone. When cloning a base instance, consider using [clone_mutable_from_base].
 func clone_mutable() -> AbstractModel:
 	## TODO: Make sure duplicate here actually works. If not, implement a custom copy function.

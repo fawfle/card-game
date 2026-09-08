@@ -1,6 +1,7 @@
 class_name CreatureNode extends Control
 
 static var SCENE: PackedScene = preload("res://scenes/combat/creature.tscn")
+static var DEBUG_VISUALS_SCENE: PackedScene = preload("res://scenes/creature_visuals/debug_visuals.tscn")
 
 var entity: Creature = null
 
@@ -14,8 +15,7 @@ var visuals: CreatureVisuals
 @onready var intents_container: HBoxContainer = %IntentsContainer
 @onready var effects_container: HBoxContainer = %EffectsContainer
 
-@onready var sprite_container: Node2D = $SpriteContainer
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var visuals_container: Node2D = %VisualsContainer
 
 static func create(creature: Creature) -> CreatureNode:
 	var creature_node: CreatureNode = SCENE.instantiate()
@@ -26,18 +26,18 @@ static func create(creature: Creature) -> CreatureNode:
 	
 	var visuals_scene: PackedScene = creature.get_visuals()
 	if visuals_scene: creature_node.visuals = visuals_scene.instantiate()
+	else: creature_node.visuals = DEBUG_VISUALS_SCENE.instantiate()
 	return creature_node
 
 func _ready() -> void:
 	CombatManager.instance.combat_started.connect(_on_combat_started)
 	health_bar.set_creature(entity)
 	# added here to ensure in scene tree
-	if visuals:
-		sprite_container.add_child(visuals)
+	if visuals: visuals_container.add_child(visuals)
 	health_bar.update_display()
 	
 	# WARNING: Bad form. Probably change in the future.
-	sprite_container.scale.x = -1 if entity.side == Constants.CombatSide.ENEMY else 1
+	visuals_container.scale.x = -1 if entity.side == Constants.CombatSide.ENEMY else 1
 
 func _on_combat_started(_combat_state: CombatState) -> void:
 	if entity.enemy: update_intents()

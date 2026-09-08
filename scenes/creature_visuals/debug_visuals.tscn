@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cxwfj2t005pgi"]
+
+[ext_resource type="Texture2D" uid="uid://duxj2bjf8r4ek" path="res://icon.svg" id="1_e1t7u"]
+[ext_resource type="Script" uid="uid://m267tcd3vdyv" path="res://scripts/nodes/combat/creature_visuals.gd" id="1_ppo36"]
+
+[sub_resource type="Animation" id="Animation_6l14h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -64)]
+}
+
+[sub_resource type="Animation" id="Animation_p3ge0"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(0, -64), Vector2(20, -64), Vector2(0, -64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppo36"]
+_data = {
+&"RESET": SubResource("Animation_6l14h"),
+&"attack": SubResource("Animation_p3ge0")
+}
+
+[node name="DebugCreatureVisuals" type="Node2D" unique_id=676841033]
+script = ExtResource("1_ppo36")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1655647980]
+position = Vector2(0, -64)
+texture = ExtResource("1_e1t7u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1015905937]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_ppo36")

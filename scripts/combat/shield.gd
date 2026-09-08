@@ -11,6 +11,9 @@ var creature: Creature
 
 var current_shield: int = 0
 
+## If this shield should be destroyed after being damaged
+var is_fragile: bool = false
+
 ## Card that created this shield. Used to listen to card events.
 var card_source: CardModel = null
 var _destroy_card_if_destroyed: bool = false
@@ -23,8 +26,12 @@ var _time_spent_in_play: float = -1
 
 var _removed: bool = false
 
-var _has_timeout_condition:
+var _has_timeout_condition: bool:
 	get(): return card_source != null or total_duration_seconds != -1
+
+## True if shield should handle its own timeout (i.e. with add_timeout_delta)
+var has_delta_timeout: bool:
+	get(): return total_duration_seconds != -1 and card_source == null
 
 var priority: Constants.ShieldPriority = Constants.ShieldPriority.NONE
 
@@ -37,7 +44,7 @@ func _init(target_creature: Creature, shield_amount: int, shield_priority: Const
 func bind_to_card(card: CardModel, destroy_card_if_destroyed: bool = true) -> Shield:
 	if _has_timeout_condition: push_error("Shield already has a timeout condition")
 	card_source = card
-	card_source.exited_play.connect(on_card_source_exited)
+	card_source.exited_play.connect(_on_card_source_exited)
 	_destroy_card_if_destroyed = destroy_card_if_destroyed
 	return self
 
@@ -58,7 +65,7 @@ func add_timeout_delta(delta: float) -> void:
 		remove_from_creature_internal()
 
 
-func on_card_source_exited() -> void:
+func _on_card_source_exited() -> void:
 	remove_from_creature_internal()
 
 ## Call this if the shield is actively destroyed by having it's [member current_shield] hit 0. Takes the dealer so it can pass it to [method CardCommand.cancel_card].

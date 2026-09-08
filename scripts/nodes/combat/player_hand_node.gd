@@ -4,19 +4,30 @@ class_name PlayerHandNode extends Control
 var current_card_play: CardPlayNode = null
 
 @onready var card_container: HBoxContainer = %CardContainer
-@onready var selected_container: Control = $SelectedContainer
+@onready var selected_container: Control = %SelectedContainer
+
+@onready var cancel_card_play_area: Control = $CancelCardPlayArea
+
+func _process(_delta: float) -> void:
+	for card_node: CardNode in card_container.get_children():
+		var can_play: bool = card_node.model.can_play()
+		card_node.modulate.a = 1.0 if can_play else 0.8
 
 func get_selected_card() -> CardNode:
 	return selected_container.get_child(0)
 
 func add(card_node: CardNode) -> void:
+	if card_node.model.owner != RunManager.instance.run_state.player: push_error("card node is associated with a card model not owned by the player! Make sure to register with Player.register_card")
 	card_container.add_child(card_node)
 	card_node.pressed.connect(_on_card_pressed)
 
 func set_selected_card(card_node: CardNode) -> void:
 	if not CombatManager.instance.is_in_progress: return
+	
 	for child in selected_container.get_children():
 		child.reparent(card_container)
+	
+	card_node.modulate.a = 1.0
 	
 	if current_card_play: current_card_play.queue_free() # could break stuff
 	current_card_play = CardPlayNode.create(card_node)
@@ -44,3 +55,11 @@ func _on_card_play_finished(card_play: CardPlayNode, success: bool) -> void:
 	if not success:
 		card_play.card_node.reparent(card_container)
 		card_container.move_child(card_play.card_node, card_play.hand_index)
+		
+		var unplayable_reason: Constants.UnplayableReason = card_play.card_node.model.get_unplayable_reason()
+		match(unplayable_reason):
+			Constants.UnplayableReason.NOT_ENOUGH_PATHOS: card_play.card_node.flash_pathos_cost()
+			Constants.UnplayableReason.NOT_ENOUGH_LOGOS: card_play.card_node.flash_logos_cost()
+			Constants.UnplayableReason.NOT_ENOUGH_PATHOS_OR_LOGOS:
+				card_play.card_node.flash_pathos_cost()
+				card_play.card_node.flash_logos_cost()

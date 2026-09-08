@@ -26,5 +26,4 @@ func _on_pile_contents_changed() -> void:
 	card_grid.set_cards(_pile.cards)
 
 func _on_back_pressed() -> void:
-	if RunNode.instance.global_ui.overlay_screen.current_scene != self: return
-	RunNode.instance.global_ui.close_overlay_screen()
+	RunNode.instance.global_ui.close_overlay_screen_if_active(self)
