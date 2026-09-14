@@ -10,7 +10,7 @@ func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
 func get_play_duration() -> float: return 5.0
 
-func get_logos_cost() -> int: return 1 
+func get_pathos_cost() -> int: return 1 
 
 var support_amount: int = 1
 

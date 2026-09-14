@@ -14,4 +14,4 @@ static func play_on_creature_front(creature: Creature, vfx_scene: PackedScene) -
 	
 	await creature_node.get_tree().create_timer(0.5).timeout
 	
-	node.queue_free()
+	if node: node.queue_free()

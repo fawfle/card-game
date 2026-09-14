@@ -24,7 +24,7 @@ func _ready() -> void:
 		card_container.add_child(card_node)
 
 func _on_card_pressed(card_node: CardNode) -> void:
-	var card_to_add: CardModel = card_node.model.clone_mutable()
+	var card_to_add: CardModel = card_node.model
 	RunManager.instance.run_state.player.register_card(card_to_add)
 	CardPileCommand.add_to_pile(RunManager.instance.run_state.player.deck, card_to_add)
 	RunNode.instance.global_ui.close_overlay_screen_if_active(self)

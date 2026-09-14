@@ -9,7 +9,9 @@ func get_icon() -> Texture2D: return ICON
 
 var _damage: int = 0
 
-func get_label(owner: Creature, targets: Array[Creature]) -> String: return str(get_damage(owner, targets.get(0)))
+func get_label(owner: Creature, targets: Array[Creature]) -> String:
+	if targets.size() == 0: return str(_damage)
+	return str(get_damage(owner, targets.get(0)))
 
 func _init(damage: int) -> void:
 	_damage = damage

@@ -19,3 +19,6 @@ func get_starting_deck() -> Array[CardModel]: return [
 	ModelDb.card(TestConvincingCard),
 	ModelDb.card(TestConvincingCard),ModelDb.card(TestConvincingCard),
 ]
+
+func get_starting_card_pools() -> Array[CardPoolModel]:
+	return [ModelDb.card_pool(GenericCardPool), ModelDb.card_pool(GenericPathosCardPool)]

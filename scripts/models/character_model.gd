@@ -22,3 +22,6 @@ class_name CharacterModel extends AbstractModel
 @abstract func get_starting_pathos_time() -> float
 
 @abstract func get_starting_deck() -> Array[CardModel]
+
+## Get the default active card pools for this character
+@abstract func get_starting_card_pools() -> Array[CardPoolModel]

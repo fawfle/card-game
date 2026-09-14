@@ -24,3 +24,6 @@ func get_random_set(count: int) -> Array[CardModel]:
 		if not card_set.has(card): card_set.append(card)
 	
 	return card_set
+
+func get_random_card() -> CardModel:
+	return all_cards.pick_random()

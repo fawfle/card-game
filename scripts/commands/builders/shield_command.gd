@@ -4,6 +4,7 @@ class_name ShieldCommand
 ## Builds a shield using chained methods, like tweens. NOT static like other commands. Execute with [method execute].
 
 var shield_amount: float = 0
+## NONE by default. HOWEVER, if no priority is specified and the card is permanent, will be set to PERMANENT.
 var priority: Constants.ShieldPriority = Constants.ShieldPriority.NONE
 
 var creature: Creature = null
@@ -20,6 +21,7 @@ func with_shield(amount: float) -> ShieldCommand:
 	shield_amount = amount
 	return self
 
+## You do not need to call this if the shield is permanent and would have a priority of PERMANENT, but you probably should to be explicit.
 func with_priority(shield_priority: Constants.ShieldPriority) -> ShieldCommand:
 	priority = shield_priority
 	return self
@@ -40,6 +42,11 @@ func make_fragile() -> ShieldCommand:
 ## Apply shield to the creature.
 func execute() -> void:
 	var shield: Shield = Shield.new(creature, shield_amount, priority)
+	
+	if shield.is_permanent and priority == Constants.ShieldPriority.NONE:
+		push_warning("not explicit about a permanent shield's priority (most likely unset). Setting priority to PERMANENT.")
+		shield.priority = Constants.ShieldPriority.PERMANENT
+	
 	if card_source: shield.bind_to_card(card_source, destroy_card_if_removed)
 	elif total_duration_seconds != -1: shield.set_duration(total_duration_seconds)
 	shield.is_fragile = _is_fragile

@@ -29,6 +29,7 @@ func _init() -> void:
 		))
 	_add_command(ConsoleCommandEncounter.new("encounter"))
 	_add_command(ConsoleCommandCard.new("card"))
+	_add_command(ConsoleCommandUpgrade.new("upgrade"))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:
@@ -42,7 +43,7 @@ func process_command(input: String) -> String:
 	if not command: 
 		return "command '%s' not found" % args[0]
 	
-	return command.execute.call(args)
+	return await command.execute.call(args)
 
 func get_completions(input: String) -> CompletionResults:
 	var completion_results: CompletionResults = CompletionResults.new()

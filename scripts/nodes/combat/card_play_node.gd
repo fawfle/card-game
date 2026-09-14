@@ -26,21 +26,23 @@ func start() -> void:
 	if not card_node: push_error("should have card_node")
 	
 	if not card_node.model.can_play():
-		finished.emit(self, false)
-		return
-	
-	var cancelled_during_drag: bool = await start_card_drag()
-	if cancelled_during_drag:
-		finished.emit(self, false)
-		return
-	
-	var cursor_in_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().has_point(get_global_mouse_position())
-	if cursor_in_cancel_area:
-		finished.emit(self, false)
+		_stop_internal()
 		return
 	
 	# Target can be null! (for cards that do generic things like draw)
 	var target: Creature = card_node.model.get_target()
+	card_node.set_target(target)
+	
+	var cancelled_during_drag: bool = await start_card_drag()
+	if cancelled_during_drag:
+		_stop_internal()
+		return
+	
+	# Checks if the cursor is in the cancel area when the drag is finished
+	var cursor_in_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().has_point(get_global_mouse_position())
+	if cursor_in_cancel_area:
+		_stop_internal()
+		return
 	
 	started.emit(self)
 	
@@ -59,4 +61,10 @@ func start_card_drag() -> bool:
 	return false
 
 func cancel() -> void:
+	card_node.clear_target()
 	_cancelled = true
+
+## Readable version of emitting signal
+func _stop_internal() -> void:
+	card_node.clear_target()
+	finished.emit(self, false)

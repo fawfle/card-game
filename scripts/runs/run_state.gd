@@ -8,6 +8,9 @@ var act: ActModel = null
 var map: Map = null
 var current_room: CombatRoom = null
 
+## A list of card pools that are active for getting as rewards
+var active_card_pools: Array[CardPoolModel] = []
+
 ## Keep track of what map points the player has visited.
 var visited_map_points: Array[MapPoint] = []
 ## The current map point the player is at 
@@ -22,6 +25,8 @@ func _init(player_: Player, acts: Array[ActModel], seed: String) -> void:
 	
 	_acts = acts
 	act = _acts[0]
+	
+	active_card_pools = player.character.get_starting_card_pools()
 
 ## Updates variables that track MapPoints.
 func visit_map_point(map_point) -> void:

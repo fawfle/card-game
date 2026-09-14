@@ -58,3 +58,10 @@ static func discard_multiple(cards: Array[CardModel]) -> void:
 	var discard_pile: CardPile = cards[0].owner.get_pile(Constants.PileType.DISCARD)
 	for card: CardModel in cards:
 		await CardPileCommand.add_to_pile(discard_pile, card)
+
+# Possible TODO: make it so some upgrades can't apply to certain cards (to stop players from messing up)
+static func upgrade(card: CardModel, upgrade_model: UpgradeModel) -> void:
+	if not card.is_upgradeable: 
+		push_error("cannot upgrade card")
+		return
+	card.upgrade_internal(upgrade_model)

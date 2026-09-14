@@ -19,7 +19,8 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([shield_a_state, shield_b_state, shield_c_state], shield_a_state)
 
 func _shield_move() -> void:
-	ShieldCommand.new(self.creature).with_shield(shield_amount).execute()
+	## Just being explicit here.
+	ShieldCommand.new(self.creature).with_priority(Constants.ShieldPriority.PERMANENT).with_shield(shield_amount).execute()
 
 func _attack_move() -> void:
 	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_amount).execute()

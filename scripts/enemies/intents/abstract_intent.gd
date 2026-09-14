@@ -6,6 +6,9 @@ class_name AbstractIntent
 
 @abstract func get_icon() -> Texture2D
 
+## Get an extra icon for stuff like if an effect is a buff or debuff
+func get_extra_icon() -> Texture2D: return null
+
 func get_label(owner: Creature, targets: Array[Creature]) -> String: return ""
 
 func get_hover_tip(owner: Creature, targets: Array[Creature]) -> ToolTip:

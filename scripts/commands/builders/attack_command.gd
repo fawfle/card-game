@@ -16,7 +16,7 @@ var card_source: CardModel = null
 
 var attacker_vfx: PackedScene = null
 
-func with_damage(amount: int) -> AttackCommand:
+func with_damage(amount: float) -> AttackCommand:
 	damage = amount
 	return self
 

@@ -7,8 +7,8 @@ var damage_amount: int = 1
 var convincing_amount: int = 1
 
 func generate_move_state_machine() -> MoveStateMachine:
-	var attack_state: MoveState = MoveState.new("ATTACK", _attack_move, 2.0, [AttackIntent.new(damage_amount)])
-	var study_state: MoveState = MoveState.new("STUDY", _study_move, 5.0, [EffectIntent.new(ConvincingEffect, convincing_amount)])
+	var study_state: MoveState = MoveState.new("STUDY", _study_move, 5.0, [EffectIntent.new(ConvincingEffect, convincing_amount, EffectIntent.TARGET_TYPE.BUFF)])
+	var attack_state: MoveState = MoveState.new("ATTACK", _attack_move, 3.0, [AttackIntent.new(damage_amount)])
 	
 	attack_state.next_state = study_state
 	

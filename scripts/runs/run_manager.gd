@@ -58,3 +58,25 @@ func enter_room(room: AbstractRoom) -> void:
 func proceed_from_room() -> void:
 	MapScreen.instance.set_travel_enabled(true)
 	MapScreen.instance.open()
+
+## Get a random card set (no dupes) from all the active card sets.
+func get_random_card_set(count: int, mutable: bool = true) -> Array[CardModel]:
+	var card_set: Array[CardModel] = []
+	var all_cards: Array[CardModel] = get_all_cards()
+	if count > all_cards.size(): push_error("can't get a card set that's larger than the total number of cards in each cardpool")
+	
+	while card_set.size() < count:
+		var random_card: CardModel = all_cards.pick_random()
+		if mutable: random_card = random_card.clone_mutable_from_base()
+		all_cards.erase(random_card)
+		card_set.append(random_card)
+	
+	return card_set
+
+# TODO: idk if I want card pools to overlap. If I do, make this account for it.
+## Get every card in every card pool.
+func get_all_cards() -> Array[CardModel]:
+	var all_cards: Array[CardModel] = []
+	for pool: CardPoolModel in run_state.active_card_pools:
+		all_cards.append_array(pool.all_cards)
+	return all_cards

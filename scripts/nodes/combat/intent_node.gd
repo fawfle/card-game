@@ -9,6 +9,8 @@ var _creature_node: CreatureNode
 @onready var icon: TextureRect = %Icon
 @onready var radial_progress_bar: TextureProgressBar = %RadialProgressBar
 @onready var label: Label = %Label
+## An optional icon to display information like if an effect is a buff or debuff.
+@onready var extra_icon: TextureRect = %ExtraIcon
 
 static func create(intent: AbstractIntent, creature_node: CreatureNode) -> IntentNode:
 	var intent_node: IntentNode = SCENE.instantiate()
@@ -31,6 +33,10 @@ func _process(_delta: float) -> void:
 func update_visuals() -> void:
 	icon.texture = _intent.get_icon()
 	label.text = _intent.get_label(_creature_node.entity, CombatManager.instance.combat_state.allies)
+	
+	extra_icon.texture = _intent.get_extra_icon()
+
+	
 	update_progress_bar()
 
 func update_progress_bar() -> void:

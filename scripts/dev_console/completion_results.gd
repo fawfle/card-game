@@ -12,7 +12,9 @@ var has_unique_completion: bool:
 
 func get_best_completion() -> String:
 	if has_unique_completion: return get_unique_completion()
-	return prefix + get_longest_common_prefix()
+	var common_prefix: String = get_longest_common_prefix()
+	if common_prefix: return prefix + common_prefix
+	return ""
 
 ## If there is only 1 valid completion, return it. Otherwise returns and empty string.
 func get_unique_completion() -> String:

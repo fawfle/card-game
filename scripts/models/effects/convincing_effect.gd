@@ -4,7 +4,9 @@ const ICON: Texture2D = preload("res://assets/icons/weapon_icon.webp")
 
 func get_title() -> String: return "Convincing"
 
-func get_description() -> String: return "Increases all damage by %d" % amount
+func get_description() -> String:
+	if amount < 0: return "Decreases all damage by %d" % -amount
+	return "Increases all damage by %d" % amount
 
 func get_icon() -> Texture2D: return ICON
 

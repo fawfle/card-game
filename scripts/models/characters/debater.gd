@@ -25,3 +25,6 @@ func get_starting_deck() -> Array[CardModel]:
 		ModelDb.card(Ponder),
 		ModelDb.card(Counter),
 	]
+
+func get_starting_card_pools() -> Array[CardPoolModel]:
+	return [ModelDb.card_pool(GenericCardPool), ModelDb.card_pool(GenericPathosCardPool)]

@@ -82,7 +82,7 @@ func _process(_delta: float) -> void:
 
 func _on_input_submit(input: String) -> void:
 	input_line.clear()
-	var result: String = _dev_console.process_command(input)
+	var result: String = await _dev_console.process_command(input)
 	output_label.text = result
 
 func _on_text_changed(new_text: String) -> void:

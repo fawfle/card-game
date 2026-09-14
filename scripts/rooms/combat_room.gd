@@ -23,5 +23,5 @@ func exit() -> void:
 	RunNode.instance.clear_current_room()
 
 func offer_rewards() -> void:
-	var card_rewards: Array[CardModel] = ModelDb.card_pool(GenericCardPool).get_random_set(3)
+	var card_rewards: Array[CardModel] = RunManager.instance.get_random_card_set(3)
 	RunNode.instance.global_ui.set_overlay_screen(CardRewardScreen.create(card_rewards))

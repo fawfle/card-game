@@ -10,6 +10,9 @@ const SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
 
 var model: CardModel = null
 
+## The target of the CardNode. Used for previews. Logic should use the [CardModel] and [CardPlay].
+var _target: Creature = null
+
 @onready var title_label: Label = %TitleLabel
 @onready var description: RichTextLabel = %Description
 
@@ -41,7 +44,7 @@ func _process(delta: float) -> void:
 func update_visuals() -> void:
 	if model == null: push_error("Cannot update visuals without a model. Make sure to use create().")
 	title_label.text = model.get_title()
-	description.text = model.get_description()
+	description.text = model.get_formatted_description(model.get_card_pile_type(), _target)
 	duration_label.text = str(model.get_play_duration())
 	if duration_label.text == "0.0": duration_label.text = "!"
 	
@@ -64,6 +67,14 @@ func update_card_play_visuals():
 		play_timer_progress_bar.value = model.active_card_play.play_time_left
 	else:
 		play_timer_progress_bar.hide()
+
+func set_target(target: Creature) -> void:
+	_target = target
+	update_visuals()
+
+func clear_target() -> void:
+	_target = null
+	update_visuals()
 
 ## Flash the pathos cost. For example, if the player doesn't have enough to afford to play the card.
 func flash_pathos_cost() -> void:

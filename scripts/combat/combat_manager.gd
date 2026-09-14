@@ -86,6 +86,12 @@ func reset() -> void:
 func start_combat_manager_process() -> void:
 	while not is_over_or_completing:
 		await RunNode.instance.get_tree().process_frame
+		
+		if Input.is_key_pressed(KEY_SHIFT):
+			Engine.time_scale = 0.2
+		else:
+			Engine.time_scale = 1.0
+		
 		var delta: float = RunNode.instance.get_process_delta_time()
 		for player: Player in combat_state.get_players():
 			player.player_combat_state.combat_manager_process(delta)

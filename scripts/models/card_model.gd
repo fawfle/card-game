@@ -38,17 +38,38 @@ func get_card_pile() -> CardPile:
 	if index != -1: return piles[index]
 	return null
 
+func get_card_pile_type() -> Constants.PileType:
+	var pile: CardPile = get_card_pile()
+	if pile == null: return Constants.PileType.NONE
+	return pile.type
+
 var run_state: RunState:
 	get(): return owner.run_state if owner else null
 
 var combat_state: CombatState:
 	get(): return owner.creature.combat_state if owner else null
 
+var dynamic_variables: DynamicVariableSet = null:
+	get():
+		assert_mutable()
+		if dynamic_variables == null:
+			dynamic_variables = get_base_dynamic_variables()
+		return dynamic_variables
+
+func get_base_dynamic_variables() -> DynamicVariableSet: return null
+
 ## The CardPlay that "owns" this card. null if card isn't in play.
 var active_card_play: CardPlay = null
 
+func get_upgrade_slot_count() -> int: return 1
+var upgrades: Array[UpgradeModel] = []
+
+## Returns if the card is able to be upgraded
+var is_upgradeable: bool:
+	get(): return get_upgrade_slot_count() > len(upgrades)
+
 ## TODO
-var ToolTips
+var tool_tips
 
 ## Override to give a card a pathos cost. Get pathos cost BEFORE modifiers. See [get_pathos_cost_with_modifiers].
 func get_pathos_cost() -> int: return 0
@@ -61,7 +82,7 @@ func get_logos_cost_with_modifiers() -> int: return get_logos_cost()
 
 func get_play_duration() -> float: return 0.0
 
-## TODO: change to be dynamic and stuff
+## Get an UNFORMATTED description. See [method get_dynamic_description].
 func get_description() -> String: return "Broken Description"
 
 func get_icon() -> Texture2D: return null
@@ -127,15 +148,30 @@ func spend_resources() -> void:
 	spend_pathos()
 	spend_logos()
 
-## TODO
 func spend_pathos() -> void:
 	owner.player_combat_state.lose_pathos_internal(get_pathos_cost_with_modifiers())
 
-## TODO
 func spend_logos() -> void:
 	owner.player_combat_state.lose_logos_internal(get_logos_cost_with_modifiers())
 
+## Apply an upgrade. See [method CardCommand.upgrade].
+func upgrade_internal(upgrade: UpgradeModel) -> void:
+	if len(upgrades) >= get_upgrade_slot_count(): push_error("trying to upgrade a card with no slots left")
+	assert_mutable()
+	upgrade.assert_mutable()
+	upgrade.card = self
+	upgrades.push_back(upgrade)
 
 func after_cloned() -> void:
 	super.after_cloned()
 	if base_instance == null: base_instance = ModelDb.card(get_script())
+	upgrades = upgrades.duplicate_deep()
+
+## Get a formatted description for a specific place in the game. For example, the Deck shows cards in their upgraded form while the Hand should preview effects.
+func get_formatted_description(pile_type: Constants.PileType, target: Creature = null) -> String:
+	var description: String = get_description()
+	var values: Dictionary[String, int] = {}
+	if dynamic_variables:
+		for variable: DynamicVariable in dynamic_variables.variables.values():
+			values.set(variable.name, variable.get_preview_value(self, pile_type, target))
+	return description.format(values)
