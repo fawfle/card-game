@@ -25,3 +25,6 @@ class_name CharacterModel extends AbstractModel
 
 ## Get the default active card pools for this character
 @abstract func get_starting_card_pools() -> Array[CardPoolModel]
+
+## Get the default active upgrade pools for this character
+@abstract func get_starting_upgrade_pools() -> Array[UpgradePoolModel]

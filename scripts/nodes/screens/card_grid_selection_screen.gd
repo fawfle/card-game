@@ -16,6 +16,7 @@ var _max_select_count: int
 ## TODO: Currently hardcoded, make work/an option
 var _can_select_less: bool = false
 
+@onready var prompt: Label = %Prompt
 @onready var card_grid: CardGrid = %CardGrid
 @onready var confirm_button: Button = %ConfirmButton
 
@@ -29,6 +30,8 @@ func _ready() -> void:
 	card_grid.set_cards(_cards)
 	card_grid.card_pressed.connect(_on_card_pressed)
 	confirm_button.pressed.connect(_on_confirm_button_pressed)
+	
+	prompt.text = "SELECT 1 CARD" if _max_select_count == 1 else "SELECT %d CARDS" % _max_select_count 
 
 func is_selection_valid() -> bool:
 	return (_can_select_less and selected_cards.size() <= _max_select_count) or (not _can_select_less and selected_cards.size() == _max_select_count)

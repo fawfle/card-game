@@ -86,3 +86,9 @@ static func act(type: Script) -> ActModel:
 
 static func effect(type: Script) -> EffectModel:
 	return _get_model(type)
+
+static func upgrade(type: Script) -> UpgradeModel:
+	return _get_model(type)
+
+static func upgrade_pool(type: Script) -> UpgradePoolModel:
+	return _get_model(type)

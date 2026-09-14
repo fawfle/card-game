@@ -38,6 +38,7 @@ static func create(card_model: CardModel) -> CardNode:
 
 func _ready() -> void:
 	button.pressed.connect(_on_pressed)
+	if model == null: push_error("card model of a CardNode cannot be null")
 	update_upgrade_slots()
 	update_visuals()
 

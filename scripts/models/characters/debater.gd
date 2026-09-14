@@ -28,3 +28,6 @@ func get_starting_deck() -> Array[CardModel]:
 
 func get_starting_card_pools() -> Array[CardPoolModel]:
 	return [ModelDb.card_pool(GenericCardPool), ModelDb.card_pool(GenericPathosCardPool)]
+
+func get_starting_upgrade_pools() -> Array[UpgradePoolModel]:
+	return [ModelDb.upgrade_pool(GenericUpgradePool)]

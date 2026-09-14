@@ -183,7 +183,7 @@ static func modify_damage(run_state: RunState, combat_state: CombatState, target
 	return damage
 
 ## Modify the amount of damage to be dealt accounting only for upgrades. Only use for things like previews. See [method modify_damage].
-static func upgrade_damage_internal(card_source: CardModel, amount: float):
+static func upgrade_damage_internal(card_source: CardModel, amount: float) -> float:
 	var damage: float =amount
 	for upgrade: UpgradeModel in card_source.upgrades:
 			damage += upgrade.upgrade_damage_additive(damage)
@@ -191,24 +191,31 @@ static func upgrade_damage_internal(card_source: CardModel, amount: float):
 		damage *= upgrade.upgrade_damage_multiplicative(damage)
 	return damage
 
-# TODO: Pass actual shield object to upgrades so they can modify other properties
 ## Modify a shield. Additive effects are applied first, followed by multiplicative effects. [br][br]
 ## See [method AbstractModel.modify_shield_additive] and [method AbstractModel.modify_shield_multiplicative].
 static func modify_shield(combat_state: CombatState, creature: Creature, shield: Shield, card_source: CardModel) -> Shield:
-	var shield_amount = shield.current_shield
+	shield.current_shield = int(modify_shield_amount_internal(combat_state, creature, shield.current_shield, card_source))
+	return shield
+
+## Use [method modify_shield] for calculations (which can change other aspects of the shield). This is a helper method to organize hooks.
+static func modify_shield_amount_internal(combat_state: CombatState, creature: Creature, amount: float, card_source: CardModel) -> float:
+	var shield_amount: float = amount
 	
 	if card_source:
-		for upgrade: UpgradeModel in card_source.upgrades:
-			print("upgrade exists")
-			shield_amount += upgrade.upgrade_shield_additive(shield_amount)
-		for upgrade: UpgradeModel in card_source.upgrades:
-			shield_amount *= upgrade.upgrade_shield_multiplicative(shield_amount)
+		shield_amount = upgrade_shield_amount_internal(card_source, shield_amount)
 	
 	for model: AbstractModel in combat_state.get_hook_listeners():
 		shield_amount += model.modify_shield_additive(creature, shield_amount, card_source)
 	for model: AbstractModel in combat_state.get_hook_listeners():
 		shield_amount *= model.modify_shield_multiplicative(creature, shield_amount, card_source)
-	
-	shield.current_shield = shield_amount
-	
-	return shield
+		
+	return shield_amount
+
+## Modify the amount only accounting for upgrades. Only use for things like previews. See [method modify_shield].
+static func upgrade_shield_amount_internal(card_source: CardModel, amount: float) -> float:
+	var shield_amount = amount
+	for upgrade: UpgradeModel in card_source.upgrades:
+		shield_amount += upgrade.upgrade_shield_additive(shield_amount)
+	for upgrade: UpgradeModel in card_source.upgrades:
+		shield_amount *= upgrade.upgrade_shield_multiplicative(shield_amount)
+	return shield_amount

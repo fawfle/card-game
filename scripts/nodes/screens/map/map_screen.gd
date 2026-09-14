@@ -10,6 +10,9 @@ var _can_travel: bool = false
 
 @onready var map_point_container: HBoxContainer = %MapPointContainer
 
+func _ready() -> void:
+	RunManager.instance.map_point_visited.connect(_on_map_point_visited)
+
 func set_map(map: Map) -> void:
 	_map = map
 	
@@ -34,8 +37,16 @@ func close() -> void:
 ## Enable if the player can travel.
 func set_travel_enabled(enabled: bool) -> void:
 	_can_travel = enabled
+	update_visuals()
 
 func _on_map_point_pressed(map_point_node: MapPointNode) -> void:
 	if not _can_travel: return
 	if RunManager.instance.can_visit_map_point(map_point_node.map_point):
 		RunManager.instance.enter_map_point(map_point_node.map_point);
+
+func _on_map_point_visited(_map_point: MapPoint):
+	update_visuals()
+
+func update_visuals() -> void:
+	for child: MapPointNode in map_point_container.get_children():
+		child.update_visuals()

@@ -8,17 +8,29 @@ class_name UpgradeModel extends AbstractModel
 
 var card: CardModel
 
+func get_description() -> String: return "Broken upgrade description"
+
+func get_color() -> Color: return Color(0.863, 0.718, 0.0, 1.0)
+
+## Override. If the upgrade can be applied to a card. NOTE: currently somewhat limited. Could improve to make card selection easier.
+func can_apply(_card_model: CardModel) -> bool: return true
+
+func can_apply_to_any(card_pile: CardPile) -> bool:
+	for pile_card in card_pile.cards:
+		if can_apply(pile_card): return true
+	return false
+
 func on_play() -> void:
 	pass
 
-func upgrade_damage_additive(damage_amount: float) -> float:
+func upgrade_damage_additive(_damage_amount: float) -> float:
 	return 0
 
-func upgrade_damage_multiplicative(damage_amount: float) -> float:
+func upgrade_damage_multiplicative(_damage_amount: float) -> float:
 	return 1.0
 
-func upgrade_shield_additive(shield_amount: float) -> float:
+func upgrade_shield_additive(_shield_amount: float) -> float:
 	return 0
 
-func upgrade_shield_multiplicative(shield_amount: float) -> float:
+func upgrade_shield_multiplicative(_shield_amount: float) -> float:
 	return 1.0

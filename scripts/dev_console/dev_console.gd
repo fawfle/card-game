@@ -30,6 +30,10 @@ func _init() -> void:
 	_add_command(ConsoleCommandEncounter.new("encounter"))
 	_add_command(ConsoleCommandCard.new("card"))
 	_add_command(ConsoleCommandUpgrade.new("upgrade"))
+	_add_command(DevConsoleCommand.new("visit-all", func(_args: PackedStringArray) -> String:
+		RunManager.instance.can_visit_any_map_point = true
+		MapScreen.instance.set_travel_enabled(true)
+		return "Visit all enabled."))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:

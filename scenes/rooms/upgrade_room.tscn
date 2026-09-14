@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bxwlxhg222wfw"]
+
+[ext_resource type="Script" uid="uid://d2honisxl21b7" path="res://scripts/nodes/upgrade_room_node.gd" id="1_vx0ff"]
+
+[node name="UpgradeRoom" type="Control" unique_id=1554762762]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vx0ff")
+metadata/_edit_lock_ = true
+
+[node name="SelectedCardsContainer" type="HBoxContainer" parent="." unique_id=146918517]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+
+[node name="Title" type="Label" parent="." unique_id=1002669287]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_top = 232.0
+offset_right = 68.5
+offset_bottom = 255.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "UPGRADE A CARD"
+
+[node name="Description" type="Label" parent="." unique_id=679512364]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -155.5
+offset_top = 288.0
+offset_right = 155.5
+offset_bottom = 333.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "upgrade description"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProceedButton" type="Button" parent="." unique_id=1523922312]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -174.0
+offset_top = -163.0
+offset_right = -132.0
+offset_bottom = -132.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "PROCEED"
+
+[node name="SelectButton" type="Button" parent="." unique_id=1764287211]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = 166.0
+offset_right = -46.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "SELECT"
+
+[node name="ConfirmButton" type="Button" parent="." unique_id=2013724872]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 26.0
+offset_top = 166.0
+offset_right = 181.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "CONFIRM"

@@ -1,3 +1,4 @@
+@abstract
 class_name DynamicVariable
 ## A special variable that handles displaying game state related info.
 ##

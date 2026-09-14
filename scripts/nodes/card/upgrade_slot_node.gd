@@ -14,3 +14,4 @@ static func create(upgrade: UpgradeModel) -> UpgradeSlotNode:
 func _ready() -> void:
 	if _upgrade:
 		filled_rect.visible = true
+		filled_rect.color = _upgrade.get_color()

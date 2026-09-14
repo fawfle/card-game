@@ -18,4 +18,4 @@ func initialize(player: Player) -> void:
 	_pile = player.get_pile(_pile_type)
 
 func _on_pressed() -> void:
-	RunNode.instance.global_ui.set_overlay_screen(CardPileScreen.create(_pile))
+	RunNode.instance.global_ui.set_top_screen(CardPileScreen.create(_pile))

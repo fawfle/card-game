@@ -40,6 +40,7 @@ enum MapPointType {
 	NONE,
 	DEBATE,
 	BOSS,
+	UPGRADE,
 	SHOP,
 }
 

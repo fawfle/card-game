@@ -15,7 +15,6 @@ static func create_from_state(state: CombatState) -> CombatRoom:
 	return room
 
 func enter(run_state: RunState) -> void:
-	run_state.current_room = self
 	CombatManager.instance.start_combat(run_state, self)
 
 func exit() -> void:

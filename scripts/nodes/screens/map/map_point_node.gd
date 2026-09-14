@@ -7,6 +7,8 @@ signal pressed(map_point_node: MapPointNode)
 
 const SCENE: PackedScene = preload("res://scenes/screens/map/map_point.tscn")
 
+const UPGRADE_ICON: Texture2D = preload("res://assets/icons/tools_icon.webp")
+
 var map_point: MapPoint
 
 @onready var button: TextureButton = %Button
@@ -19,8 +21,6 @@ static func create(point: MapPoint) -> MapPointNode:
 
 func _ready() -> void:
 	button.pressed.connect(_on_pressed)
-	
-	RunManager.instance.map_point_visited.connect(_on_map_point_visited)
 	
 	update_visuals()
 
@@ -35,9 +35,9 @@ func update_visuals() -> void:
 		modulate = Color(0,0,0,1)
 	
 	icon.offset_transform_scale = Vector2.ONE * (1.3 if map_point.point_type == Constants.MapPointType.BOSS else 1.0)
-
-func _on_map_point_visited(_map_point: MapPoint):
-	update_visuals()
+	
+	if map_point.point_type == Constants.MapPointType.UPGRADE:
+		icon.texture = UPGRADE_ICON
 
 func _on_pressed() -> void:
 	pressed.emit(self)
