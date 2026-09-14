@@ -39,14 +39,6 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 corner_detail = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1q37b"]
-bg_color = Color(0.88678545, 0.8867854, 0.8867854, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_45qsb"]
 font_size = 18
 font_color = Color(0, 0, 0, 1)
@@ -159,6 +151,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeSlotContainer" type="HBoxContainer" parent="Container/Panel" unique_id=706658058]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -166,17 +159,13 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -20.0
-offset_top = -12.0
+offset_top = -4.0
 offset_right = 20.0
-offset_bottom = 4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 20
 alignment = 1
-
-[node name="Panel" type="Panel" parent="Container/Panel/UpgradeSlotContainer" unique_id=551316906]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1q37b")
 
 [node name="TitleLabel" type="Label" parent="Container" unique_id=955196968]
 unique_name_in_owner = true

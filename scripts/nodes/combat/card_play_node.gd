@@ -39,8 +39,9 @@ func start() -> void:
 		return
 	
 	# Checks if the cursor is in the cancel area when the drag is finished
-	var cursor_in_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().has_point(get_global_mouse_position())
-	if cursor_in_cancel_area:
+	var cursor_below_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().position.y <= get_global_mouse_position().y
+	#var cursor_in_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().has_point(get_global_mouse_position())
+	if cursor_below_cancel_area:
 		_stop_internal()
 		return
 	

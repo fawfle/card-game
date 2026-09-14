@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rpmcswf8ip1g"]
 
-[ext_resource type="PackedScene" uid="uid://dyqv2vji04lvb" path="res://scripts/nodes/card/card_grid.tscn" id="1_2jhc3"]
+[ext_resource type="PackedScene" uid="uid://dyqv2vji04lvb" path="res://scenes/cards/card_grid.tscn" id="1_2jhc3"]
 [ext_resource type="Script" uid="uid://dxasylm2w4ty" path="res://scripts/nodes/screens/card_pile_screen.gd" id="1_juwi5"]
 
 [node name="CardPileScreen" type="Control" unique_id=47140203]

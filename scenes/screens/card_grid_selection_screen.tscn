@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fx53dqlv5nkl"]
 
 [ext_resource type="Script" uid="uid://gnqhlgsp7dxf" path="res://scripts/nodes/screens/card_grid_selection_screen.gd" id="1_60jh1"]
-[ext_resource type="PackedScene" uid="uid://dyqv2vji04lvb" path="res://scripts/nodes/card/card_grid.tscn" id="2_j2dwp"]
+[ext_resource type="PackedScene" uid="uid://dyqv2vji04lvb" path="res://scenes/cards/card_grid.tscn" id="2_j2dwp"]
 
 [node name="CardGridSelectionScreen" type="Control" unique_id=1584518502]
 layout_mode = 3

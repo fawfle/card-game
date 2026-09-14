@@ -1,9 +1,68 @@
 [gd_scene format=3 uid="uid://ud2nsb6ka7gt"]
 
+[ext_resource type="Script" uid="uid://ca1neeud6mo1k" path="res://scripts/nodes/card/upgrade_slot_node.gd" id="1_hxdq2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17lb5"]
+bg_color = Color(0.88678545, 0.8867854, 0.8867854, 1)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="UpgradeSlot" type="Control" unique_id=597100166]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
+script = ExtResource("1_hxdq2")
+
+[node name="Panel" type="Panel" parent="." unique_id=748209402]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_17lb5")
+
+[node name="UnfilledRect" type="ColorRect" parent="." unique_id=935824802]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilledRect" type="ColorRect" parent="." unique_id=878691835]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0.3529412, 1)

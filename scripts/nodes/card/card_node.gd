@@ -26,6 +26,8 @@ var _target: Creature = null
 @onready var pathos_label: Label = %PathosLabel
 @onready var logos_label: Label = %LogosLabel
 
+@onready var upgrade_slot_container: HBoxContainer = %UpgradeSlotContainer
+
 var _pathos_flash_tween: Tween = null
 var _logos_flash_tween: Tween = null
 
@@ -36,6 +38,7 @@ static func create(card_model: CardModel) -> CardNode:
 
 func _ready() -> void:
 	button.pressed.connect(_on_pressed)
+	update_upgrade_slots()
 	update_visuals()
 
 func _process(delta: float) -> void:
@@ -60,7 +63,15 @@ func update_visuals() -> void:
 	
 	update_card_play_visuals()
 
-func update_card_play_visuals():
+func update_upgrade_slots() -> void:
+	for child: Node in upgrade_slot_container.get_children():
+		child.queue_free()
+	
+	for i in range(model.get_upgrade_slot_count()):
+		var upgrade_slot: UpgradeSlotNode = UpgradeSlotNode.create(model.upgrades.get(i) if i < model.upgrades.size() else null)
+		upgrade_slot_container.add_child(upgrade_slot)
+
+func update_card_play_visuals() -> void:
 	if model.active_card_play:
 		play_timer_progress_bar.show()
 		play_timer_progress_bar.max_value = model.active_card_play.play_duration
