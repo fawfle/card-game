@@ -172,6 +172,6 @@ func get_formatted_description(pile_type: Constants.PileType, target: Creature =
 	var description: String = get_description()
 	var values: Dictionary[String, int] = {}
 	if dynamic_variables:
-		for variable: DynamicVariable in dynamic_variables.variables.values():
+		for variable: DynamicVariable in dynamic_variables.list.values():
 			values.set(variable.name, variable.get_preview_value(self, pile_type, target))
 	return description.format(values)

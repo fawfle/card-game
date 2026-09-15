@@ -4,9 +4,10 @@ class_name DynamicVariable
 ##
 ## Dynamic Variables primarily handle DISPLAY info. When using for calcuations, only use [member base_value].
 
+## The actual value to be used for calculations
 var base_value: float
 
-## The value to be shown
+## The value to be shown (DO NOT USE FOR CALCULATIONS)
 var preview_value: float
 
 var base_value_int: int:

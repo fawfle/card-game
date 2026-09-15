@@ -3,19 +3,25 @@ class_name Reasoning extends CardModel
 
 func get_icon() -> Texture2D: return preload("res://assets/icons/thinking_icon.png")
 
-func get_description() -> String: return "Deals %d damage when played. Deals %d damage when this card times out." % [start_damage, end_damage]
+func get_description() -> String: return "Deals {StartDamage} damage when played. Deals {EndDamage} damage when this card times out."
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEMY
 
-var start_damage: int = 1
-var end_damage: int = 2
+const START_DAMAGE: String = &"StartDamage"
+const END_DAMAGE: String = &"EndDamage"
+
+func get_base_dynamic_variables() -> DynamicVariableSet:
+	return DynamicVariableSet.new(
+		DamageVariable.new(START_DAMAGE, 1),
+		DamageVariable.new(END_DAMAGE, 1)
+	)
 
 func get_play_duration() -> float: return 5.0
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(start_damage).execute()
+	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[START_DAMAGE].base_value).execute()
 
 func on_timeout(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(end_damage).execute()
+	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[END_DAMAGE].base_value).execute()
