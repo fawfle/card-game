@@ -71,9 +71,9 @@ func _on_enemy_state_changed(_state: MoveState):
 func _on_effects_changed(_new_effects: Array[EffectModel]):
 	update_effects()
 
-func show_hover_tips(hover_tip: ToolTip) -> void:
-	hide_hover_tips()
-	ToolTipNode.create_and_show(hitbox, hover_tip)
+func show_tool_tips(tool_tip: ToolTip) -> void:
+	hide_tool_tips()
+	ToolTipNode.create_and_show(hitbox, tool_tip)
 
-func hide_hover_tips() -> void:
-	ToolTipNode.remove(hitbox)
+func hide_tool_tips() -> void:
+	ToolTipNode.remove_from(hitbox)

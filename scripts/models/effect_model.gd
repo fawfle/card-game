@@ -68,11 +68,16 @@ func get_time_left() -> float:
 	if card_source and card_source.active_card_play: return card_source.active_card_play.play_time_left
 	return _time_left
 
-func get_hover_tip() -> ToolTip:
+func get_tool_tip() -> ToolTip:
 	return ToolTip.new(get_title(), get_description())
 
+## Get a specific description of the effect that can depend on the amount. See [method get_generic_description].
 func get_description() -> String:
 	return "broken description."
+
+## Get a generic description of the effect that doesn't depend on the amount. See [method get_description].
+static func get_generic_description() -> String:
+	return "broken generic description."
 
 func _on_card_source_exited() -> void:
 	owner.remove_effect_internal(self)

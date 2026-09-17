@@ -6,6 +6,8 @@ func get_icon() -> Texture2D: return preload("res://assets/icons/castle.webp")
 
 func get_description() -> String: return "Gives %d Support while this card is in play." % support_amount
 
+func get_extra_tool_tips() -> Array[ToolTip]: return [ToolTip.from_effect_type(SupportEffect)]
+
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
 func get_play_duration() -> float: return 5.0

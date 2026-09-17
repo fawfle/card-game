@@ -8,6 +8,9 @@ func get_description() -> String:
 	if amount < 0: return "Shields start with %d less block." % -amount
 	return "Shields start with %d extra block." % amount
 
+static func get_generic_description() -> String:
+	return "Adds additional block to shields."
+
 func get_icon() -> Texture2D: return ICON
 
 func modify_shield_additive(creature: Creature, shield_amount: float, card_source: CardModel) -> float:

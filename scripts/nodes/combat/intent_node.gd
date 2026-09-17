@@ -44,7 +44,7 @@ func update_progress_bar() -> void:
 	radial_progress_bar.value = _creature_node.entity.enemy.move_state_machine.time_spent_in_state
 
 func _on_hovered() -> void:
-	_creature_node.show_hover_tips(_intent.get_hover_tip(_creature_node.entity, CombatManager.instance.combat_state.allies))
+	_creature_node.show_tool_tips(_intent.get_tool_tip(_creature_node.entity, CombatManager.instance.combat_state.allies))
 
 func _on_unhovered() -> void:
-	_creature_node.hide_hover_tips()
+	_creature_node.hide_tool_tips()

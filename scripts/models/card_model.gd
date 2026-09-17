@@ -58,6 +58,15 @@ var dynamic_variables: DynamicVariableSet = null:
 
 func get_base_dynamic_variables() -> DynamicVariableSet: return null
 
+var keywords: Array[Constants.CardKeyword]:
+	get():
+		assert_mutable()
+		if keywords == []:
+			keywords = get_base_keywords()
+		return keywords
+
+func get_base_keywords() -> Array[Constants.CardKeyword]: return []
+
 ## The CardPlay that "owns" this card. null if card isn't in play.
 var active_card_play: CardPlay = null
 
@@ -67,9 +76,6 @@ var upgrades: Array[UpgradeModel] = []
 ## Returns if the card is able to be upgraded
 var is_upgradeable: bool:
 	get(): return get_upgrade_slot_count() > len(upgrades)
-
-## TODO
-var tool_tips
 
 ## Override to give a card a pathos cost. Get pathos cost BEFORE modifiers. See [get_pathos_cost_with_modifiers].
 func get_pathos_cost() -> int: return 0
@@ -84,6 +90,8 @@ func get_play_duration() -> float: return 0.0
 
 ## Get an UNFORMATTED description. See [method get_dynamic_description].
 func get_description() -> String: return "Broken Description"
+
+func get_extra_tool_tips() -> Array[ToolTip]: return []
 
 func get_icon() -> Texture2D: return null
 
@@ -170,8 +178,25 @@ func after_cloned() -> void:
 ## Get a formatted description for a specific place in the game. For example, the Deck shows cards in their upgraded form while the Hand should preview effects.
 func get_formatted_description(pile_type: Constants.PileType, target: Creature = null) -> String:
 	var description: String = get_description()
-	var values: Dictionary[String, int] = {}
+	var values: Dictionary[String, String] = {}
 	if dynamic_variables:
 		for variable: DynamicVariable in dynamic_variables.list.values():
-			values.set(variable.name, variable.get_preview_value(self, pile_type, target))
+			var preview_value: int = variable.get_preview_value(self, pile_type, target)
+			var local_preview_value: int = variable.get_preview_value_local(self)
+			
+			var preview_string: String = str(preview_value)
+			if preview_value > local_preview_value: preview_string = "[color=#22ff22]" + preview_string + "[/color]"
+			elif preview_value < local_preview_value: preview_string = "[color=#f95252]" + preview_string + "[/color]"
+			values.set(variable.name, preview_string)
+	
+	for keyword: Constants.CardKeyword in keywords:
+		description += "\n%s." % CardKeywordHelper.get_title(keyword)
+	
 	return description.format(values)
+
+## Gets tool tips for the card. Do not override. Instead, see [method get_extra_tool_tips].
+func get_tool_tips() -> Array[ToolTip]:
+	var tool_tips: Array[ToolTip] = get_extra_tool_tips()
+	for keyword: Constants.CardKeyword in keywords:
+		tool_tips.append(ToolTip.from_keyword(keyword))
+	return tool_tips

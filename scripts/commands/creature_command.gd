@@ -15,6 +15,12 @@ static func damage_creature(target: Creature, dealer: Creature, damage: float, c
 	target.lose_hp_internal(damage_after_shield)
 	# TODO: add hook for after_damage_dealt with information about the attack.
 	
+	# Handle fragile Keyword
+	if target.player and modified_damage > 0:
+		for card: CardModel in target.player.player_combat_state.play_pile.cards:
+			if card.keywords.has(Constants.CardKeyword.FRAGILE):
+				CardCommand.cancel_card(card, dealer)
+	
 	if target.is_dead:
 		kill(target)
 

@@ -1,10 +1,10 @@
-class_name DebaterCharacter extends CharacterModel
+class_name ArguerCharacter extends CharacterModel
 
 func get_starting_max_hp() -> int: return 25
 
 func get_starting_max_pathos() -> int: return 3
 
-func get_starting_max_logos() -> int: return 5
+func get_starting_max_logos() -> int: return 0
 
 func get_starting_initial_card_count() -> int: return 5
 

@@ -38,7 +38,11 @@ static func create(card_model: CardModel) -> CardNode:
 
 func _ready() -> void:
 	button.pressed.connect(_on_pressed)
+	button.mouse_entered.connect(_on_hovered)
+	button.mouse_exited.connect(_on_unhovered)
 	if model == null: push_error("card model of a CardNode cannot be null")
+	# WARNING: A bit volatile, but card nodes shouldn't change (or get) an owner after being made
+	if model.owner: model.owner.creature.on_effects_changed.connect(_on_owner_creature_effects_changed)
 	update_upgrade_slots()
 	update_visuals()
 
@@ -101,5 +105,21 @@ func flash_logos_cost() -> void:
 	_logos_flash_tween.tween_property(logos_icon, "modulate:a", 0.6, 0.15)
 	_logos_flash_tween.tween_property(logos_icon, "modulate:a", 1.0, 0.3)
 
+func show_tool_tips() -> void:
+	hide_tool_tips()
+	ToolTipSet.create_and_show(button, model.get_tool_tips())
+
+func hide_tool_tips() -> void:
+	ToolTipSet.remove_from(button)
+
 func _on_pressed():
 	pressed.emit(self)
+
+func _on_owner_creature_effects_changed(_effects: Array[EffectModel]) -> void:
+	update_visuals()
+
+func _on_hovered() -> void:
+	show_tool_tips()
+
+func _on_unhovered() -> void:
+	hide_tool_tips()

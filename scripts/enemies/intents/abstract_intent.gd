@@ -11,7 +11,7 @@ func get_extra_icon() -> Texture2D: return null
 
 func get_label(owner: Creature, targets: Array[Creature]) -> String: return ""
 
-func get_hover_tip(owner: Creature, targets: Array[Creature]) -> ToolTip:
+func get_tool_tip(owner: Creature, targets: Array[Creature]) -> ToolTip:
 	return ToolTip.new(get_title(), get_description(owner, targets))
 
 func get_description(owner: Creature, targets: Array[Creature]) -> String:

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c4e2o65460qou"]
+
+[ext_resource type="Script" uid="uid://b65slgs3pvbpb" path="res://scripts/nodes/tool_tips/tool_tip_set.gd" id="1_yj5om"]
+
+[node name="ToolTipSet" type="Control" unique_id=780781735]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+mouse_filter = 2
+script = ExtResource("1_yj5om")
+
+[node name="ToolTipContainer" type="VBoxContainer" parent="." unique_id=2113398144]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

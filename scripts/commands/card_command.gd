@@ -15,6 +15,8 @@ static func play(card: CardModel, target: Creature) -> void:
 		push_warning("do not have resources to play card. stopping play...")
 		return
 	
+	await CardPileCommand.add_to_pile(card.owner.player_combat_state.play_pile, card);
+	
 	card.spend_resources()
 	
 	var card_play: CardPlay = CardPlay.create_from_properties({ "card": card, "target": target, "play_duration": card.get_play_duration() })

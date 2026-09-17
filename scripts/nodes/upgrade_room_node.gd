@@ -2,6 +2,7 @@ class_name UpgradeRoomNode extends Control
 ## A simple room where you can upgrade a card.
 ##
 ## TODO: add more features like rerolling, choosing between multiple upgrades, applying upgrades to multiple cards, etc.
+## TODO: Preview upgrade on card
 
 const SCENE: PackedScene = preload("res://scenes/rooms/upgrade_room.tscn")
 

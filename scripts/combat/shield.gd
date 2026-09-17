@@ -12,7 +12,6 @@ var creature: Creature
 var current_shield: int = 0
 
 ## If this shield should be destroyed after being damaged
-var is_fragile: bool = false
 
 ## Card that created this shield. Used to listen to card events.
 var card_source: CardModel = null

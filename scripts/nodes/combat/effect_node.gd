@@ -37,7 +37,7 @@ func _process(_delta: float) -> void:
 		duration_progress.value = _effect.get_time_left()
 
 func _on_hovered() -> void:
-	_creature_node.show_hover_tips(_effect.get_hover_tip())
+	_creature_node.show_tool_tips(_effect.get_tool_tip())
 
 func _on_unhovered() -> void:
-	_creature_node.hide_hover_tips()
+	_creature_node.hide_tool_tips()

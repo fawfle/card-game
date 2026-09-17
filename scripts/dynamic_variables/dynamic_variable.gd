@@ -22,3 +22,9 @@ func _init(variable_name: String, variable_base_value: float) -> void:
 
 func get_preview_value(_card: CardModel, _pile_type: Constants.PileType, _target: Creature) -> float:
 	return base_value
+
+func get_preview_value_local(_card: CardModel) -> float:
+	return base_value
+
+func should_run_global_hooks(pile_type: Constants.PileType) -> bool:
+	return pile_type == Constants.PileType.HAND or pile_type == Constants.PileType.HAND

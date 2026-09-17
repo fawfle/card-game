@@ -8,19 +8,22 @@ const COUNTER_DAMAGE: String = &"CounterDamage"
 func get_base_dynamic_variables() -> DynamicVariableSet:
 	return DynamicVariableSet.new(
 		ShieldAmountVariable.new(ShieldAmountVariable.DEFAULT_NAME, 2),
-		DamageVariable.new(COUNTER_DAMAGE, 5),
+		DamageVariable.new(COUNTER_DAMAGE, 3),
 	)
+
+func get_base_keywords() -> Array[Constants.CardKeyword]: return [Constants.CardKeyword.FRAGILE]
 
 func get_play_duration() -> float: return 1.00
 
 func get_pathos_cost() -> int: return 1
 
-func get_description() -> String: return "Gain {ShieldAmount} shield. If the shield is broken, deal {CounterDamage} damage. Fragile."
+ # description accounts for keywords (i.e. fragile)
+func get_description() -> String: return "Gain {ShieldAmount} shield. If the card is cancelled, deal {CounterDamage} damage."
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
 func on_play(card_play: CardPlay) -> void:
-	ShieldCommand.new(card_play.card.owner.creature).with_shield(dynamic_variables.shield_amount.base_value).from_card(self).with_priority(Constants.ShieldPriority.COUNTER).make_fragile().execute()
+	ShieldCommand.new(card_play.card.owner.creature).with_shield(dynamic_variables.shield_amount.base_value).from_card(self).with_priority(Constants.ShieldPriority.COUNTER).execute()
 
 func on_cancelled(creature_source: Creature) -> void:
 	if creature_source.enemy:

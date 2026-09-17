@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 	ModelDb.initialize()
 
 func _ready() -> void:
-	start_run(ModelDb.character(DebaterCharacter))
+	start_run(ModelDb.character(ArguerCharacter))
 
 func start_run(character: CharacterModel, run_seed: String = ""):
 	if run_seed == "": run_seed = SeedHelper.get_random_seed()

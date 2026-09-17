@@ -82,7 +82,7 @@ func damage_shield_internal(amount: int, dealer: Creature = null) -> int:
 		var shield: Shield = shield_queue.get_front()
 		shield.current_shield -= amount_left
 		amount_left = -shield.current_shield
-		if shield.current_shield <= 0 or shield.is_fragile:
+		if shield.current_shield <= 0:
 			shield.destroy_shield(dealer)
 		
 		if amount_left <= 0: return 0

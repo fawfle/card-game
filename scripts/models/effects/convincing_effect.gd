@@ -8,6 +8,9 @@ func get_description() -> String:
 	if amount < 0: return "Decreases all damage by %d" % -amount
 	return "Increases all damage by %d" % amount
 
+static func get_generic_description() -> String:
+	return "Adds additional damage to attacks."
+
 func get_icon() -> Texture2D: return ICON
 
 func modify_damage_additive(_target: Creature, dealer: Creature, _damage_amount: float, _card_source: CardModel) -> float:

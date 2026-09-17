@@ -34,6 +34,12 @@ enum ShieldPriority {
 	COUNTER = 8, ## counters want to actually shield
 }
 
+## A keyword for a card (like fragile). Handled externally.
+enum CardKeyword {
+	NONE,
+	FRAGILE, ## cancelled after the player is hit by an attack (not just unblocked damage).
+}
+
 const ATTACK_ANIMATION = "attack"
 
 enum MapPointType {
