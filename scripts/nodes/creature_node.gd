@@ -73,7 +73,7 @@ func _on_effects_changed(_new_effects: Array[EffectModel]):
 
 func show_tool_tips(tool_tip: ToolTip) -> void:
 	hide_tool_tips()
-	ToolTipNode.create_and_show(hitbox, tool_tip)
+	ToolTipNode.create_and_show(hitbox, tool_tip, Constants.Alignment.LEFT)
 
 func hide_tool_tips() -> void:
 	ToolTipNode.remove_from(hitbox)

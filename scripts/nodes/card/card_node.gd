@@ -107,7 +107,7 @@ func flash_logos_cost() -> void:
 
 func show_tool_tips() -> void:
 	hide_tool_tips()
-	ToolTipSet.create_and_show(button, model.get_tool_tips())
+	ToolTipSet.create_and_show(button, model.get_tool_tips(), Constants.Alignment.LEFT)
 
 func hide_tool_tips() -> void:
 	ToolTipSet.remove_from(button)

@@ -1,4 +1,4 @@
-class_name ConsoleCommandEncounter extends DevConsoleCommand
+class_name DevConsoleCommandEncounter extends DevConsoleCommand
 ## enter an arbitrary encounter
 
 var encounter_names: PackedStringArray = []

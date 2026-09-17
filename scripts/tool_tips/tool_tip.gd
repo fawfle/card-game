@@ -3,6 +3,14 @@ class_name ToolTip
 var title: String
 var description: String
 
+## Presets for the alignment of the tool tip
+enum Alignment {
+	NONE,
+	LEFT, ## Top left going left
+	RIGHT, ## Top right going right
+	CENTER_TOP, ## Centered, above
+}
+
 func _init(tip_title: String, tip_description: String) -> void:
 	title = tip_title
 	description = tip_description

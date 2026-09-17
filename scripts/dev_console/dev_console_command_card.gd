@@ -1,4 +1,4 @@
-class_name ConsoleCommandCard extends DevConsoleCommand
+class_name DevConsoleCommandCard extends DevConsoleCommand
 ## draw an arbitrary card
 
 var card_names: PackedStringArray = []

@@ -18,6 +18,7 @@ corner_radius_bottom_left = 2
 [node name="UpgradeSlot" type="Control" unique_id=597100166]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_hxdq2")
 
 [node name="Panel" type="Panel" parent="." unique_id=748209402]
@@ -34,7 +35,16 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_17lb5")
+
+[node name="Button" type="TextureRect" parent="." unique_id=481257277]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="UnfilledRect" type="ColorRect" parent="." unique_id=935824802]
 layout_mode = 1
@@ -49,6 +59,7 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FilledRect" type="ColorRect" parent="." unique_id=878691835]
 unique_name_in_owner = true
@@ -65,4 +76,5 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 0.3529412, 1)

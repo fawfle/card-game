@@ -27,13 +27,13 @@ func _init() -> void:
 		CreatureCommand.kill(CombatManager.instance.combat_state.enemies[0])
 		return "Killing first creature."
 		))
-	_add_command(ConsoleCommandEncounter.new("encounter"))
-	_add_command(ConsoleCommandCard.new("card"))
-	_add_command(ConsoleCommandUpgrade.new("upgrade"))
-	_add_command(DevConsoleCommand.new("visit-all", func(_args: PackedStringArray) -> String:
+	_add_command(DevConsoleCommandEncounter.new("encounter"))
+	_add_command(DevConsoleCommandCard.new("card"))
+	_add_command(DevConsoleCommandUpgrade.new("upgrade"))
+	_add_command(DevConsoleCommand.new("map-travel", func(_args: PackedStringArray) -> String:
 		RunManager.instance.can_visit_any_map_point = true
 		MapScreen.instance.set_travel_enabled(true)
-		return "Visit all enabled."))
+		return "visit_any_map_point enabled."))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:

@@ -57,3 +57,11 @@ enum UnplayableReason {
 	NOT_ENOUGH_LOGOS,
 	NOT_ENOUGH_PATHOS_OR_LOGOS,
 }
+
+## Presets for the alignment of tool tips and tool tip sets.
+enum Alignment {
+	NONE,
+	LEFT, ## Top left going left
+	RIGHT, ## Top right going right
+	CENTER_TOP, ## Centered, above
+}

@@ -27,6 +27,7 @@ metadata/_snap_enabled = true
 [node name="RadialProgressBar" type="TextureProgressBar" unique_id=1762019007]
 offset_right = 24.0
 offset_bottom = 24.0
+mouse_filter = 2
 step = 0.01
 value = 100.0
 fill_mode = 4

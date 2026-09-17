@@ -48,6 +48,7 @@ layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 script = ExtResource("1_45qsb")
 
 [node name="Container" type="Control" parent="." unique_id=1675341120]
@@ -59,6 +60,17 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="TextureButton" parent="Container" unique_id=255036309]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = 120.0
+action_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="Container" unique_id=1417576302]
 layout_mode = 1
@@ -200,6 +212,7 @@ offset_right = 41.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
@@ -221,16 +234,6 @@ bbcode_enabled = true
 text = "deal # damage."
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Button" type="TextureButton" parent="Container" unique_id=255036309]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -80.0
-offset_top = -120.0
-offset_right = 80.0
-offset_bottom = 120.0
-action_mode = 0
-metadata/_edit_lock_ = true
 
 [node name="PlayTimerProgressBar" parent="Container" unique_id=1762019007 instance=ExtResource("2_0qqw3")]
 unique_name_in_owner = true
