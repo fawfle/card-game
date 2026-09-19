@@ -30,7 +30,7 @@ func _init() -> void:
 	_add_command(DevConsoleCommandEncounter.new("encounter"))
 	_add_command(DevConsoleCommandCard.new("card"))
 	_add_command(DevConsoleCommandUpgrade.new("upgrade"))
-	_add_command(DevConsoleCommand.new("map-travel", func(_args: PackedStringArray) -> String:
+	_add_command(DevConsoleCommand.new("visit-all", func(_args: PackedStringArray) -> String:
 		RunManager.instance.can_visit_any_map_point = true
 		MapScreen.instance.set_travel_enabled(true)
 		return "visit_any_map_point enabled."))

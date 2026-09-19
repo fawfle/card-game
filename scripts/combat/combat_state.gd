@@ -58,12 +58,16 @@ func remove_creature(creature: Creature) -> void:
 func creature_in_combat(creature: Creature) -> bool:
 	return allies.has(creature) or enemies.has(creature)
 
-## TODO
 func get_hook_listeners() -> Array[AbstractModel]:
 	var listeners: Array[AbstractModel] = []
 	
 	for creature: Creature in allies:
 		listeners.append_array(creature.effects)
+		for combat_pile: CardPile in creature.player.player_combat_state.all_piles:
+			for card: CardModel in combat_pile.cards:
+				listeners.append(card)
+				for upgrade: UpgradeModel in card.upgrades:
+					listeners.push_back(upgrade)
 	
 	for creature: Creature in enemies:
 		listeners.append_array(creature.effects)

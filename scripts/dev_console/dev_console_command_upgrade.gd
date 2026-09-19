@@ -17,8 +17,19 @@ func _execute(args: PackedStringArray) -> String:
 	var upgrade_name: String = args[1]
 	var upgrade_model: UpgradeModel = ModelDb.get_model_by_global_name(upgrade_name)
 	if not upgrade_model: return "Could not find upgrade with name %s." % upgrade_name
-	var selected_card: CardModel = await CardSelectCommand.select_card_for_upgrade(RunManager.instance.run_state.player)
-	CardCommand.upgrade(selected_card, upgrade_model.clone_mutable())
+	var selected_card: CardModel = await CardSelectCommand.select_card_for_upgrade(RunManager.instance.run_state.player, upgrade_model)
+	var upgrade: UpgradeModel = upgrade_model.clone_mutable_from_base()
+	if upgrade.has_method("set_amounts"):
+		var argc: int = upgrade.get_method_argument_count("set_amounts")
+		# I'm lazy and upgrades probably won't have a ton of values to set, so hardcoding in a debugging setting is for now is fine.
+		var amount_one: int = int(args[2]) if len(args) >= 3 else 1
+		var amount_two: int = int(args[3]) if len(args) >= 4 else 1
+		if argc == 1:
+			upgrade.set_amounts(amount_one)
+		if argc == 2:
+			upgrade.set_amounts(amount_one, amount_two)
+		
+	CardCommand.upgrade(selected_card, upgrade)
 	return "Upgraded card %s with upgrade %s." % [selected_card.get_id_name(), upgrade_name]
 
 func get_argument_completions(args: PackedStringArray) -> PackedStringArray:

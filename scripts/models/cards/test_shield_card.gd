@@ -8,7 +8,7 @@ func get_description() -> String: return "Gain %d shield." % shield_amount
 
 func get_icon() -> Texture2D: return ICON
 
-func get_play_duration() -> float: return 5.0
+func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(5.0)
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 

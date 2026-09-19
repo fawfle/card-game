@@ -7,7 +7,7 @@ func get_target_type() -> Constants.TargetType: return Constants.TargetType.NONE
 
 var draw_amount: int = 2
 
-func get_pathos_cost() -> int: return 2
+func _get_base_pathos_cost() -> int: return 2
 
 func get_description() -> String: return "Draw %s cards." % draw_amount
 

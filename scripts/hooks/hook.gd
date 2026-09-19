@@ -50,33 +50,31 @@ static func after_shuffle() -> void:
 static func after_hand_emptied() -> void:
 	push_error("not implemented")
 
-# WARNING: UNUSED
 ## Runs before a card is played. [br][br]
 ## Combat only.
 static func before_card_played(combat_state: CombatState, card_play: CardPlay) -> void:
 	for listener: AbstractModel in combat_state.get_hook_listeners():
 		await listener.before_card_played(card_play)
 
-# WARNING: UNUSED
 ## Runs after a card is played. [br][br]
 ## Combat only.
 static func after_card_played(combat_state: CombatState, card_play: CardPlay) -> void:
 	for listener: AbstractModel in combat_state.get_hook_listeners():
 		await listener.after_card_played(card_play)
 
-# WARNING: UNUSED
 ## Runs before a card exits play. [br][br]
 ## NOTE: This will run even if the card is instant, though it should execute immediately. [br][br]
 ## Combat only.
-static func before_card_exits(card) -> void:
-	push_error("not implemented")
+static func before_card_exited_play(combat_state: CombatState, card_play: CardPlay) -> void:
+	for listener: AbstractModel in combat_state.get_hook_listeners():
+		await listener.before_card_exited_play(card_play)
 
-# WARNING: UNUSED
 ## Runs after a card exits play. [br][br]
 ## NOTE: This will run even if the card is instant, though it should execute immediately. [br][br]
 ## Combat only.
-static func after_card_exits(card) -> void:
-	push_error("not implemented")
+static func after_card_exited_play(combat_state: CombatState, card_play: CardPlay) -> void:
+	for listener: AbstractModel in combat_state.get_hook_listeners():
+		await listener.after_card_exited_play(card_play)
 
 # WARNING: UNUSED
 ## Runs before a card is removed from the deck.
@@ -173,24 +171,14 @@ static func modify_move_time_delta(delta: float) -> float:
 static func modify_damage(run_state: RunState, combat_state: CombatState, target: Creature, dealer: Creature, amount: float, card_source: CardModel) -> float:
 	var damage: float = amount
 	
-	if card_source:
-		damage = upgrade_damage_internal(card_source, damage)
-	
-	for model: AbstractModel in run_state.get_hook_listeners(combat_state):
+	var listeners: Array[AbstractModel] = run_state.get_hook_listeners(combat_state)
+	for model: AbstractModel in listeners:
 		damage += model.modify_damage_additive(target, dealer, damage, card_source)
-	for model: AbstractModel in  run_state.get_hook_listeners(combat_state):
+	for model: AbstractModel in  listeners:
 		damage *= model.modify_damage_multiplicative(target, dealer, damage, card_source)
 	return damage
 
-## Modify the amount of damage to be dealt accounting only for upgrades. Only use for things like previews. See [method modify_damage].
-static func upgrade_damage_internal(card_source: CardModel, amount: float) -> float:
-	var damage: float =amount
-	for upgrade: UpgradeModel in card_source.upgrades:
-			damage += upgrade.upgrade_damage_additive(damage)
-	for upgrade: UpgradeModel in card_source.upgrades:
-		damage *= upgrade.upgrade_damage_multiplicative(damage)
-	return damage
-
+# NOTE: Theoretically more efficient to merge with modify_shield_amount_internal. Could change to a hook that's just "modify_shield_additive". On the other hand, doing it memberwise helps with previewing values.
 ## Modify a shield. Additive effects are applied first, followed by multiplicative effects. [br][br]
 ## See [method AbstractModel.modify_shield_additive] and [method AbstractModel.modify_shield_multiplicative].
 static func modify_shield(combat_state: CombatState, creature: Creature, shield: Shield, card_source: CardModel) -> Shield:
@@ -201,21 +189,22 @@ static func modify_shield(combat_state: CombatState, creature: Creature, shield:
 static func modify_shield_amount_internal(combat_state: CombatState, creature: Creature, amount: float, card_source: CardModel) -> float:
 	var shield_amount: float = amount
 	
-	if card_source:
-		shield_amount = upgrade_shield_amount_internal(card_source, shield_amount)
-	
-	for model: AbstractModel in combat_state.get_hook_listeners():
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
 		shield_amount += model.modify_shield_additive(creature, shield_amount, card_source)
-	for model: AbstractModel in combat_state.get_hook_listeners():
+	for model: AbstractModel in listeners:
 		shield_amount *= model.modify_shield_multiplicative(creature, shield_amount, card_source)
 		
 	return shield_amount
 
-## Modify the amount only accounting for upgrades. Only use for things like previews. See [method modify_shield].
-static func upgrade_shield_amount_internal(card_source: CardModel, amount: float) -> float:
-	var shield_amount = amount
-	for upgrade: UpgradeModel in card_source.upgrades:
-		shield_amount += upgrade.upgrade_shield_additive(shield_amount)
-	for upgrade: UpgradeModel in card_source.upgrades:
-		shield_amount *= upgrade.upgrade_shield_multiplicative(shield_amount)
-	return shield_amount
+## Modify the play duration of a card.
+static func modify_card_duration(combat_state: CombatState, card: CardModel, amount: float) -> float:
+	var card_duration: float = amount
+	
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
+		card_duration += model.modify_card_duration_additive(card, card_duration)
+	for model: AbstractModel in listeners:
+		card_duration *= model.modify_card_duration_multiplicative(card, card_duration)
+	
+	return card_duration

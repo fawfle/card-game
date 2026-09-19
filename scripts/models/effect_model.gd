@@ -11,6 +11,9 @@ var _duration: float = -1
 ## How long the effect will be in play.
 var _time_left: float = -1
 
+## set to true when the effect model is removed
+var removed: bool = false
+
 ## The amount of times this effect is applied to the owner. To keep things simple, this should be the only real thing that changes an effect's effect.
 var amount: int:
 	set(value):
@@ -53,14 +56,21 @@ func bind_to_card(card: CardModel) -> void:
 func add_timeout_delta(delta: float) -> void:
 	_time_left -= delta
 	if _time_left <= 0:
-		owner.remove_effect_internal(self)
+		remove_from_creature_internal()
+
+func remove_from_creature_internal() -> void:
+	if removed: return
+	owner.remove_effect_internal(self)
+	removed = true
 
 func add_time_left(delta: float) -> void:
 	if not has_delta_timeout: push_error("cannot add time left to an effect that doesn't have a delta_timeout")
 	_time_left += delta
 
 func get_duration() -> float:
-	if card_source: return card_source.get_play_duration()
+	if card_source:
+		if card_source.active_card_play: return card_source.active_card_play.play_duration
+		else: push_error("card source should have an active cardplay")
 	return _duration
 
 func get_time_left() -> float:
@@ -80,4 +90,4 @@ static func get_generic_description() -> String:
 	return "broken generic description."
 
 func _on_card_source_exited() -> void:
-	owner.remove_effect_internal(self)
+	remove_from_creature_internal()

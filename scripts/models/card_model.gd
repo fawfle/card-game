@@ -53,19 +53,18 @@ var dynamic_variables: DynamicVariableSet = null:
 	get():
 		assert_mutable()
 		if dynamic_variables == null:
-			dynamic_variables = get_base_dynamic_variables()
+			dynamic_variables = _get_base_dynamic_variables()
 		return dynamic_variables
 
-func get_base_dynamic_variables() -> DynamicVariableSet: return null
+func _get_base_dynamic_variables() -> DynamicVariableSet: return null
 
 var keywords: Array[Constants.CardKeyword]:
 	get():
 		assert_mutable()
-		if keywords == []:
-			keywords = get_base_keywords()
+		if keywords == []: keywords = _get_base_keywords()
 		return keywords
 
-func get_base_keywords() -> Array[Constants.CardKeyword]: return []
+func _get_base_keywords() -> Array[Constants.CardKeyword]: return []
 
 ## The CardPlay that "owns" this card. null if card isn't in play.
 var active_card_play: CardPlay = null
@@ -78,15 +77,24 @@ var is_upgradeable: bool:
 	get(): return get_upgrade_slot_count() > len(upgrades)
 
 ## Override to give a card a pathos cost. Get pathos cost BEFORE modifiers. See [get_pathos_cost_with_modifiers].
-func get_pathos_cost() -> int: return 0
+func _get_base_pathos_cost() -> int: return 0
 ## Override to give a card a logos cost. Get logos cost BEFORE modifiers. See [get_logos_cost_with_modifiers].
-func get_logos_cost() -> int: return 0
+func _get_base_logos_cost() -> int: return 0
 
-## TODO
-func get_pathos_cost_with_modifiers() -> int: return get_pathos_cost()
-func get_logos_cost_with_modifiers() -> int: return get_logos_cost()
+## Get modified pathos cost
+func get_pathos_cost() -> int: return _get_base_pathos_cost()
+## Get modified logos cost
+func get_logos_cost() -> int: return _get_base_logos_cost()
 
-func get_play_duration() -> float: return 0.0
+## null if no duration
+var duration: DurationVariable:
+	get():
+		assert_mutable()
+		if duration == null: duration = _get_base_play_duration()
+		return duration
+
+## Get the base play duration. null if no duration.
+func _get_base_play_duration() -> DurationVariable: return null
 
 ## Get an UNFORMATTED description. See [method get_dynamic_description].
 func get_description() -> String: return "Broken Description"
@@ -157,10 +165,10 @@ func spend_resources() -> void:
 	spend_logos()
 
 func spend_pathos() -> void:
-	owner.player_combat_state.lose_pathos_internal(get_pathos_cost_with_modifiers())
+	owner.player_combat_state.lose_pathos_internal(get_pathos_cost())
 
 func spend_logos() -> void:
-	owner.player_combat_state.lose_logos_internal(get_logos_cost_with_modifiers())
+	owner.player_combat_state.lose_logos_internal(get_logos_cost())
 
 ## Apply an upgrade. See [method CardCommand.upgrade].
 func upgrade_internal(upgrade: UpgradeModel) -> void:
@@ -169,11 +177,23 @@ func upgrade_internal(upgrade: UpgradeModel) -> void:
 	upgrade.assert_mutable()
 	upgrade.card = self
 	upgrades.push_back(upgrade)
+	update_dynamic_variables()
+
+func update_dynamic_variables() -> void:
+	if dynamic_variables: dynamic_variables.update_values(self)
+	if duration: duration.update_value(self)
 
 func after_cloned() -> void:
 	super.after_cloned()
 	if base_instance == null: base_instance = ModelDb.card(get_script())
 	upgrades = upgrades.duplicate_deep()
+	if dynamic_variables:
+		dynamic_variables = dynamic_variables.duplicate_deep()
+		dynamic_variables.update_values(self)
+	if duration:
+		duration = duration.duplicate_deep()
+		duration.update_value(self)
+	
 
 ## Get a formatted description for a specific place in the game. For example, the Deck shows cards in their upgraded form while the Hand should preview effects.
 func get_formatted_description(pile_type: Constants.PileType, target: Creature = null) -> String:
@@ -182,12 +202,16 @@ func get_formatted_description(pile_type: Constants.PileType, target: Creature =
 	if dynamic_variables:
 		for variable: DynamicVariable in dynamic_variables.list.values():
 			var preview_value: int = variable.get_preview_value(self, pile_type, target)
-			var local_preview_value: int = variable.get_preview_value_local(self)
 			
 			var preview_string: String = str(preview_value)
-			if preview_value > local_preview_value: preview_string = "[color=#22ff22]" + preview_string + "[/color]"
-			elif preview_value < local_preview_value: preview_string = "[color=#f95252]" + preview_string + "[/color]"
+			if preview_value > variable.value: preview_string = "[color=#00b765]" + preview_string + "[/color]"
+			elif preview_value < variable.value: preview_string = "[color=#f95252]" + preview_string + "[/color]"
 			values.set(variable.name, preview_string)
+	
+	for upgrade: UpgradeModel in upgrades:
+		var upgrade_card_description: String = upgrade.get_card_description()
+		if upgrade_card_description == "": continue
+		description += "\n[color=%s]%s[/color]" % [upgrade.get_color().to_html(), upgrade_card_description]
 	
 	for keyword: Constants.CardKeyword in keywords:
 		description += "\n%s." % CardKeywordHelper.get_title(keyword)

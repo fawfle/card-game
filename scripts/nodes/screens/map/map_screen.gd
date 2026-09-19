@@ -13,6 +13,15 @@ var _can_travel: bool = false
 func _ready() -> void:
 	RunManager.instance.map_point_visited.connect(_on_map_point_visited)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventKey: return
+	var key_event: InputEventKey = event as InputEventKey
+	if not key_event.pressed: return
+	
+	if key_event.keycode == KEY_M:
+		toggle()
+		get_viewport().set_input_as_handled()
+
 func set_map(map: Map) -> void:
 	_map = map
 	
@@ -33,6 +42,10 @@ func close() -> void:
 	if not is_open: return
 	is_open = false
 	visible = false
+
+func toggle() -> void:
+	if is_open: close()
+	else: open()
 
 ## Enable if the player can travel.
 func set_travel_enabled(enabled: bool) -> void:

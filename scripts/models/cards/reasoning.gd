@@ -10,18 +10,18 @@ func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEM
 const START_DAMAGE: String = &"StartDamage"
 const END_DAMAGE: String = &"EndDamage"
 
-func get_base_dynamic_variables() -> DynamicVariableSet:
-	return DynamicVariableSet.new(
+func _get_base_dynamic_variables() -> DynamicVariableSet:
+	return DynamicVariableSet.new([
 		DamageVariable.new(START_DAMAGE, 1),
 		DamageVariable.new(END_DAMAGE, 1)
-	)
+	])
 
-func get_play_duration() -> float: return 5.0
+func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(5.0)
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[START_DAMAGE].base_value).execute()
+	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[START_DAMAGE].value).execute()
 
 func on_timeout(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[END_DAMAGE].base_value).execute()
+	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[END_DAMAGE].value).execute()

@@ -17,13 +17,14 @@ var _target: Creature = null
 @onready var description: RichTextLabel = %Description
 
 @onready var icon: TextureRect = %Icon
-@onready var duration_label: Label = %DurationLabel
 @onready var button: TextureButton = %Button
 @onready var play_timer_progress_bar: TextureProgressBar = %PlayTimerProgressBar
 
+@onready var duration_icon: Panel = %DurationIcon
+@onready var duration_label: Label = %DurationLabel
 @onready var pathos_icon: Panel = %PathosIcon
-@onready var logos_icon: Panel = %LogosIcon
 @onready var pathos_label: Label = %PathosLabel
+@onready var logos_icon: Panel = %LogosIcon
 @onready var logos_label: Label = %LogosLabel
 
 @onready var upgrade_slot_container: HBoxContainer = %UpgradeSlotContainer
@@ -53,11 +54,13 @@ func update_visuals() -> void:
 	if model == null: push_error("Cannot update visuals without a model. Make sure to use create().")
 	title_label.text = model.get_title()
 	description.text = model.get_formatted_description(model.get_card_pile_type(), _target)
-	duration_label.text = str(model.get_play_duration())
-	if duration_label.text == "0.0": duration_label.text = "!"
+	if model.duration:
+		duration_label.text = str(model.duration.get_preview_value(model, model.get_card_pile_type(), _target))
+	else:
+		duration_icon.visible = false
 	
-	var pathos_cost = model.get_pathos_cost_with_modifiers()
-	var logos_cost = model.get_logos_cost_with_modifiers()
+	var pathos_cost = model.get_pathos_cost()
+	var logos_cost = model.get_logos_cost()
 	
 	pathos_icon.visible = pathos_cost != 0
 	pathos_label.text = str(pathos_cost)

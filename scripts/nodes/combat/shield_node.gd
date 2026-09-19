@@ -29,6 +29,7 @@ func _ready() -> void:
 		progress_bar.visible = false
 
 func _process(_delta: float) -> void:
+	if _shield.removed: return
 	shield_amount.text = str(_shield.current_shield)
 	
 	if not _shield.is_permanent:

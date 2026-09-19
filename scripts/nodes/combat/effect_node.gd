@@ -30,6 +30,7 @@ func _ready() -> void:
 
 # at this point, I'm just gonna start putting stuff in _process.
 func _process(_delta: float) -> void:
+	if _effect.removed: return
 	amount.text = str(_effect.amount)
 	
 	if not _effect.is_permanent:

@@ -19,10 +19,11 @@ static func play(card: CardModel, target: Creature) -> void:
 	
 	card.spend_resources()
 	
-	var card_play: CardPlay = CardPlay.create_from_properties({ "card": card, "target": target, "play_duration": card.get_play_duration() })
+	var card_play: CardPlay = CardPlay.create_from_properties({ "card": card, "target": target, "play_duration": Hook.modify_card_duration(combat_state, card, card.duration.value if card.duration else 0) })
 	await Hook.before_card_played(combat_state, card_play)
 	card.active_card_play = card_play
 	card.on_play(card_play)
+	await Hook.after_card_played(combat_state, card_play)
 	while card_play.is_active() and CombatManager.instance.is_in_progress:
 		# Not 100% sure about order of waiting/processing, but awaiting before in_play_process seems fine.
 		await RunNode.instance.get_tree().process_frame
@@ -34,7 +35,7 @@ static func play(card: CardModel, target: Creature) -> void:
 	
 	card.on_exit_play(card_play)
 	card.active_card_play = null
-	await Hook.after_card_played(combat_state, card_play)
+	await Hook.after_card_exited_play(combat_state, card_play)
 	card.exited_play.emit()
 	
 	var result_pile: Constants.PileType = card.get_play_result_pile()

@@ -11,6 +11,7 @@ var draw_pile: CardPile = CardPile.new(Constants.PileType.DRAW)
 var discard_pile: CardPile = CardPile.new(Constants.PileType.DISCARD)
 var play_pile: CardPile = CardPile.new(Constants.PileType.PLAY)
 
+## every COMBAT pile.
 var all_piles: Array[CardPile] = [hand, draw_pile, discard_pile, play_pile]
 
 ## Avoid modifying directly. See [PlayerCommand].
@@ -99,15 +100,15 @@ func add_draw_time_delta_internal(delta: float) -> void:
 
 # TODO: implement unplayable reasons???
 func has_enough_resources_to_play(card: CardModel) -> bool:
-	var pathos_cost: int = max(0, card.get_pathos_cost_with_modifiers())
-	var logos_cost: int = max(0, card.get_logos_cost_with_modifiers())
+	var pathos_cost: int = max(0, card.get_pathos_cost())
+	var logos_cost: int = max(0, card.get_logos_cost())
 	if pathos_cost > pathos: return false
 	if logos_cost > logos: return false
 	return true
 
 func get_resource_unplayable_reason(card: CardModel) -> Constants.UnplayableReason:
-	var pathos_cost: int = max(0, card.get_pathos_cost_with_modifiers())
-	var logos_cost: int = max(0, card.get_logos_cost_with_modifiers())
+	var pathos_cost: int = max(0, card.get_pathos_cost())
+	var logos_cost: int = max(0, card.get_logos_cost())
 	if pathos_cost > pathos and logos_cost > logos: return Constants.UnplayableReason.NOT_ENOUGH_PATHOS_OR_LOGOS
 	if pathos_cost > pathos: return Constants.UnplayableReason.NOT_ENOUGH_PATHOS
 	if logos_cost > logos: return Constants.UnplayableReason.NOT_ENOUGH_LOGOS

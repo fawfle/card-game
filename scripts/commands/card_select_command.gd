@@ -1,8 +1,9 @@
 class_name CardSelectCommand
 
+## TODO: Have upgrades filter what cards they can't apply to
 ## Select a card from a grid for a card upgrade.
-static func select_card_for_upgrade(player: Player) -> CardModel:
-	var upgradeable_cards: Array[CardModel] = player.deck.cards.filter(can_upgrade)
+static func select_card_for_upgrade(player: Player, upgrade: UpgradeModel) -> CardModel:
+	var upgradeable_cards: Array[CardModel] = player.deck.cards.filter(can_upgrade).filter(func(card: CardModel): return upgrade.can_apply(card))
 	if upgradeable_cards.size() == 0: return null
 	
 	var card_grid_selection_screen: CardGridSelectionScreen = CardGridSelectionScreen.create(upgradeable_cards, 1)

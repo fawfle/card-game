@@ -14,5 +14,4 @@ static func set_alignment(child: Control, node: Control, alignment: Constants.Al
 		Constants.Alignment.CENTER_TOP:
 			child.global_position = node.global_position
 			child.global_position.x += node.size.x / 2 - child.size.x / 2
-			print(child.size.y)
 			child.global_position.y -= child.size.y

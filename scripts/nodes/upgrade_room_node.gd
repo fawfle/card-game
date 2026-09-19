@@ -46,8 +46,8 @@ func update_visuals() -> void:
 
 func _on_select_button_pressed() -> void:
 	if upgraded: return
-	_selected_card = await CardSelectCommand.select_card_for_upgrade(_upgrade_room.run_state.player)
-	if not _selected_card.is_upgradeable: _selected_card = null
+	_selected_card = await CardSelectCommand.select_card_for_upgrade(_upgrade_room.run_state.player, _upgrade_room.upgrade)
+	if _selected_card and not _selected_card.is_upgradeable: _selected_card = null
 	update_visuals()
 
 func _on_confirm_button_pressed() -> void:

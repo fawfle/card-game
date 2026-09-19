@@ -28,7 +28,7 @@ func clone_mutable() -> AbstractModel:
 	## TODO: Make sure duplicate here actually works. If not, implement a custom copy function.
 	var model: AbstractModel = _duplicate()
 	model.is_mutable = true
-	after_cloned()
+	model.after_cloned()
 	return model
 
 ## Create a mutable clone from the base instance. When applicable, theoretically more explicity/"safer" than [method clone_mutable].
@@ -110,30 +110,26 @@ func after_shuffle() -> void:
 func after_hand_emptied() -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs before a card is played. [br][br]
 ## Combat only.
 func before_card_played(card_play: CardPlay) -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs after a card is played. [br][br]
 ## Combat only.
 func after_card_played(card_play: CardPlay) -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs before a card exits play. [br][br]
 ## NOTE: This will run even if the card is instant, though it should execute immediately. [br][br]
 ## Combat only.
-func before_card_exits(card) -> void:
+func before_card_exited_play(card_play: CardPlay) -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs after a card exits play. [br][br]
 ## NOTE: This will run even if the card is instant, though it should execute immediately. [br][br]
 ## Combat only.
-func after_card_exits(card) -> void:
+func after_card_exited_play(card_play: CardPlay) -> void:
 	pass
 
 # WARNING: UNUSED
@@ -205,27 +201,32 @@ func modify_max_pathos(max_pathos: float) -> float:
 func modify_max_logos(max_logos: float) -> float:
 	return max_logos
 
-# WARNING: UNUSED
 ## Add to the amount that will be dealt.
 func modify_damage_additive(target: Creature, dealer: Creature, damage_amount: float, card_source: CardModel) -> float:
 	return 0
 
-# WARNING: UNUSED
 ## Multiply the amount that will be dealt.
 func modify_damage_multiplicative(target: Creature, dealer: Creature, damage_amount: float, card_source: CardModel) -> float:
 	return 1.0
 
-# WARNING: UNUSED
 ## Add to the amount of shield gained.
 func modify_shield_additive(creature: Creature, shield_amount: float, card_source: CardModel) -> float:
 	return 0
 
-# WARNING: UNUSED
 ## Multiply the amount of shield gained.
 func modify_shield_multiplicative(creature: Creature, shield_amount: float, card_source: CardModel) -> float:
 	return 1.0
 
-# WARNING: UNUSED. May need more hooks for order (modify_attack_early, modify_attack_late).
-## Modify an attack. This is where in play card effects should be directly handled (such as shield).
-func modify_attack(dealer, target, attack, card) -> float:
+func modify_card_pathos_cost_additive(card: CardModel, pathos_cost: float) -> float:
+	return 0
+
+func modify_card_logos_cost_additve(card: CardModel, logos_cost: float) -> float:
+	return 0
+
+## Add (or subtract) from a cards duration right before it's played
+func modify_card_duration_additive(card: CardModel, duration_duration: float) -> float:
+	return 0
+
+## Multiply the duration of a card before it's played
+func modify_card_duration_multiplicative(card: CardModel, duration_duration: float) -> float:
 	return 1.0

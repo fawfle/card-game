@@ -87,7 +87,7 @@ func get_random_upgrade() -> UpgradeModel:
 	if all_upgrades.size() == 0: push_error("there are no available upgrades! Make sure the run_state upgrade pools are set.")
 	var upgrade: UpgradeModel = null
 	while upgrade == null:
-		var random_upgrade: UpgradeModel = all_upgrades.pick_random().clone_mutable_from_base()
+		var random_upgrade: UpgradeModel = all_upgrades.pick_random().clone_mutable()
 		if random_upgrade.can_apply_to_any(run_state.player.deck):
 			upgrade = random_upgrade
 	return upgrade

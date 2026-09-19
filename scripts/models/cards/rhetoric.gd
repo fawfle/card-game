@@ -5,9 +5,9 @@ func get_icon() -> Texture2D: return preload("res://assets/icons/rhetoric_icon.p
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
-func get_pathos_cost() -> int: return 3
+func _get_base_pathos_cost() -> int: return 3
 
-func get_play_duration() -> float: return 5.0
+func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(5.0)
 
 var convincing_amount: int = 2
 

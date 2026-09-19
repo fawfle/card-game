@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://clk7560gv5q8m" path="res://scenes/scene_container.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://bsi0buwwell3e" path="res://scenes/debug/dev_console.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://ccm3vjs4x4y5x" path="res://scenes/ui/debug/fps_display.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://bq5efl56xpunx" path="res://scripts/nodes/game_node.gd" id="10_vtaks"]
 
 [node name="Game" type="Control" unique_id=874201116]
@@ -24,3 +25,6 @@ layer = 10
 
 [node name="DevConsole" parent="DevConsoleLayer" unique_id=1804910234 instance=ExtResource("3_lnu2h")]
 visible = false
+
+[node name="FpsDisplay" parent="." unique_id=2036907069 instance=ExtResource("4_lbhrr")]
+layout_mode = 1

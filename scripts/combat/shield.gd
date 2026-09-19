@@ -23,7 +23,7 @@ var is_permanent: bool:
 
 var _time_spent_in_play: float = -1
 
-var _removed: bool = false
+var removed: bool = false
 
 var _has_timeout_condition: bool:
 	get(): return card_source != null or total_duration_seconds != -1
@@ -74,9 +74,9 @@ func destroy_shield(dealer: Creature = null) -> void:
 	remove_from_creature_internal()
 
 func remove_from_creature_internal():
-	if _removed: return
+	if removed: return
 	CreatureCommand.remove_shield(creature, self)
-	_removed = true
+	removed = true
 	shield_removed.emit()
 
 ## Combine this shield with another. Mainly for combining permanent shields.
@@ -84,7 +84,9 @@ func combine(shield: Shield) -> void:
 	current_shield += shield.current_shield
 
 func get_duration() -> float:
-	if card_source: return card_source.get_play_duration()
+	if card_source:
+		if card_source.active_card_play: return card_source.active_card_play.play_duration
+		else: push_error("card_source should have an active cardplay")
 	return total_duration_seconds
 
 func get_time_left() -> float:
