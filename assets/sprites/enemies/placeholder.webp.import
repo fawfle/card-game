@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwl41v88fnlt"
-path="res://.godot/imported/kevin_testing.jpg-567a3a019e489bd706c6b54ff9e18e62.ctex"
+uid="uid://cj4dlm3a7j3ds"
+path="res://.godot/imported/placeholder.webp-6a503882c68c179705bf4ac1de35bb60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/kevin_testing.jpg"
-dest_files=["res://.godot/imported/kevin_testing.jpg-567a3a019e489bd706c6b54ff9e18e62.ctex"]
+source_file="res://assets/sprites/enemies/placeholder.webp"
+dest_files=["res://.godot/imported/placeholder.webp-6a503882c68c179705bf4ac1de35bb60.ctex"]
 
 [params]
 

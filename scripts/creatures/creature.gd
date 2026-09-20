@@ -109,6 +109,7 @@ func remove_effect_internal(effect: EffectModel) -> void:
 	on_effects_changed.emit(effects)
 
 func get_visuals() -> PackedScene:
+	if player != null: return player.character.get_visuals()
 	if enemy != null: return enemy.get_visuals()
 	return null
 

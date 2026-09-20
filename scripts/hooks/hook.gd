@@ -123,6 +123,12 @@ static func before_death() -> void:
 static func after_death() -> void:
 	push_error("not implemented")
 
+## Runs after a shield is destroyed (has current_shield depleted)
+## Combat only.
+static func after_shield_destroyed(combat_state: CombatState, shield: Shield, dealer: Creature) -> void:
+	for listener: AbstractModel in combat_state.get_hook_listeners():
+		listener.after_shield_destroyed(shield, dealer)
+
 # WARNING: UNUSED
 ## Runs after ethos is spent. [br][br]
 ## Combat only.

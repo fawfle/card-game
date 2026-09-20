@@ -43,8 +43,10 @@ func stop():
 # TODO: Add more sources
 ## Cancels a CardPlay and invokes events. Not to be confused with [method stop].
 func cancel(creature_soure: Creature) -> void:
+	if cancelled: return
 	cancelled = true
 	cancelled_creature_source = creature_soure
+	card.on_cancelled(creature_soure)
 
 func is_active() -> bool:
 	return play_time_left > 0 and not stopped and not cancelled

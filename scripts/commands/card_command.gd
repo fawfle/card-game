@@ -30,7 +30,8 @@ static func play(card: CardModel, target: Creature) -> void:
 		var delta: float = RunNode.instance.get_process_delta_time()
 		card_play.play_time_left -= delta
 		card.in_play_process(delta)
-	if card_play.cancelled: card.on_cancelled(card_play.cancelled_creature_source)
+	# Since cancel events should happen immediately, the card_play will call card.on_cancelled when it's cancelled rather than handling it here.
+	#if card_play.cancelled: card.on_cancelled(card_play.cancelled_creature_source)
 	if card_play.play_time_left <= 0: card.on_timeout(card_play)
 	
 	card.on_exit_play(card_play)

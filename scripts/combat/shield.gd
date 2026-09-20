@@ -6,12 +6,12 @@ class_name Shield
 
 ## Emitted when the shield is finished for any reason.
 signal shield_removed()
+## Emitted when the shield is destroyed by having [member current_shield] hit 0.
+signal shield_destroyed()
 
 var creature: Creature
 
 var current_shield: int = 0
-
-## If this shield should be destroyed after being damaged
 
 ## Card that created this shield. Used to listen to card events.
 var card_source: CardModel = null
@@ -32,6 +32,7 @@ var _has_timeout_condition: bool:
 var has_delta_timeout: bool:
 	get(): return total_duration_seconds != -1 and card_source == null
 
+## An extra layer of priority for the shield to recieve damage. Does not correspond to behavior.
 var priority: Constants.ShieldPriority = Constants.ShieldPriority.NONE
 
 func _init(target_creature: Creature, shield_amount: int, shield_priority: Constants.ShieldPriority) -> void:
@@ -47,6 +48,7 @@ func bind_to_card(card: CardModel, destroy_card_if_destroyed: bool = true) -> Sh
 	_destroy_card_if_destroyed = destroy_card_if_destroyed
 	return self
 
+## Set the duration to a hardcoded time. Usually used for enemies.
 func set_duration(duration_seconds: float) -> Shield:
 	if card_source: push_error("Don't add duration to a shield bound to a card")
 	total_duration_seconds = duration_seconds
@@ -71,7 +73,9 @@ func _on_card_source_exited() -> void:
 func destroy_shield(dealer: Creature = null) -> void:
 	if _destroy_card_if_destroyed:
 		CardCommand.cancel_card(card_source, dealer)
+	shield_destroyed.emit()
 	remove_from_creature_internal()
+	Hook.after_shield_destroyed(creature.combat_state, self, dealer)
 
 func remove_from_creature_internal():
 	if removed: return

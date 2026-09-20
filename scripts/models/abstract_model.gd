@@ -179,6 +179,9 @@ func before_death() -> void:
 func after_death() -> void:
 	pass
 
+func after_shield_destroyed(shield: Shield, dealer: Creature) -> void:
+	pass
+
 # WARNING: UNUSED
 ## Runs after ethos is spent. [br][br]
 ## Combat only.

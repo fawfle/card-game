@@ -28,3 +28,8 @@ class_name CharacterModel extends AbstractModel
 
 ## Get the default active upgrade pools for this character
 @abstract func get_starting_upgrade_pools() -> Array[UpgradePoolModel]
+
+func get_visuals() -> PackedScene:
+	var path: String = "res://scenes/creature_visuals/%s.tscn" % id_snakecase
+	if ResourceLoader.exists(path): return load(path)
+	return null

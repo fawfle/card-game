@@ -6,7 +6,7 @@ var damage_amount: int = 3
 var debuff_convincing_amount: int = -1
 
 func generate_move_state_machine() -> MoveStateMachine:
-	var debuff_convincing_state: MoveState = MoveState.new("DEBUFF CONVINCING", _debuff_convincing_move, 5.0, [EffectIntent.new(ConvincingEffect, debuff_convincing_amount, EffectIntent.TARGET_TYPE.DEBUFF)])
+	var debuff_convincing_state: MoveState = MoveState.new("DEBUFF CONVINCING", _debuff_convincing_move, 5.0, [EffectIntent.new(ConvincingEffect, debuff_convincing_amount, EffectIntent.TargetType.DEBUFF)])
 	var attack_state: MoveState = MoveState.new("ATTACK", _attack_move, 5.0, [AttackIntent.new(damage_amount)])
 	
 	debuff_convincing_state.next_state = attack_state
