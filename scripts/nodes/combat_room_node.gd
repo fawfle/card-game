@@ -12,6 +12,7 @@ var _combat_room: CombatRoom = null
 @onready var player_marker: Marker2D = %PlayerMarker
 @onready var enemy_container: Control = %EnemyContainer
 @onready var enemy_marker: Marker2D = %EnemyMarker
+@onready var vfx_container: Control = %VfxContainer
 @onready var ui: CombatUi = %CombatUi
 
 @onready var proceed_button: Button = %ProceedButton

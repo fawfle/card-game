@@ -14,6 +14,10 @@ static func damage_creature(target: Creature, dealer: Creature, damage: float, c
 	var damage_after_shield: int = target.damage_shield_internal(int(modified_damage), dealer)
 	target.lose_hp_internal(damage_after_shield)
 	# TODO: add hook for after_damage_dealt with information about the attack.
+	if CombatRoomNode.instance and damage_after_shield > 0:
+		CombatRoomNode.instance.vfx_container.add_child(DamageNumberVfx.create(target, int(damage_after_shield)))
+	elif modified_damage > 0 and damage_after_shield == 0:
+		CombatRoomNode.instance.vfx_container.add_child(DamageBlockedVfx.create(target))
 	
 	# Handle fragile Keyword
 	if target.player and modified_damage > 0:
@@ -68,7 +72,7 @@ static func apply_effect(target: Creature, effect_model: EffectModel, applier: C
 	effect.card_source = card_source
 	effect.apply_internal(target)
 
-## see if a creature has a power, mostly to modify it instead of adding a copy. Searches for a temporary effect if [param effect] is temporary.
+## see if a creature has an effect, mostly to modify it instead of adding a copy. Searches for a temporary effect if [param effect] is temporary.
 static func find_existing_effect_for_stacking(target: Creature, effect: EffectModel) -> EffectModel:
 	return target.get_effect_instance(effect)
 

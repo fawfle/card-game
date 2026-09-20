@@ -46,6 +46,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="VfxContainer" type="Control" parent="." unique_id=6063853]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="CombatUi" parent="." unique_id=1979600615 instance=ExtResource("1_s0ns5")]
 unique_name_in_owner = true
 layout_mode = 1
