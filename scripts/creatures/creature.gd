@@ -63,6 +63,9 @@ static func from_enemy(enemy_model: EnemyModel) -> Creature:
 	enemy_model.creature = creature
 	return creature
 
+func on_combat_start() -> void:
+	if enemy: enemy.on_combat_start()
+
 ## Called by the [CombatManager]. Use to handle real time mechanics, like shield timers.
 func combat_process(delta: float) -> void:
 	for shield: Shield in shield_queue.shields:
@@ -87,6 +90,9 @@ func damage_shield_internal(amount: int, dealer: Creature = null) -> int:
 		
 		if amount_left <= 0: return 0
 	return amount_left
+
+func heal_internal(amount: int) -> void:
+	current_hp = min(current_hp + amount, max_hp)
 
 ## Avoid use. See [method CreatureCommand.add_shield].
 func add_shield_internal(shield: Shield):

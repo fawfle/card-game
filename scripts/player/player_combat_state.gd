@@ -44,7 +44,7 @@ func get_initial_card_count() -> int:
 	return int(Hook.modify_initial_card_count(_player.initial_card_count))
 
 func get_draw_time() -> float:
-	return Hook.modify_draw_time(_player.draw_time)
+	return Hook.modify_draw_time(_player.creature.combat_state, _player, _player.draw_time)
 
 ## Modify with [method add_pathos_time_delta_internal[.
 var pathos_gain_timer: float = 0.0:

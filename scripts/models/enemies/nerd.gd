@@ -1,4 +1,5 @@
 class_name Nerd extends EnemyModel
+## Attack window between shields
 
 func get_max_hp() -> int: return 24
 

@@ -163,10 +163,9 @@ func before_damage_dealt() -> void:
 func after_damage_given() -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs after damage is taken by a creature (regardless of actual damage). [br][br]
 ## Different from [method after_damage_given] since it will NOT run if the creature dies. For example, this can be to avoid updating statuses. Also semantics.
-func after_damage_taken() -> void:
+func after_damage_taken(target: Creature, damage_result: DamageResult) -> void:
 	pass
 
 # WARNING: UNUSED
@@ -204,6 +203,12 @@ func modify_max_pathos(max_pathos: float) -> float:
 func modify_max_logos(max_logos: float) -> float:
 	return max_logos
 
+func modify_draw_time_additive(player: Player, draw_time: float) -> float:
+	return 0
+
+func modify_draw_time_multiplicative(player: Player, draw_time: float) -> float:
+	return 1.0
+
 ## Add to the amount that will be dealt.
 func modify_damage_additive(target: Creature, dealer: Creature, damage_amount: float, card_source: CardModel) -> float:
 	return 0
@@ -219,6 +224,10 @@ func modify_shield_additive(creature: Creature, shield_amount: float, card_sourc
 ## Multiply the amount of shield gained.
 func modify_shield_multiplicative(creature: Creature, shield_amount: float, card_source: CardModel) -> float:
 	return 1.0
+
+## Return a new damage cap.
+func modify_damage_cap(target: Creature, dealer: Creature, card_source: CardModel) -> float:
+	return INF
 
 func modify_card_pathos_cost_additive(card: CardModel, pathos_cost: float) -> float:
 	return 0

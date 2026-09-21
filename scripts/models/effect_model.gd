@@ -24,6 +24,9 @@ var amount: int:
 
 @abstract func get_icon() -> Texture2D
 
+## a Visual only indicator of if the effect is "inactive", such as an effect that "triggers" every n actions.
+func is_inactive() -> bool: return false
+
 var is_permanent: bool:
 	get(): return _duration == -1 and not card_source
 
@@ -66,6 +69,12 @@ func remove_from_creature_internal() -> void:
 func add_time_left(delta: float) -> void:
 	if not has_delta_timeout: push_error("cannot add time left to an effect that doesn't have a delta_timeout")
 	_time_left += delta
+
+## Decrement the amount and remove if it's 0. Could be seperated into a distinct "type" of effect model (like STS2 having "Counter" effects), but it should be fine.
+func decrement_amount() -> void:
+	amount -= 1
+	if amount == 0:
+		remove_from_creature_internal()
 
 func get_duration() -> float:
 	if card_source:

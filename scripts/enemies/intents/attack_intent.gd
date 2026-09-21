@@ -5,6 +5,8 @@ const ICON: Texture2D = preload("res://assets/icons/weapon_icon.webp")
 
 func get_title() -> String: return "Attack"
 
+func get_description(_owner: Creature, _targets: Array[Creature]) -> String: return "Intends to attack."
+
 func get_icon() -> Texture2D: return ICON
 
 var _damage: int = 0

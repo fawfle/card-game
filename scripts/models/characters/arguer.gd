@@ -1,6 +1,6 @@
 class_name ArguerCharacter extends CharacterModel
 
-func get_starting_max_hp() -> int: return 25
+func get_starting_max_hp() -> int: return 30
 
 func get_starting_max_pathos() -> int: return 3
 

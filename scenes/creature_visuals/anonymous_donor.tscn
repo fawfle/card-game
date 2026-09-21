@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://b358hqjonj3fl"]
+
+[ext_resource type="Script" uid="uid://m267tcd3vdyv" path="res://scripts/nodes/combat/creature_visuals.gd" id="1_xw1am"]
+[ext_resource type="Texture2D" uid="uid://cj4dlm3a7j3ds" path="res://assets/sprites/enemies/placeholder.webp" id="2_xw1am"]
+
+[sub_resource type="Animation" id="Animation_cnnnw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteContainer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3t08v"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(20, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteContainer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [0.0, 0.2617994, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qwqnh"]
+_data = {
+&"RESET": SubResource("Animation_cnnnw"),
+&"attack": SubResource("Animation_3t08v")
+}
+
+[node name="AnonymousDonor" type="Node2D" unique_id=810484132]
+script = ExtResource("1_xw1am")
+
+[node name="SpriteContainer" type="Node2D" parent="." unique_id=1945459155]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" unique_id=96345893]
+position = Vector2(0, -51)
+scale = Vector2(0.127558, 0.12755802)
+texture = ExtResource("2_xw1am")
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=174520123]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_qwqnh")

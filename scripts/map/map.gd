@@ -7,7 +7,7 @@ var _map_length: int
 
 var map_points: Array[MapPoint] = []
 
-const UPGRADE_POSITIONS: Array[int] = [2]
+const UPGRADE_POSITIONS: Array[int] = [2, 5, 8]
 
 func _init(run_state: RunState, act: ActModel) -> void:
 	_map_length = act.get_length()

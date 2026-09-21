@@ -19,14 +19,14 @@ func _get_normal_encounter_sets() -> Array[EncounterSet]:
 		ModelDb.encounter(AthleteEncounter),
 		ModelDb.encounter(NerdEncounter),
 		]),
-		#EncounterSet.new([
-		#ModelDb.encounter(PhilosopherEncounter),
-		#ModelDb.encounter(ProfessorEncounter),
-		#]),
-		#EncounterSet.new([
-		#ModelDb.encounter(BoredMemberEncounter),
-		#ModelDb.encounter(DonorEncounter),
-		#]),
+		EncounterSet.new([
+		ModelDb.encounter(PhilosopherEncounter),
+		ModelDb.encounter(ProfessorEncounter),
+		]),
+		EncounterSet.new([
+		ModelDb.encounter(BoredMemberEncounter),
+		ModelDb.encounter(AnonymousDonorEncounter),
+		]),
 	]
 
 func _get_boss_encounter_set() -> EncounterSet:

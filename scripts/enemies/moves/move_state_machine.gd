@@ -14,7 +14,7 @@ var _starting_state: MoveState = null
 
 var time_spent_in_state: float = 0
 
-func _init(states: Array[MoveState], starting_state) -> void:
+func _init(states: Array[MoveState], starting_state: MoveState) -> void:
 	_states = states
 	_starting_state = starting_state
 	set_current_state(starting_state)

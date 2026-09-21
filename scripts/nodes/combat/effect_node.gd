@@ -33,6 +33,8 @@ func _process(_delta: float) -> void:
 	if _effect.removed: return
 	amount.text = str(_effect.amount)
 	
+	modulate.a = 0.5 if _effect.is_inactive() else 1.0
+	
 	if not _effect.is_permanent:
 		duration_progress.max_value = _effect.get_duration()
 		duration_progress.value = _effect.get_time_left()

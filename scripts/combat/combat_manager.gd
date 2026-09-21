@@ -33,6 +33,9 @@ func _begin_combat_internal() -> void:
 	for player: Player in combat_state.get_players():
 		CardPileCommand.draw(player, player.player_combat_state.get_initial_card_count())
 	
+	for creature: Creature in combat_state.get_all_creatures():
+		creature.on_combat_start()
+	
 	is_in_progress = true
 	start_combat_manager_process()
 

@@ -9,12 +9,20 @@ static func damage_creatures(targets: Array[Creature], dealer: Creature, damage:
 static func damage_creature(target: Creature, dealer: Creature, damage: float, card_source: CardModel) -> void:
 	var run_state: RunState = RunManager.instance.run_state
 	var combat_state: CombatState = target.combat_state
-	var modified_damage: float = Hook.modify_damage(target.get_run_state(), target.combat_state, target, dealer, damage, card_source)
+	var damage_cap: float = Hook.modify_damage_cap(target.combat_state, target, dealer, card_source)
+	var modified_damage: int = clamp(Hook.modify_damage(target.get_run_state(), target.combat_state, target, dealer, damage, card_source), 0, damage_cap)
 	# TODO: Hook.before_damage_dealt(run_state, combat_state, target, modified_damage, dealer, card_source)
-	var damage_after_shield: int = target.damage_shield_internal(int(modified_damage), dealer)
+	var damage_after_shield: int = target.damage_shield_internal(modified_damage, dealer)
 	target.lose_hp_internal(damage_after_shield)
-	# TODO: add hook for after_damage_dealt with information about the attack.
-	if CombatRoomNode.instance and damage_after_shield > 0:
+	
+	var damage_result: DamageResult = DamageResult.new(target)
+	damage_result.total_damage = modified_damage
+	damage_result.blocked_damage = modified_damage - damage_after_shield
+	damage_result.unblocked_damage = damage_after_shield
+	
+	Hook.after_damage_taken(run_state, combat_state, target, damage_result)
+	
+	if CombatRoomNode.instance and damage_after_shield >= 0:
 		CombatRoomNode.instance.vfx_container.add_child(DamageNumberVfx.create(target, int(damage_after_shield)))
 	elif modified_damage > 0 and damage_after_shield == 0:
 		CombatRoomNode.instance.vfx_container.add_child(DamageBlockedVfx.create(target))
@@ -46,6 +54,12 @@ static func kill_internal(creature: Creature) -> void:
 	if creature_node: CombatRoomNode.instance.remove_creature_node(creature_node)
 	
 	CombatManager.instance.combat_state.remove_creature(creature)
+
+static func heal(creature: Creature, amount: float) -> void:
+	var effective_amount: float = min(amount, creature.max_hp - creature.current_hp)
+	creature.heal_internal(int(effective_amount))
+	if CombatRoomNode.instance:
+		CombatRoomNode.instance.vfx_container.add_child(HealNumberVfx.create(creature, amount)) # show full amount to copy STS2 and make heal amount clear ig.
 
 ## Adds a shield to a creature. If trying to create a shield, see [ShieldCommand].
 static func add_shield(creature: Creature, shield: Shield, card_source: CardModel) -> void:

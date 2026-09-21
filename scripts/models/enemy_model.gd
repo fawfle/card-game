@@ -47,7 +47,12 @@ func after_cloned() -> void:
 
 func set_up_for_combat() -> void:
 	move_state_machine = generate_move_state_machine()
+	if move_state_machine == null: push_error("enemy move state machine is null. Make sure the enemy generates a valid move_state_machine.")
 	move_state_machine.state_changed.connect(_on_state_changed)
+
+## A creature specific hook that's called "when" combat starts. Called before [method Hook.after_combat_start]. Used to initialize the enemy/creature (like making sure certain effects are applied first)
+func on_combat_start() -> void:
+	pass
 
 func should_perform_move() -> bool:
 	return move_state_machine.spent_enough_time_in_state()

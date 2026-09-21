@@ -107,11 +107,11 @@ static func before_damage_dealt() -> void:
 static func after_damage_given() -> void:
 	push_error("not implemented")
 
-# WARNING: UNUSED
 ## Runs after damage is taken by a creature (regardless of actual damage). [br][br]
 ## Different from [method after_damage_given] since it will NOT run if the creature dies. For example, this can be to avoid updating statuses. Also semantics.
-static func after_damage_taken() -> void:
-	push_error("not implemented")
+static func after_damage_taken(run_state: RunState, combat_state: CombatState, target: Creature, damage_result: DamageResult) -> void:
+	for listener: AbstractModel in run_state.get_hook_listeners(combat_state):
+		listener.after_damage_taken(target, damage_result)
 
 # WARNING: UNUSED
 ## Runs before a creature dies.
@@ -155,9 +155,17 @@ static func modify_max_logos(max_logos: float) -> float:
 static func modify_initial_card_count(initial_card_count: float) -> float:
 	return initial_card_count
 
-# WARNING: UNUSED, unimplemented
-static func modify_draw_time(draw_time: float) -> float:
+static func modify_draw_time(combat_state: CombatState, player: Player, amount: float) -> float:
+	var draw_time: float = amount
+	
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
+		draw_time += model.modify_draw_time_additive(player, draw_time)
+	for model: AbstractModel in listeners:
+		draw_time *= model.modify_draw_time_multiplicative(player, draw_time)
+	
 	return draw_time
+
 
 static func modify_draw_time_delta(delta: float) -> float:
 	return delta
@@ -182,6 +190,7 @@ static func modify_damage(run_state: RunState, combat_state: CombatState, target
 		damage += model.modify_damage_additive(target, dealer, damage, card_source)
 	for model: AbstractModel in  listeners:
 		damage *= model.modify_damage_multiplicative(target, dealer, damage, card_source)
+	
 	return damage
 
 # NOTE: Theoretically more efficient to merge with modify_shield_amount_internal. Could change to a hook that's just "modify_shield_additive". On the other hand, doing it memberwise helps with previewing values.
@@ -202,6 +211,17 @@ static func modify_shield_amount_internal(combat_state: CombatState, creature: C
 		shield_amount *= model.modify_shield_multiplicative(creature, shield_amount, card_source)
 		
 	return shield_amount
+
+## Modify the max amount of damage that can be dealt. Useful implementing effects like invulnerability. Another reason I'm choosing this over just
+## modify damage (even for invulnerability) is so it doesn't mess with the current preview logic (i.e. you should still see how much damage a card
+## WOULD deal, but that's a bit to copy STS2.
+static func modify_damage_cap(combat_state: CombatState, target: Creature, dealer: Creature, card_source: CardModel) -> float:
+	var damage_cap: float = INF
+	for listener: AbstractModel in combat_state.get_hook_listeners():
+		var alternate_cap: float = listener.modify_damage_cap(target, dealer, card_source)
+		if alternate_cap < damage_cap:
+			damage_cap = alternate_cap
+	return damage_cap
 
 ## Modify the play duration of a card.
 static func modify_card_duration(combat_state: CombatState, card: CardModel, amount: float) -> float:
