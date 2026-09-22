@@ -17,7 +17,7 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([from_the_shadows_state, donation_state], from_the_shadows_state)
 
 func from_the_shadows_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(from_the_shadows_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(from_the_shadows_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func donation_move() -> void:
 	CreatureCommand.heal(creature, donation_heal)

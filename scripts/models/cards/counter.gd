@@ -27,5 +27,5 @@ func on_play(card_play: CardPlay) -> void:
 
 func on_cancelled(creature_source: Creature) -> void:
 	if creature_source.enemy:
-		AttackCommand.new().from_card(self).targeting(creature_source).with_damage(dynamic_variables.list[COUNTER_DAMAGE].value).execute()
+		await AttackCommand.new(dynamic_variables.list[COUNTER_DAMAGE].value).from_card(self).targeting(creature_source).execute()
 		VfxCommand.play_on_creature_front(owner.creature, preload("res://scenes/vfx/objection.tscn"))

@@ -30,5 +30,4 @@ func _get_normal_encounter_sets() -> Array[EncounterSet]:
 	]
 
 func _get_boss_encounter_set() -> EncounterSet:
-	return EncounterSet.new([ModelDb.encounter(KevinEncounter)])
-	#return EncounterSet.new([ModelDb.encounter(FounderEncounter)])
+	return EncounterSet.new([ModelDb.encounter(FounderEncounter)])

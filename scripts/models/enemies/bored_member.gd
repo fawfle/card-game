@@ -28,12 +28,12 @@ func tired_move() -> void:
 	pass
 
 func vote_no_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(vote_no_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(vote_no_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 	EffectCommand.new(IrritableEffect, creature, 1).from_creature(creature).with_duration(5.0).execute()
 
 func wait_move() -> void:
 	pass
 
 func get_out_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(get_out_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(get_out_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 	ShieldCommand.new(creature).with_shield(get_out_block).with_priority(Constants.ShieldPriority.PERMANENT).execute()

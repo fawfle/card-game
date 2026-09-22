@@ -3,7 +3,7 @@ class_name CardNode extends Control
 
 const SIZE: Vector2 = Vector2(160, 240)
 
-## Legally mouse_down for gamefeel.
+## Legally mouse_down for gamefeel. On left click.
 signal pressed(card: CardNode)
 
 const SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
@@ -115,7 +115,7 @@ func show_tool_tips() -> void:
 func hide_tool_tips() -> void:
 	ToolTipSet.remove_from(button)
 
-func _on_pressed():
+func _on_pressed() -> void:
 	pressed.emit(self)
 
 func _on_owner_creature_effects_changed(_effects: Array[EffectModel]) -> void:

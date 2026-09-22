@@ -22,13 +22,13 @@ func generate_move_state_machine() -> MoveStateMachine:
 # Separate for when vfx get added
 
 func attack_one_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(damage_one).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(damage_one).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func attack_two_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(damage_two).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(damage_two).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func attack_three_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(damage_three).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(damage_three).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func attack_four_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(damage_four).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(damage_four).from_enemy(self).targeting_all_opponents(combat_state).execute()

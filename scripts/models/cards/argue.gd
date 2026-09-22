@@ -14,4 +14,4 @@ func get_description() -> String: return "Deal {Damage} damage."
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().targeting(card_play.target).from_card(self).with_damage(dynamic_variables.damage.value).execute()
+	await AttackCommand.new(dynamic_variables.damage.value).targeting(card_play.target).from_card(self).execute()

@@ -23,4 +23,4 @@ func _shield_move() -> void:
 	ShieldCommand.new(self.creature).with_priority(Constants.ShieldPriority.PERMANENT).with_shield(shield_amount).execute()
 
 func _attack_move() -> void:
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_amount).execute()
+	await AttackCommand.new(damage_amount).from_enemy(self).targeting_all_opponents(combat_state).execute()

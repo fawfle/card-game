@@ -9,6 +9,11 @@ signal combat_started(state: CombatState)
 signal combat_ended()
 signal combat_won()
 
+## Signal when the combat_process frame occurs. For hopefully better syncing over a normal process_frame. For delta, see [member last_delta].
+signal combat_process_frame()
+## The last delta_time in the combat_process loop. Can only ensure it's accurate right after combat_process_frame.
+var last_delta: float = 0
+
 static var instance: CombatManager = CombatManager.new()
 
 var combat_state: CombatState = null
@@ -92,6 +97,8 @@ func start_combat_manager_process() -> void:
 		
 		if Input.is_key_pressed(KEY_SHIFT):
 			Engine.time_scale = 0.2
+		elif Input.is_key_pressed(KEY_CTRL):
+			Engine.time_scale = 10.0
 		else:
 			Engine.time_scale = 1.0
 		
@@ -106,3 +113,6 @@ func start_combat_manager_process() -> void:
 		
 		for creature: Creature in combat_state.get_all_creatures():
 			creature.combat_process(delta)
+		
+		last_delta = delta
+		combat_process_frame.emit()

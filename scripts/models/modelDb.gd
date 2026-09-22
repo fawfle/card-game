@@ -39,7 +39,8 @@ static func initialize() -> void:
 	for model: AbstractModel in _models_by_script.values():
 		model._after_model_db_initialized()
 	
-	print("ModelDb initialize() took %d usecs" % ((Time.get_ticks_usec() - start_time_usec)))
+	var usec_delta: float = Time.get_ticks_usec() - start_time_usec
+	print("ModelDb initialize() took %d usecs (%f secs)" % [usec_delta, float(usec_delta) * 0.000001])
 
 static func _get_model(type: Script) -> AbstractModel:
 	return _models_by_script[type]

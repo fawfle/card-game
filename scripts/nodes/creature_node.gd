@@ -21,6 +21,7 @@ static func create(creature: Creature) -> CreatureNode:
 	var creature_node: CreatureNode = SCENE.instantiate()
 	creature_node.entity = creature
 	if creature_node.entity.enemy:
+		creature_node.entity.enemy.before_move_performed.connect(creature_node._before_enemy_move_performed)
 		creature_node.entity.enemy.move_changed.connect(creature_node._on_enemy_state_changed)
 	creature_node.entity.on_effects_changed.connect(creature_node._on_effects_changed)
 	
@@ -31,6 +32,7 @@ static func create(creature: Creature) -> CreatureNode:
 
 func _ready() -> void:
 	CombatManager.instance.combat_started.connect(_on_combat_started)
+	# TODO: decide if intents should be cleared when combat finishes / add it.
 	health_bar.set_creature(entity)
 	# added here to ensure in scene tree
 	if visuals: visuals_container.add_child(visuals)
@@ -48,12 +50,15 @@ func update_intents() -> void:
 	
 	var intents: Array[AbstractIntent] = entity.enemy.next_move.intents
 	
-	for child: Node in intents_container.get_children():
-		child.queue_free()
+	clear_intents()
 	
 	for intent: AbstractIntent in intents:
 		var intent_node: IntentNode = IntentNode.create(intent, self)
 		intents_container.add_child(intent_node)
+
+func clear_intents() -> void:
+	for child: Node in intents_container.get_children():
+		child.queue_free()
 
 func update_effects() -> void:
 	var effects: Array[EffectModel] = entity.effects
@@ -67,6 +72,9 @@ func update_effects() -> void:
 
 func _on_enemy_state_changed(_state: MoveState):
 	update_intents()
+
+func _before_enemy_move_performed(_move: MoveState):
+	clear_intents()
 
 func _on_effects_changed(_new_effects: Array[EffectModel]):
 	update_effects()

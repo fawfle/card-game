@@ -19,10 +19,10 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([attack_low_state, shield_state, attack_high_state], attack_low_state)
 
 func attack_low_move():
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_low).execute()
+	await AttackCommand.new(damage_low).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func attack_high_move():
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_high).execute()
+	await AttackCommand.new(damage_high).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func shield_move():
 	ShieldCommand.new(self.creature).with_shield(shield).with_duration(shield_duration).execute()

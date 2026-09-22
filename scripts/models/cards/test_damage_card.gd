@@ -12,4 +12,4 @@ var damage: int = 5
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().with_damage(damage).targeting(card_play.target).from_card(self).execute()
+	await AttackCommand.new(damage).targeting(card_play.target).from_card(self).execute()

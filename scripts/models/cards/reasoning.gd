@@ -20,8 +20,8 @@ func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[START_DAMAGE].value).execute()
+	await AttackCommand.new(dynamic_variables.list[START_DAMAGE].value).from_card(self).targeting(card_play.target).execute()
 
 func on_timeout(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.list[END_DAMAGE].value).execute()
+	await AttackCommand.new(dynamic_variables.list[END_DAMAGE].value).from_card(self).targeting(card_play.target).execute()

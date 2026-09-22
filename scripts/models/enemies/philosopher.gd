@@ -22,7 +22,7 @@ func intimidate_move() -> void:
 	EffectCommand.new(Intimidated, RunManager.instance.run_state.player.creature, intimidate_amount).execute()
 
 func diatribe_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(diatribe_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(diatribe_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func insight_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(insight_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(insight_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()

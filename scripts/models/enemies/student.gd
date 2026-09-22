@@ -15,7 +15,7 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([attack_state], attack_state)
 
 func _attack_move() -> void:
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_amount).execute()
+	await AttackCommand.new(damage_amount).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func _study_move() -> void:
 	EffectCommand.new(ConvincingEffect, creature, convincing_amount).from_creature(creature).execute()

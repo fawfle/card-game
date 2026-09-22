@@ -1,5 +1,7 @@
 class_name EffectIntent extends AbstractIntent
 ## Represents that an enemy will apply an effect.
+##
+## TODO: expand into BuffIntent and DebuffIntent to make code more readable (slight amount of duplicated code, but not much). Would also have a "to self" and "to you" text.
 
 ## purely for visuals
 enum TargetType {

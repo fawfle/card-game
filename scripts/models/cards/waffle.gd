@@ -12,4 +12,4 @@ var damage_amount: int = 3
 
 func on_timeout(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(damage_amount).execute()
+	await AttackCommand.new(damage_amount).from_card(self).targeting(card_play.target).execute()

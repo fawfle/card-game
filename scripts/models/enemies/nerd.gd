@@ -35,4 +35,4 @@ func shield_move() -> void:
 
 func attack_and_shield_move() -> void:
 	ShieldCommand.new(creature).with_shield(attack_and_shield_shield_amount).with_duration(attack_and_shield_shield_duration).with_priority(Constants.ShieldPriority.NONE).execute()
-	AttackCommand.new().from_enemy(self).with_damage(damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(damage).from_enemy(self).targeting_all_opponents(combat_state).execute()

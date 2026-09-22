@@ -1,7 +1,7 @@
 class_name ShieldCommand
 ## Commands for shields. Used as a builder.
 ##
-## Builds a shield using chained methods, like tweens. NOT static like other commands. Execute with [method execute].
+## Builds a shield using chained methods, like tweens. NOT static like other commands. Execute with [method execute] and use [code]await[/code].
 
 var shield_amount: float = 0
 ## NONE by default. HOWEVER, if no priority is specified and the card is permanent, will be set to PERMANENT.

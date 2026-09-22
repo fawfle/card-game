@@ -21,7 +21,7 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([attack_low_state], attack_low_state)
 
 func quick_throw_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(quick_throw_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(quick_throw_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func dunk_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(dunk_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(dunk_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()

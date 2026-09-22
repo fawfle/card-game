@@ -17,8 +17,8 @@ func generate_move_state_machine() -> MoveStateMachine:
 
 func _attack_and_shield_move() -> void:
 	# reflect order of intents.
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_amount_with_shield).execute()
+	await AttackCommand.new(damage_amount_with_shield).from_enemy(self).targeting_all_opponents(combat_state).execute()
 	ShieldCommand.new(creature).with_shield(shield_amount).with_duration(shield_duration).execute()
 
 func _attack_move() -> void:
-	AttackCommand.new().from_enemy(self).targeting_all_opponents(combat_state).with_damage(damage_amount).execute()
+	await AttackCommand.new(damage_amount).from_enemy(self).targeting_all_opponents(combat_state).execute()

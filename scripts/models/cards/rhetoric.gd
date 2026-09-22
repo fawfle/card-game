@@ -7,7 +7,7 @@ func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
 
 func _get_base_pathos_cost() -> int: return 3
 
-func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(5.0)
+func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(8.0)
 
 var convincing_amount: int = 2
 

@@ -16,4 +16,4 @@ func _get_base_dynamic_variables() -> DynamicVariableSet:
 
 func on_play(card_play: CardPlay) -> void:
 	card_play.assert_has_target()
-	AttackCommand.new().from_card(self).targeting(card_play.target).with_damage(dynamic_variables.damage.value).execute()
+	await AttackCommand.new(dynamic_variables.damage.value).from_card(self).targeting(card_play.target).execute()

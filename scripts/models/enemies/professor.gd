@@ -24,7 +24,7 @@ func starting_class_move() -> void:
 	ShieldCommand.new(creature).with_shield(starting_class_shield_block).with_duration(starting_class_shield_duration).with_priority(Constants.ShieldPriority.NONE).execute()
 
 func teach_a_lesson_move() -> void:
-	AttackCommand.new().from_enemy(self).with_damage(teach_a_lesson_damage).targeting_all_opponents(combat_state).execute()
+	await AttackCommand.new(teach_a_lesson_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()
 
 func prepare_move() -> void:
 	EffectCommand.new(ConvincingEffect, creature, prepare_convincing_amount).from_creature(creature).execute()

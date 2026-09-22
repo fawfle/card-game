@@ -1,7 +1,7 @@
 class_name EffectCommand
 ## Command to create effects. Used as a builder.
 ##
-## Builds an effect using chained methods, like tweens. NOT static like other commands. Execute with [method apply].
+## Builds an effect using chained methods, like tweens. NOT static like other commands. Execute with [method execute] and use [code]await[/code].
 
 var _type: Script
 var _target: Creature

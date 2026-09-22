@@ -1,6 +1,9 @@
 @abstract
 class_name EnemyModel extends AbstractModel
 
+## Emitted right before the next move is performed
+signal before_move_performed(move: MoveState)
+## Emitted after the move_state is changed (current move finishes and next one is QUEUED).
 signal move_changed(move: MoveState)
 
 var base_instance: EnemyModel:
@@ -55,12 +58,13 @@ func on_combat_start() -> void:
 	pass
 
 func should_perform_move() -> bool:
-	return move_state_machine.spent_enough_time_in_state()
+	return move_state_machine.spent_enough_time_in_state() and not is_performing_move
 
 ## Perform a move, do its effects, and load the next state. For default behavior, it's managed by [CombatState].
 func perform_move() -> void:
-	if is_performing_move == null: push_error("Currently already performing a move.")
+	if is_performing_move: push_error("Currently already performing a move.")
 	is_performing_move = true
+	before_move_performed.emit(next_move)
 	await next_move.perform()
 	move_state_machine.get_next_state()
 	is_performing_move = false
