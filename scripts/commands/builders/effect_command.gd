@@ -46,9 +46,10 @@ func execute() -> void:
 
 ## Decrement the amount and remove if it's 0. Could be seperated into a distinct "type" of effect model (like STS2 having "Counter" effects), but it should be fine.
 static func decrement_amount(effect: EffectModel) -> void:
-	effect.amount -= 1
+	modify_amount(effect, -1)
+
+static func modify_amount(effect: EffectModel, offset: int) -> void:
+	effect.amount += offset
+	# TODO: add more conditions (mainly for effects that are always non-negative)
 	if effect.amount == 0:
 		effect.remove_from_creature()
-
-static func modify_amount(effect: EffectModel, offset: float) -> void:
-	push_error("not implemented")
