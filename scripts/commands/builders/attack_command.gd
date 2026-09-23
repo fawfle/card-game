@@ -69,6 +69,7 @@ func execute() -> void:
 
 ## NOTE: if executed without await, a reference to the command will be lost and it will be freed without finishing. See [method execute].
 func _execute_internal() -> void:
+	await Hook.before_attack(attacker.combat_state, self)
 	for i in range(hit_count):
 		CreatureCommand.play_animation(attacker, Constants.ATTACK_ANIMATION)
 		CreatureCommand.damage_creatures(targets, attacker, damage, card_source)
@@ -78,6 +79,7 @@ func _execute_internal() -> void:
 				await CombatManager.instance.combat_process_frame
 				var delta: float = CombatManager.instance.last_delta
 				timer += delta
+	await Hook.after_attack(attacker.combat_state, self)
 
 ## For internal use only. Use a static call to execute the command and ensure a reference is stored, even if the original execute method is called without await.
 static func _execute_static(attack_command: AttackCommand) -> void:

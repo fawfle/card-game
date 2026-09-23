@@ -64,18 +64,16 @@ func after_cloned() -> void:
 func get_id_name() -> String:
 	return (get_script() as Script).get_global_name()
 
-# WARNING: UNUSED
 ## Runs before a creature attacks. [br][br]
 ## For multi-hit attacks, this will only run once. See [method before_damage_taken] which will run before each hit. [br][br]
 ## Combat only.
-func before_attack(attack) -> void:
+func before_attack(attack: AttackCommand) -> void:
 	pass
 
-# WARNING: UNUSED
 ## Runs after a creature attacks. [br][br]
 ## For multi-hit attacks, this will only run once. See [method after_damage_taken] which will run after each hit. [br][br]
 ## Combat only.
-func after_attack(attack) -> void:
+func after_attack(attack: AttackCommand) -> void:
 	pass
 
 # WARNING: UNUSED

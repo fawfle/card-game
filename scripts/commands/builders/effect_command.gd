@@ -2,6 +2,7 @@ class_name EffectCommand
 ## Command to create effects. Used as a builder.
 ##
 ## Builds an effect using chained methods, like tweens. NOT static like other commands. Execute with [method execute] and use [code]await[/code].
+## Also has static methods to modify effects.
 
 var _type: Script
 var _target: Creature
@@ -41,3 +42,13 @@ func execute() -> void:
 	if _duration != -1: effect._duration = _duration
 	if _card_source: effect.bind_to_card(_card_source)
 	CreatureCommand.apply_effect(_target, effect, _applier, _card_source)
+
+
+## Decrement the amount and remove if it's 0. Could be seperated into a distinct "type" of effect model (like STS2 having "Counter" effects), but it should be fine.
+static func decrement_amount(effect: EffectModel) -> void:
+	effect.amount -= 1
+	if effect.amount == 0:
+		effect.remove_from_creature()
+
+static func modify_amount(effect: EffectModel, offset: float) -> void:
+	push_error("not implemented")

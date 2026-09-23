@@ -1,4 +1,4 @@
-class_name Concealed extends EffectModel
+class_name ConcealedEffect extends EffectModel
 ## Can only deal damage every other hit
 
 var actively_concealed: bool = true
@@ -15,7 +15,7 @@ func is_inactive() -> bool: return not actively_concealed
 
 func after_damage_taken(target: Creature, _damage_result: DamageResult) -> void:
 	if target == owner:
-		if actively_concealed: decrement_amount()
+		if actively_concealed: EffectCommand.decrement_amount(self)
 		actively_concealed = not actively_concealed
 
 func modify_damage_cap(target: Creature, _dealer: Creature, _card_source: CardModel) -> float:

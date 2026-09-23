@@ -1,4 +1,4 @@
-class_name Intimidated extends EffectModel
+class_name IntimidatedEffect extends EffectModel
 ## Decreases the player's draw rate.
 
 const ICON: Texture2D = preload("res://assets/icons/terror.png")

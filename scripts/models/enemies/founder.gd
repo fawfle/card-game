@@ -21,7 +21,7 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([motto_state, speech_state, defend_institution_state], motto_state)
 
 func motto_move() -> void:
-	await AttackCommand.new(motto_damage).from_enemy(self).with_hit_count(motto_hit_count).targeting_all_opponents(combat_state).execute()
+	AttackCommand.new(motto_damage).from_enemy(self).with_hit_count(motto_hit_count).targeting_all_opponents(combat_state).execute()
 
 func speech_move() -> void:
 	await AttackCommand.new(speech_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()

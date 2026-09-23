@@ -43,6 +43,8 @@ var owner: Creature
 var applier: Creature
 ## The card that applied this effect. Can be null.
 var card_source: CardModel
+## If the effect should try and remove the card_source upon being removed. Does not "destroy" the card.
+var _remove_card_if_removed: bool = false
 
 ## Apply to a creature. Avoid use. See [method CreatureCommand.apply_effect].
 func apply_internal(owner_creature: Creature):
@@ -51,17 +53,26 @@ func apply_internal(owner_creature: Creature):
 	_time_left = _duration
 	owner.apply_effect_internal(self)
 
-func bind_to_card(card: CardModel) -> void:
+## If remove_card_if_removed is true, the card will exit play if the effect is removed before the card. 
+func bind_to_card(card: CardModel, remove_card_if_removed: bool = true) -> void:
 	if _has_timeout_condition: push_error("Effect already has a timeout condition")
 	card_source = card
+	_remove_card_if_removed = remove_card_if_removed
 	card_source.exited_play.connect(_on_card_source_exited)
 
 func add_timeout_delta(delta: float) -> void:
 	_time_left -= delta
 	if _time_left <= 0:
-		remove_from_creature_internal()
+		remove_from_creature()
 
-func remove_from_creature_internal() -> void:
+func remove_from_creature() -> void:
+	if removed: return
+	if _remove_card_if_removed:
+		CardCommand.remove_from_play(card_source)
+	_remove_from_creature_internal()
+
+## Only handles actually removing the effect. See [method remove_from_creature] to handle extra hooks and stuff.
+func _remove_from_creature_internal() -> void:
 	if removed: return
 	owner.remove_effect_internal(self)
 	removed = true
@@ -69,12 +80,6 @@ func remove_from_creature_internal() -> void:
 func add_time_left(delta: float) -> void:
 	if not has_delta_timeout: push_error("cannot add time left to an effect that doesn't have a delta_timeout")
 	_time_left += delta
-
-## Decrement the amount and remove if it's 0. Could be seperated into a distinct "type" of effect model (like STS2 having "Counter" effects), but it should be fine.
-func decrement_amount() -> void:
-	amount -= 1
-	if amount == 0:
-		remove_from_creature_internal()
 
 func get_duration() -> float:
 	if card_source:
@@ -99,4 +104,4 @@ static func get_generic_description() -> String:
 	return "broken generic description."
 
 func _on_card_source_exited() -> void:
-	remove_from_creature_internal()
+	_remove_from_creature_internal()

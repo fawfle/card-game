@@ -6,7 +6,7 @@ var from_the_shadows_damage: int = 10
 var donation_heal: int = 1
 
 func on_combat_start() -> void:
-	EffectCommand.new(Concealed, creature, 999).from_creature(creature).execute()
+	EffectCommand.new(ConcealedEffect, creature, 999).from_creature(creature).execute()
 
 func generate_move_state_machine() -> MoveStateMachine:
 	var from_the_shadows_state: MoveState = MoveState.new("FROM_THE_SHADOWS", from_the_shadows_move, 5.0, [AttackIntent.new(from_the_shadows_damage)])

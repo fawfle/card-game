@@ -68,6 +68,9 @@ func _get_base_keywords() -> Array[Constants.CardKeyword]: return []
 
 ## The CardPlay that "owns" this card. null if card isn't in play.
 var active_card_play: CardPlay = null
+## WARNING: Not sure if this is 100% accurate to the game state.
+var is_in_play: bool:
+	get(): return active_card_play != null
 
 func get_upgrade_slot_count() -> int: return 1
 var upgrades: Array[UpgradeModel] = []
@@ -125,25 +128,25 @@ func get_play_result_pile() -> Constants.PileType:
 	return Constants.PileType.DISCARD
 
 ## Runs when the card is played. Meant to be overwritten. To play a card, call [method CardCommand.play].
-func on_play(card_play: CardPlay) -> void:
+func on_play(_card_play: CardPlay) -> void:
 	pass
 
 ## Runs each frame when the card is in play. Due unpredictable behavior, avoid using this. If an effect needs to happen while the card is in play,
 ## consider redesigning it and having its effect happen in [method on_exit_play] or a similar method instead.
-func in_play_process(delta: float) -> void:
+func in_play_process(_delta: float) -> void:
 	pass
 
 ## Runs when the card times out due to its duration reaching 0. This will not run if the card is cancelled, but some effects can timeout cards instead.
-func on_timeout(card_play: CardPlay) -> void:
+func on_timeout(_card_play: CardPlay) -> void:
 	pass
 
 ## Runs when the card is cancelled. If cancelled, this card won't timeout normally.
-func on_cancelled(creature_source: Creature) -> void:
+func on_cancelled(_creature_source: Creature) -> void:
 	pass
 
 ## What happens when the card exits play for any reason, either by timing out or being cancelled. [br][br]
 ## For more specific control, see [method on_timeout] and [method on_cancelled].
-func on_exit_play(card_play: CardPlay) -> void:
+func on_exit_play(_card_play: CardPlay) -> void:
 	pass
 
 func can_play() -> bool:
@@ -201,9 +204,9 @@ func get_formatted_description(pile_type: Constants.PileType, target: Creature =
 	var values: Dictionary[String, String] = {}
 	if dynamic_variables:
 		for variable: DynamicVariable in dynamic_variables.list.values():
-			var preview_value: int = variable.get_preview_value(self, pile_type, target)
+			var preview_value: float = variable.get_preview_value(self, pile_type, target)
 			
-			var preview_string: String = str(preview_value)
+			var preview_string: String = str(int(preview_value))
 			if preview_value > variable.value: preview_string = "[color=#00b765]" + preview_string + "[/color]"
 			elif preview_value < variable.value: preview_string = "[color=#f95252]" + preview_string + "[/color]"
 			values.set(variable.name, preview_string)

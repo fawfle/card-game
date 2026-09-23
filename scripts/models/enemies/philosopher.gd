@@ -8,7 +8,7 @@ var diatribe_damage: int = 15
 var insight_damage: int = 3
 
 func generate_move_state_machine() -> MoveStateMachine:
-	var intimidate_state: MoveState = MoveState.new("INTIMIDATE", intimidate_move, 5.0, [EffectIntent.new(Intimidated, intimidate_amount, EffectIntent.TargetType.DEBUFF)])
+	var intimidate_state: MoveState = MoveState.new("INTIMIDATE", intimidate_move, 5.0, [EffectIntent.new(IntimidatedEffect, intimidate_amount, EffectIntent.TargetType.DEBUFF)])
 	var diatribe_state: MoveState = MoveState.new("DIATRIBE", diatribe_move, 15.0, [AttackIntent.new(diatribe_damage)])
 	var insight_state: MoveState = MoveState.new("DIATRIBE", insight_move, 3.0, [AttackIntent.new(insight_damage)])
 	
@@ -19,7 +19,7 @@ func generate_move_state_machine() -> MoveStateMachine:
 	return MoveStateMachine.new([intimidate_state], intimidate_state)
 
 func intimidate_move() -> void:
-	EffectCommand.new(Intimidated, RunManager.instance.run_state.player.creature, intimidate_amount).execute()
+	EffectCommand.new(IntimidatedEffect, RunManager.instance.run_state.player.creature, intimidate_amount).execute()
 
 func diatribe_move() -> void:
 	await AttackCommand.new(diatribe_damage).from_enemy(self).targeting_all_opponents(combat_state).execute()

@@ -9,4 +9,4 @@ func get_description() -> String: return "The next %d times this creature is hit
 func after_damage_taken(target: Creature, _damage_result: DamageResult) -> void:
 	if target == owner and owner.enemy:
 		owner.enemy.perform_move()
-		decrement_amount()
+		EffectCommand.decrement_amount(self)

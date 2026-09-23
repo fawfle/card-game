@@ -10,17 +10,18 @@ class_name Hook extends StaticClass
 ## Helper function to get combat hook listeners ONLY while combat is explicitly active.
 ## Essentially a guard clause that can prevent a specific hook from running if combat is inactive.
 ## This is present in [Hook] rather than [CombatState] because that's what STS2 does (and I guess it preserves the "purity" of [CombatState]).
-static func get_active_combat_hook_listeners(combat_state: CombatState) -> Array[AbstractModel]:
-	return []
+## I'm not using it, at least until it's an issue.
+#static func get_active_combat_hook_listeners(combat_state: CombatState) -> Array[AbstractModel]:
+	#return []
 
 ## See [method AbstractModel.before_attack].
-static func before_attack(combatState: CombatState, attack) -> void:
-	for model: AbstractModel in combatState:
+static func before_attack(combat_state: CombatState, attack: AttackCommand) -> void:
+	for model: AbstractModel in combat_state.get_hook_listeners():
 		await model.before_attack(attack)
 
 ## See [method AbstractModel.after_attack].
-static func after_attack(combatState: CombatState, attack) -> void:
-	for model: AbstractModel in combatState:
+static func after_attack(combat_state: CombatState, attack: AttackCommand) -> void:
+	for model: AbstractModel in combat_state.get_hook_listeners():
 		await model.after_attack(attack)
 
 ## See [method AbstractModel.after_card_drawn].
@@ -29,12 +30,12 @@ static func after_card_drawn(combatState: CombatState, card) -> void:
 		await model.after_card_drawn(card)
 
 ## See [method AbstractModel.after_card_discarded].
-static func after_card_discarded(combatState: CombatState, card) -> void:
-	for model: AbstractModel in CombatState:
+static func after_card_discarded(combat_state: CombatState, card: CardModel) -> void:
+	for model: AbstractModel in combat_state.get_hook_listeners():
 		await model.after_card_discarded(card)
 
 ## See [method AbstractModel.after_card_changes_piles].
-static func after_card_changes_piles(card, old_pile) -> void:
+static func after_card_changes_piles(card: CardModel, old_pile: CardPile) -> void:
 	push_error("not implemented")
 
 # WARNING: UNUSED
