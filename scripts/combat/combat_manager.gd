@@ -107,7 +107,7 @@ func start_combat_manager_process() -> void:
 			player.player_combat_state.combat_manager_process(delta)
 		
 		for enemy: EnemyModel in combat_state.get_enemy_models():
-			enemy.move_state_machine.add_state_time_delta_internal(delta)
+			enemy.move_state_machine.add_state_time_delta_internal(enemy.creature, delta)
 			if enemy.should_perform_move():
 				enemy.perform_move()
 		

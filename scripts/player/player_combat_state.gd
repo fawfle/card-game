@@ -96,7 +96,8 @@ func add_pathos_time_delta_internal(delta: float) -> void:
 	pathos_gain_timer = min(pathos_gain_timer + delta, get_pathos_time())
 
 func add_draw_time_delta_internal(delta: float) -> void:
-	time_since_last_draw = min(time_since_last_draw + Hook.modify_draw_time_delta(delta), get_draw_time())
+	var modified_delta: float = Hook.modify_draw_time_delta(_player.creature.combat_state, _player, delta)
+	time_since_last_draw = min(time_since_last_draw + modified_delta, get_draw_time())
 
 # TODO: implement unplayable reasons???
 func has_enough_resources_to_play(card: CardModel) -> bool:

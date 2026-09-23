@@ -40,7 +40,7 @@ func update_visuals() -> void:
 	update_progress_bar()
 
 func update_progress_bar() -> void:
-	radial_progress_bar.max_value = _creature_node.entity.enemy.next_move.get_move_time()
+	radial_progress_bar.max_value = _creature_node.entity.enemy.get_next_move_time()
 	radial_progress_bar.value = _creature_node.entity.enemy.move_state_machine.time_spent_in_state
 
 func _on_hovered() -> void:

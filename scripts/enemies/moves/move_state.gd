@@ -22,5 +22,5 @@ func _init(name: String, on_perform: Callable, move_time: float, intent_list: Ar
 func perform() -> void:
 	await _on_perform.call()
 
-func get_move_time() -> float:
-	return Hook.modify_move_time(_move_time)
+func get_move_time(creature: Creature) -> float:
+	return Hook.modify_move_time(creature.combat_state, creature, _move_time)

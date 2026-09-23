@@ -6,4 +6,5 @@ func _generate_all_cards() -> Array[CardModel]:
 		ModelDb.card(Waffle),
 		ModelDb.card(Reasoning),
 		ModelDb.card(Setup),
+		ModelDb.card(Confuse),
 	]

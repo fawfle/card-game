@@ -33,9 +33,11 @@ func set_current_state(state: MoveState) -> void:
 	time_spent_in_state = 0
 	state_changed.emit(state)
 
-func add_state_time_delta_internal(delta: float) -> void:
+func add_state_time_delta_internal(creature: Creature, delta: float) -> void:
 	if current_state == null: return
-	time_spent_in_state = min(time_spent_in_state + Hook.modify_move_time_delta(delta), current_state.get_move_time())
+	var modified_delta: float = Hook.modify_move_time_delta(creature.combat_state, creature, delta)
+	print(modified_delta)
+	time_spent_in_state = min(time_spent_in_state + modified_delta, current_state.get_move_time(creature))
 
-func spent_enough_time_in_state() -> bool:
-	return time_spent_in_state >= current_state.get_move_time()
+func spent_enough_time_in_state(creature: Creature) -> bool:
+	return time_spent_in_state >= current_state.get_move_time(creature)

@@ -57,8 +57,11 @@ func set_up_for_combat() -> void:
 func on_combat_start() -> void:
 	pass
 
+func get_next_move_time() -> float:
+	return next_move.get_move_time(creature)
+
 func should_perform_move() -> bool:
-	return move_state_machine.spent_enough_time_in_state() and not is_performing_move
+	return move_state_machine.spent_enough_time_in_state(creature) and not is_performing_move
 
 ## Perform a move, do its effects, and load the next state. For default behavior, it's managed by [CombatState].
 func perform_move() -> void:

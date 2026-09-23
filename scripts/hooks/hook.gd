@@ -156,6 +156,7 @@ static func modify_max_logos(max_logos: float) -> float:
 static func modify_initial_card_count(initial_card_count: float) -> float:
 	return initial_card_count
 
+## See [method AbstractModel.modify_draw_time_additive] and [method AbstractModel.modify_draw_time_multiplicative]
 static func modify_draw_time(combat_state: CombatState, player: Player, amount: float) -> float:
 	var draw_time: float = amount
 	
@@ -167,17 +168,37 @@ static func modify_draw_time(combat_state: CombatState, player: Player, amount: 
 	
 	return draw_time
 
+## See [method AbstractModel.modify_draw_time_delta_additive] and [method AbstractModel.modify_draw_time_delta_multiplicative]
+static func modify_draw_time_delta(combat_state: CombatState, player: Player, delta: float) -> float:
+	var draw_delta: float = delta
+	
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
+		draw_delta += model.modify_draw_time_delta_additive(player, draw_delta)
+	for model: AbstractModel in listeners:
+		draw_delta *= model.modify_draw_time_delta_multiplicative(player, draw_delta)
+	
+	return draw_delta
 
-static func modify_draw_time_delta(delta: float) -> float:
-	return delta
-
-# WARNING: UNUSED, unimplemented
-static func modify_move_time(move_time: float) -> float:
+## See [method AbstractModel.modify_move_time_additive] and [method AbstractModel.modify_move_time_multiplicative]
+static func modify_move_time(combat_state: CombatState, creature: Creature, amount: float) -> float:
+	var move_time: float = amount
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
+		move_time += model.modify_move_time_additive(creature, move_time)
+	for model: AbstractModel in listeners:
+		move_time *= model.modify_move_time_multiplicative(creature, move_time)
 	return move_time
-
-# WARNING: UNUSED, unimplemented
-static func modify_move_time_delta(delta: float) -> float:
-	return delta
+	
+## See [method AbstractModel.modify_move_time_delta_additive] and [method AbstractModel.modify_move_time_delta_multiplicative]
+static func modify_move_time_delta(combat_state: CombatState, creature: Creature, delta: float) -> float:
+	var move_delta: float = delta
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for model: AbstractModel in listeners:
+		move_delta += model.modify_move_time_delta_additive(creature, move_delta)
+	for model: AbstractModel in listeners:
+		move_delta *= model.modify_move_time_delta_multiplicative(creature, move_delta)
+	return move_delta
 
 ## modify the amount that will be dealt. Additive effects are applied first, followed by multiplicative effects. [br][br]
 ## See [method AbstractModel.modify_damage_additive] and [method AbstractModel.modify_damage_multiplicative]. [br][br]

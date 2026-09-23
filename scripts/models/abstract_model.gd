@@ -201,10 +201,36 @@ func modify_max_pathos(max_pathos: float) -> float:
 func modify_max_logos(max_logos: float) -> float:
 	return max_logos
 
+## Change the total time it takes for a player to draw a card. Should be used for lasting changes. For temporary effects, modifying the delta may be better since you don't want the max time decreasing (overcharge side effect).
 func modify_draw_time_additive(player: Player, draw_time: float) -> float:
 	return 0
 
+## Change the total time it takes for a player to draw a card. Should be used for lasting changes. For temporary effects, modifying the delta may be better since you don't want the max time decreasing (overcharge side effect).
 func modify_draw_time_multiplicative(player: Player, draw_time: float) -> float:
+	return 1.0
+
+## Change the delta added to the draw time. Can be better for temporary effects that speed up or slow down the draw rate. For lasting changes, consider modifying the draw time.
+func modify_draw_time_delta_additive(player: Player, draw_time: float) -> float:
+	return 0
+
+## Change the delta added to the draw time. Can be better for temporary effects that speed up or slow down the draw rate. For lasting changes, consider modifying the draw time.
+func modify_draw_time_delta_multiplicative(player: Player, draw_time: float) -> float:
+	return 1.0
+
+## Change the total time it takes for a non player creature (an enemy) to perform a move.
+func modify_move_time_additive(creature: Creature, move_time: float) -> float:
+	return 0.0
+
+## Change the total time it takes for a non player creature (an enemy) to perform a move.
+func modify_move_time_multiplicative(creature: Creature, move_time: float) -> float:
+	return 1.0
+
+## Change the delta added to the move_time for a non player creature (an enemy).
+func modify_move_time_delta_additive(creature: Creature, delta: float) -> float:
+	return 0.0
+
+## Change the delta added to the move_time for a non player creature (an enemy).
+func modify_move_time_delta_multiplicative(creature: Creature, delta: float) -> float:
 	return 1.0
 
 ## Add to the amount that will be dealt.
