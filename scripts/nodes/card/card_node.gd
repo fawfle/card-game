@@ -3,8 +3,10 @@ class_name CardNode extends Control
 
 const SIZE: Vector2 = Vector2(160, 240)
 
-## Legally mouse_down for gamefeel. On left click.
+## On left click. Using a custom [ClickableControl] that should fire on mouse_down
 signal pressed(card: CardNode)
+## On right click. Using a custom [ClickableControl] that should fire on mouse_down
+signal right_pressed(card: CardNode)
 
 const SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
 
@@ -17,7 +19,7 @@ var _target: Creature = null
 @onready var description: RichTextLabel = %Description
 
 @onready var icon: TextureRect = %Icon
-@onready var button: TextureButton = %Button
+@onready var button: ClickableControl = %Button
 @onready var play_timer_progress_bar: TextureProgressBar = %PlayTimerProgressBar
 
 @onready var duration_icon: Panel = %DurationIcon
@@ -41,6 +43,7 @@ func _ready() -> void:
 	button.pressed.connect(_on_pressed)
 	button.mouse_entered.connect(_on_hovered)
 	button.mouse_exited.connect(_on_unhovered)
+	button.right_pressed.connect(_on_right_pressed)
 	if model == null: push_error("card model of a CardNode cannot be null")
 	# WARNING: A bit volatile, but card nodes shouldn't change (or get) an owner after being made
 	if model.owner: model.owner.creature.on_effects_changed.connect(_on_owner_creature_effects_changed)
@@ -117,6 +120,9 @@ func hide_tool_tips() -> void:
 
 func _on_pressed() -> void:
 	pressed.emit(self)
+
+func _on_right_pressed() -> void:
+	right_pressed.emit(self)
 
 func _on_owner_creature_effects_changed(_effects: Array[EffectModel]) -> void:
 	update_visuals()

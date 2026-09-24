@@ -20,8 +20,9 @@ func add(card_node: CardNode) -> void:
 	if card_node.model.owner != RunManager.instance.run_state.player: push_error("card node is associated with a card model not owned by the player! Make sure to register with Player.register_card")
 	card_container.add_child(card_node)
 	card_node.pressed.connect(_on_card_pressed)
+	card_node.right_pressed.connect(_on_card_right_pressed)
 
-func set_selected_card(card_node: CardNode) -> void:
+func set_selected_card(card_node: CardNode, play_immediately: bool = false) -> void:
 	if not CombatManager.instance.is_in_progress: return
 	
 	for child in selected_container.get_children():
@@ -38,7 +39,7 @@ func set_selected_card(card_node: CardNode) -> void:
 	card_node.reparent(selected_container)
 	add_child(current_card_play)
 	
-	current_card_play.start()
+	current_card_play.start(play_immediately)
 
 func cancel_current_card_play() -> void:
 	if not current_card_play: return
@@ -46,6 +47,9 @@ func cancel_current_card_play() -> void:
 
 func _on_card_pressed(card: CardNode) -> void:
 	set_selected_card(card)
+
+func _on_card_right_pressed(card: CardNode) -> void:
+	set_selected_card(card, true)
 
 func _on_card_play_started(card_play: CardPlayNode) -> void:
 	if current_card_play == card_play:

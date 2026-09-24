@@ -22,7 +22,7 @@ static func create(card: CardNode) -> CardPlayNode:
 	card_play.card_node = card
 	return card_play
 
-func start() -> void:
+func start(play_immediately: bool = false) -> void:
 	if not card_node: push_error("should have card_node")
 	
 	if not card_node.model.can_play():
@@ -33,10 +33,11 @@ func start() -> void:
 	var target: Creature = card_node.model.get_target()
 	card_node.set_target(target)
 	
-	var cancelled_during_drag: bool = await start_card_drag()
-	if cancelled_during_drag:
-		_stop_internal()
-		return
+	if not play_immediately:
+		var cancelled_during_drag: bool = await start_card_drag()
+		if cancelled_during_drag:
+			_stop_internal()
+			return
 	
 	# Checks if the cursor is in the cancel area when the drag is finished
 	var cursor_below_cancel_area: bool = CombatRoomNode.instance.ui.player_hand.cancel_card_play_area.get_global_rect().position.y <= get_global_mouse_position().y
