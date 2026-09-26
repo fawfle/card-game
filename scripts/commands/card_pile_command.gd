@@ -4,13 +4,20 @@ class_name CardPileCommand extends StaticClass
 ## Static class.
 
 ## Add a card to a pile. To add multiple at once, use [method add_to_pile_multiple] directly.
-static func add_to_pile(new_pile: CardPile, card: CardModel) -> void:
-	await add_to_pile_multiple(new_pile, TypedHelper.card_model_array(card))
+static func add_to_pile(new_pile: CardPile, card: CardModel, position_type: Constants.PilePositionType = Constants.PilePositionType.BOTTOM) -> void:
+	await add_to_pile_multiple(new_pile, TypedHelper.card_model_array(card), position_type)
 
-static func add_to_pile_multiple(new_pile: CardPile, cards: Array[CardModel]) -> void:
+static func add_to_pile_multiple(new_pile: CardPile, cards: Array[CardModel], position_type: Constants.PilePositionType = Constants.PilePositionType.BOTTOM) -> void:
 	for card in cards:
 		card.remove_from_current_pile()
-		new_pile.add_internal(card)
+		
+		var card_index: int = -1
+		match(position_type):
+			Constants.PilePositionType.TOP: card_index = 0
+			Constants.PilePositionType.BOTTOM: card_index = -1
+			Constants.PilePositionType.RANDOM: card_index = randi_range(0, len(new_pile.cards))
+		new_pile.add_internal(card, card_index)
+		
 		var card_node: CardNode = CardNode.create(card)
 		if new_pile.type == Constants.PileType.HAND:
 			CombatRoomNode.instance.ui.player_hand.add(card_node)

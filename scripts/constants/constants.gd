@@ -20,6 +20,13 @@ enum PileType {
 	PLAY, ## Cards actively in play.
 }
 
+enum PilePositionType {
+	NONE,
+	TOP, ## Add to top of deck
+	BOTTOM, ## Add to bottom of deck
+	RANDOM, ## Add to random position in deck
+}
+
 ## What a card will target. Currently only self or enemy.
 enum TargetType {
 	NONE,
@@ -38,6 +45,13 @@ enum ShieldPriority {
 enum CardKeyword {
 	NONE,
 	FRAGILE, ## cancelled after the player is hit by an attack (not just unblocked damage).
+}
+
+enum Rarity {
+	NONE,
+	COMMON,
+	UNCOMMON,
+	RARE
 }
 
 const ATTACK_ANIMATION = "attack"

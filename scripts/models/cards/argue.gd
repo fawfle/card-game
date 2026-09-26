@@ -1,9 +1,11 @@
 class_name Argue extends CardModel
 ## A basic attack.
 
-func get_icon() -> Texture2D: return preload("res://assets/icons/weapon_icon.webp")
-
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEMY
+
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
+func get_icon() -> Texture2D: return preload("res://assets/icons/weapon_icon.webp")
 
 func _get_base_dynamic_variables() -> DynamicVariableSet:
 	return DynamicVariableSet.new([

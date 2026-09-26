@@ -39,8 +39,8 @@ static func play(card: CardModel, target: Creature) -> void:
 	await Hook.after_card_exited_play(combat_state, card_play)
 	card.exited_play.emit()
 	
-	var result_pile: Constants.PileType = card.get_play_result_pile()
-	CardPileCommand.add_to_pile(card.owner.get_pile(result_pile), card)
+	var result_location: PileLocation = Hook.modify_card_play_result_pile_and_position(combat_state, card, card.get_play_result_pile(), Constants.PilePositionType.BOTTOM)
+	CardPileCommand.add_to_pile(card.owner.get_pile(result_location.pile_type), card, result_location.position_type)
 
 ## Use to remove a card from play from an external source. Treated as an early timeout. Only works if that card was already in play. Also see [method cancel_card]
 static func remove_from_play(card: CardModel) -> void:

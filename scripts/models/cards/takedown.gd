@@ -7,6 +7,8 @@ func get_description() -> String: return "Deal {Damage} damage."
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEMY
 
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
 func _get_base_pathos_cost() -> int: return 1
 
 func _get_base_dynamic_variables() -> DynamicVariableSet:

@@ -15,11 +15,13 @@ func _init(type_arg: Constants.PileType) -> void:
 	type = type_arg
 
 # NOTE: STS2 has a silent flag for internal methods to not update UI. Add if needed.
-## Add a card to the pile at the end. See [method CardPileCommand.add].
-func add_internal(card: CardModel) -> void:
+## Add a card to the pile at the end. An index of -1 inserts the card at the end. See [method CardPileCommand.add].
+func add_internal(card: CardModel, index: int = -1) -> void:
 	card.assert_mutable()
 	if cards.has(card): push_error("card pile already has card ", card)
-	cards.push_back(card)
+	
+	if cards.is_empty(): cards.push_back(card)
+	else: cards.insert(index, card)
 	
 	card_added.emit()
 	contents_changed.emit()

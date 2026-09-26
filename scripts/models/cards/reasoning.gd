@@ -7,6 +7,8 @@ func get_description() -> String: return "Deals {StartDamage} damage when played
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEMY
 
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
 const START_DAMAGE: String = &"StartDamage"
 const END_DAMAGE: String = &"EndDamage"
 

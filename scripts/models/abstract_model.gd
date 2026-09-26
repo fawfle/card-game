@@ -266,3 +266,7 @@ func modify_card_duration_additive(card: CardModel, duration_duration: float) ->
 ## Multiply the duration of a card before it's played
 func modify_card_duration_multiplicative(card: CardModel, duration_duration: float) -> float:
 	return 1.0
+
+## Modify the destination pile and position of a card that was played (right before it exits play).
+func modify_card_play_result_pile_and_position(card: CardModel, pile_type: Constants.PileType, position_type: Constants.PilePositionType) -> PileLocation:
+	return null

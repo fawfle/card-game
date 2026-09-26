@@ -1,9 +1,11 @@
 class_name Ponder extends CardModel
 ## Draw some cards.
 
-func get_icon() -> Texture2D: return preload("res://assets/icons/brain_icon.webp")
-
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.NONE
+
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
+func get_icon() -> Texture2D: return preload("res://assets/icons/brain_icon.webp")
 
 var draw_amount: int = 2
 

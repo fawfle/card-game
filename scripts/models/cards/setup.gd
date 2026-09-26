@@ -9,6 +9,8 @@ func get_extra_tool_tips() -> Array[ToolTip]: return [ToolTip.from_effect_type(S
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.NONE
 
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
 func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(10.0)
 
 var setup_amount: int = 2

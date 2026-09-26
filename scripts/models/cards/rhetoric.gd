@@ -3,15 +3,17 @@ class_name Rhetoric extends CardModel
 
 func get_icon() -> Texture2D: return preload("res://assets/icons/rhetoric_icon.png")
 
+func get_description() -> String: return "Gives %s convincing while the card is in play." % [convincing_amount]
+
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.SELF
+
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
 
 func _get_base_pathos_cost() -> int: return 3
 
 func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(8.0)
 
 var convincing_amount: int = 2
-
-func get_description() -> String: return "Gives %s convincing while the card is in play." % [convincing_amount]
 
 func get_extra_tool_tips() -> Array[ToolTip]: return [ToolTip.from_effect_type(ConvincingEffect)]
 

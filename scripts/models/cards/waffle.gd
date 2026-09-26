@@ -6,6 +6,8 @@ func get_description() -> String: return "When this card times out, deal %d dama
 
 func get_target_type() -> Constants.TargetType: return Constants.TargetType.ENEMY
 
+func get_rarity() -> Constants.Rarity: return Constants.Rarity.COMMON
+
 func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(5.0)
 
 var damage_amount: int = 3

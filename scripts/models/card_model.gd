@@ -118,6 +118,8 @@ func get_target() -> Creature:
 
 @abstract func get_target_type() -> Constants.TargetType
 
+@abstract func get_rarity() -> Constants.Rarity
+
 func remove_from_current_pile() -> void:
 	var pile: CardPile = get_card_pile()
 	if pile == null: return

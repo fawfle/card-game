@@ -9,4 +9,5 @@ func _generate_all_cards() -> Array[CardModel]:
 		ModelDb.card(Takedown),
 		ModelDb.card(Guard),
 		ModelDb.card(MotteAndBailey),
+		ModelDb.card(Repeat),
 	]

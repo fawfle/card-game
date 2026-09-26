@@ -256,3 +256,13 @@ static func modify_card_duration(combat_state: CombatState, card: CardModel, amo
 		card_duration *= model.modify_card_duration_multiplicative(card, card_duration)
 	
 	return card_duration
+
+## Combined since modification almost always happens as one "unit" (setting to TOP of DRAW pile). Unfortunately, this means a custom return type.
+## GENUINE WARNING: non-deterministic and subject to race conditions. From what I can tell, STS2's implementation is as well since it just takes the last modification.
+static func modify_card_play_result_pile_and_position(combat_state: CombatState, card: CardModel, pile_type: Constants.PileType, position_type: Constants.PilePositionType) -> PileLocation:
+	var location: PileLocation = PileLocation.new(pile_type, position_type)
+	var listeners: Array[AbstractModel] = combat_state.get_hook_listeners()
+	for listener: AbstractModel in listeners:
+		var new_location: PileLocation = listener.modify_card_play_result_pile_and_position(card, pile_type, position_type)
+		if new_location != null: location = new_location
+	return location
