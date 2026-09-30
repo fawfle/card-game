@@ -1,5 +1,5 @@
 class_name CompletionResults
-## Data storing information for autocompletions for a DevConsole.
+## Data storing information for autocompletions for a DebugConsole.
 
 ## The prefix to be included before the completion candidates. i.e. the command name.
 var prefix: String = ""

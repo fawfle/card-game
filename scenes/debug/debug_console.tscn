@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bsi0buwwell3e"]
 
-[ext_resource type="Script" uid="uid://bidt10uinh8d2" path="res://scripts/nodes/debug/dev_console_node.gd" id="1_akqup"]
+[ext_resource type="Script" uid="uid://bidt10uinh8d2" path="res://scripts/nodes/debug/debug_console_node.gd" id="1_akqup"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akqup"]
 bg_color = Color(0, 0, 0, 0.29411766)
 
-[node name="DevConsole" type="Panel" unique_id=893003925]
+[node name="DebugConsole" type="Panel" unique_id=893003925]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 350.0

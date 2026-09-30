@@ -8,6 +8,8 @@ class_name ModelDb extends StaticClass
 
 static var _models_by_script: Dictionary[Script, AbstractModel] = {}
 
+static var model_base_classes: Array[Script] = []
+
 ## Initialize the ModelDb. MUST be performed.
 static func initialize() -> void:
 	var start_time_usec: int = Time.get_ticks_usec()
@@ -29,6 +31,8 @@ static func initialize() -> void:
 				model_class_list_names.push_back(class_dictionary["class"])
 				classes_added += 1
 	
+	for abstract_model: Dictionary in model_class_list.filter(func(dictionary: Dictionary): return dictionary["is_abstract"]):
+		model_base_classes.push_back(load(abstract_model["path"]))
 	
 	model_class_list = model_class_list.filter(func(dictionary: Dictionary): return not dictionary["is_abstract"])
 	

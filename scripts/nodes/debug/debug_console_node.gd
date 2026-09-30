@@ -1,6 +1,6 @@
-class_name DevConsoleNode extends Panel
+class_name DebugConsoleNode extends Panel
 
-var _dev_console: DevConsole = null
+var _dev_console: DebugConsole = null
 
 @onready var output_label: RichTextLabel = %OutputLabel
 @onready var input_line: LineEdit = %InputLine
@@ -8,8 +8,8 @@ var _dev_console: DevConsole = null
 @onready var ghost_text: LineEdit = %GhostText
 
 func _ready() -> void:
-	# set in ready since DevConsole performs initialization when being created
-	_dev_console = DevConsole.new()
+	# set in ready since DebugConsole performs initialization when being created
+	_dev_console = DebugConsole.new()
 	input_line.text_changed.connect(_on_text_changed)
 	input_line.text_submitted.connect(_on_input_submit)
 
@@ -45,6 +45,8 @@ func _input(event: InputEvent) -> void:
 			input_line.text = completion
 			move_cursor_to_end()
 			get_viewport().set_input_as_handled()
+		elif completion_results.completions.size() > 0:
+			output_label.text = "\n".join(completion_results.completions)
 	
 	if key_event.keycode == KEY_BACKSPACE and key_event.alt_pressed:
 		if input_line.text != "":

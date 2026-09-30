@@ -1,4 +1,4 @@
-class_name DevConsoleCommandUpgrade extends DevConsoleCommand
+class_name DebugConsoleCommandUpgrade extends DebugConsoleCommand
 ## Open the upgrade menu with a specified upgrade
 
 var upgrade_names: PackedStringArray = []

@@ -1,4 +1,4 @@
-class_name DevConsoleCommand
+class_name DebugConsoleCommand
 
 var command_name: String = ""
 var execute: Callable = Callable()

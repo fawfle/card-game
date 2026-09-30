@@ -1,39 +1,41 @@
-class_name DevConsole
+class_name DebugConsole
 ## A debugging dev console.
 
 ## Maps command names to their commands
-var _commands: Dictionary[String, DevConsoleCommand]
+var _commands: Dictionary[String, DebugConsoleCommand]
 
 var history: PackedStringArray = []
 var history_index: int = -1
 
 func _init() -> void:
-	_add_command(DevConsoleCommand.new("help", func(_args: PackedStringArray) -> String:
+	_add_command(DebugConsoleCommand.new("help", func(_args: PackedStringArray) -> String:
 		return "\n".join(_commands.keys())))
-	_add_command(DevConsoleCommand.new("test", func(args: PackedStringArray): return "test command args: " + " ".join(args)))
-	_add_command(DevConsoleCommand.new("draw", func(args: PackedStringArray):
+	_add_command(DebugConsoleCommand.new("test", func(args: PackedStringArray): return "test command args: " + " ".join(args)))
+	_add_command(DebugConsoleCommand.new("draw", func(args: PackedStringArray):
 		if CombatManager.instance.is_over_or_completing: return "No combat is in progress."
 		var count: int = 1 if len(args) == 1 else args[1].to_int()
 		CardPileCommand.draw(RunManager.instance.run_state.player, count)
 		return "drawing %d cards." % count))
-	_add_command(DevConsoleCommand.new("damage", func(args: PackedStringArray):
+	_add_command(DebugConsoleCommand.new("damage", func(args: PackedStringArray):
 		if CombatManager.instance.is_over_or_completing: return "No combat is in progress."
 		var damage: int = args[1].to_int()
 		CreatureCommand.damage_creatures(CombatManager.instance.combat_state.enemies, RunManager.instance.run_state.player.creature, damage, null)
 		return "dealing %d damage." % damage
 		))
-	_add_command(DevConsoleCommand.new("kill", func(_args: PackedStringArray):
+	_add_command(DebugConsoleCommand.new("kill", func(_args: PackedStringArray):
 		if CombatManager.instance.is_over_or_completing: return "No combat is in progress."
 		CreatureCommand.kill(CombatManager.instance.combat_state.enemies[0])
 		return "Killing first creature."
 		))
-	_add_command(DevConsoleCommandEncounter.new("encounter"))
-	_add_command(DevConsoleCommandCard.new("card"))
-	_add_command(DevConsoleCommandUpgrade.new("upgrade"))
-	_add_command(DevConsoleCommand.new("visit-all", func(_args: PackedStringArray) -> String:
+	_add_command(DebugConsoleCommandEncounter.new("encounter"))
+	_add_command(DebugConsoleCommandCard.new("card"))
+	_add_command(DebugConsoleCommandUpgrade.new("upgrade"))
+	_add_command(DebugConsoleCommand.new("visit-all", func(_args: PackedStringArray) -> String:
 		RunManager.instance.can_visit_any_map_point = true
 		MapScreen.instance.set_travel_enabled(true)
 		return "visit_any_map_point enabled."))
+	
+	_add_command(DebugConsoleCommandModel.new("model"))
 
 ## Attempt to process a command, executing if valid.
 func process_command(input: String) -> String:
@@ -42,7 +44,7 @@ func process_command(input: String) -> String:
 	
 	var args: PackedStringArray = get_args(input)
 	
-	var command: DevConsoleCommand = _commands.get(args[0])
+	var command: DebugConsoleCommand = _commands.get(args[0])
 	
 	if not command: 
 		return "command '%s' not found" % args[0]
@@ -63,7 +65,7 @@ func get_completions(input: String) -> CompletionResults:
 		return completion_results
 	
 	# handle completing command arguments
-	var current_command: DevConsoleCommand = _commands.get(args[0])
+	var current_command: DebugConsoleCommand = _commands.get(args[0])
 	if current_command:
 		completion_results.prefix = ""
 		for i in range(len(args) - 1): completion_results.prefix += args[i] + " "
@@ -91,7 +93,7 @@ func get_next_command() -> String:
 	if history_index <= -1: return ""
 	return history[history_index]
 
-func _add_command(command: DevConsoleCommand) -> void:
+func _add_command(command: DebugConsoleCommand) -> void:
 	_commands[command.command_name] = command
 
 static func get_args(input) -> PackedStringArray:
