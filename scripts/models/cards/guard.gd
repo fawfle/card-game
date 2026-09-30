@@ -18,7 +18,7 @@ func get_icon() -> Texture2D: return ICON
 
 func _get_base_play_duration() -> DurationVariable: return DurationVariable.new(6.0)
 
-func get_pathos_cost() -> int: return 1
+func _get_base_pathos_cost() -> int: return 1
 
 func on_play(card_play: CardPlay) -> void:
 	ShieldCommand.new(card_play.card.owner.creature).with_shield(dynamic_variables.shield_amount.value).from_card(self).with_priority(Constants.ShieldPriority.NONE).execute()

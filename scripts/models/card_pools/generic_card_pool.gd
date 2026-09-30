@@ -7,4 +7,5 @@ func _generate_all_cards() -> Array[CardModel]:
 		ModelDb.card(Reasoning),
 		ModelDb.card(Setup),
 		ModelDb.card(Confuse),
+		ModelDb.card(Backpedal),
 	]
